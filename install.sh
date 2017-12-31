@@ -1,4 +1,5 @@
 #!/bin/bash
+SCRIPT=$( readlink -m $( type -p $0 ))
 BASE_DIR=`dirname ${SCRIPT}`
 NAME=`basename ${SCRIPT}`
 
@@ -11,6 +12,7 @@ print-install-menu() {
     echo "------------"
     print-menu-entry 1 Spacemacs
     print-menu-entry 2 Fonts
+    print-menu-entry 3 ZSH
     print-menu-entry 0 All
 }
 
@@ -31,17 +33,21 @@ install (){
         install-spacemacs
     elif [ "$1" -eq 2 ]; then
         install-fonts
+    elif [ "$1" -eq 3 ]; then
+        install-zsh
     fi
 }
 
 install-all(){
     echo "Install all"
     install-spacemacs
+    install-fonts
+    install-zsh
 }
 
 install-spacemacs(){
     echo "Install Spacemacs"
-    sudo apt-get install emacs
+    sudo apt-get install git emacs
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
     ln -s -i $FILES_PATH/spacemacs ~/.spacemacs
 }
@@ -55,6 +61,13 @@ install-fonts(){
     fi
     ln -s -i $FONTS_PATH ~/.fonts
     fc-cache -fv
+}
+
+install-zsh(){
+    sudo apt-get install zsh curl wget git
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    rm ~/.zshrc
+    ln -s -i $FILES_PATH/zshrc ~/.zshrc
 }
 
 main(){

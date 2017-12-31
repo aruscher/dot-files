@@ -4,7 +4,6 @@ print-install-menu() {
     echo "Install Menu"
     echo "------------"
     print-menu-entry 1 Spacemacs
-
     print-menu-entry 0 All
 }
 
@@ -25,6 +24,7 @@ install (){
         install-spacemacs
     fi
 }
+
 install-all(){
     echo "Install all"
     install-spacemacs
@@ -32,7 +32,16 @@ install-all(){
 
 install-spacemacs(){
     echo "Install Spacemacs"
+    sudo apt-get install emacs
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
+
 }
+
+install-fonts(){
+
+}
+
 main(){
     print-install-menu
     local option=$(read-install-option)

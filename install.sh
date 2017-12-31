@@ -1,12 +1,9 @@
 #!/bin/bash
-
-
-SCRIPT=$( readlink -m $( type -p $0 ))
 BASE_DIR=`dirname ${SCRIPT}`
 NAME=`basename ${SCRIPT}`
 
 FONTS_PATH="$BASE_DIR/fonts"
-
+FILES_PATH="$BASE_DIR/files"
 
 print-install-menu() {
     echo "Debug: Base-Dir: $BASE_DIR"
@@ -46,6 +43,7 @@ install-spacemacs(){
     echo "Install Spacemacs"
     sudo apt-get install emacs
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+    ln -s -i $FILES_PATH/spacemacs ~/.spacemacs
 }
 
 install-fonts(){

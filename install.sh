@@ -13,6 +13,7 @@ print-install-menu() {
     print-menu-entry 1 Spacemacs
     print-menu-entry 2 Fonts
     print-menu-entry 3 ZSH
+    print-menu-entry 4 Python
     print-menu-entry 0 All
 }
 
@@ -35,6 +36,8 @@ install (){
         install-fonts
     elif [ "$1" -eq 3 ]; then
         install-zsh
+    elif [ "$1" -eq 4 ]; then
+        install-python
     fi
 }
 
@@ -43,6 +46,7 @@ install-all(){
     install-spacemacs
     install-fonts
     install-zsh
+    install-python
 }
 
 install-spacemacs(){
@@ -61,6 +65,10 @@ install-fonts(){
     fi
     ln -s -i $FONTS_PATH ~/.fonts
     fc-cache -fv
+}
+
+install-python(){
+    sudo apt-get install virtualenvwrapper
 }
 
 install-zsh(){

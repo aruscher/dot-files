@@ -31,8 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     html
-     python
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -43,7 +41,9 @@ values."
      better-defaults
      emacs-lisp
      git
-     ;; markdown
+     html
+     python
+     markdown
      org
      (shell :variables
              shell-default-shell 'eshell

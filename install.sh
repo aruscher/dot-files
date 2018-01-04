@@ -5,6 +5,7 @@ NAME=`basename ${SCRIPT}`
 
 FONTS_PATH="$BASE_DIR/fonts"
 FILES_PATH="$BASE_DIR/files"
+INSTALLER_PATH="$BASE_DIR/installer"
 
 print-install-menu() {
     echo "Debug: Base-Dir: $BASE_DIR"
@@ -14,6 +15,7 @@ print-install-menu() {
     print-menu-entry 2 Fonts
     print-menu-entry 3 ZSH
     print-menu-entry 4 Python
+    print-menu-entry 5 Lisp
     print-menu-entry 0 All
 }
 
@@ -38,6 +40,8 @@ install (){
         install-zsh
     elif [ "$1" -eq 4 ]; then
         install-python
+    elif [ "$1" -eq 5 ]; then
+        install-lisp
     fi
 }
 
@@ -47,6 +51,7 @@ install-all(){
     install-fonts
     install-zsh
     install-python
+    install-lisp
 }
 
 install-spacemacs(){
@@ -76,6 +81,11 @@ install-zsh(){
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     rm ~/.zshrc
     ln -s -i $FILES_PATH/zshrc ~/.zshrc
+}
+
+install-lisp(){
+    sudo apt-get install sbcl
+    sbcl --load $INSTALLER_PATH/quicklisp.lisp
 }
 
 main(){

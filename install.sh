@@ -12,7 +12,7 @@ rm ~/.stumpwmrc
 
 ln -s -i $BASE_DIR/spacemacs ~/.spacemacs
 ln -s -i $BASE_DIR/zshrc ~/.zshrc
-ln -s -i $BASE_DIR/stumpwmrc ~./stumpwmrc
+ln -s -i $BASE_DIR/stumpwmrc ~/.stumpwmrc
 
 echo "Extend sbclrc to lookup user-code"
 cat sbclrc >> ~/.sbclrc

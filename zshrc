@@ -2,9 +2,6 @@
 export PATH=$HOME/bin:"$HOME/anaconda3/bin":/usr/local/bin:$PATH
 export ZSH=/home/andreas/.oh-my-zsh
 
-#Virtualenv Setup
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper_lazy.sh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -60,7 +57,7 @@ ZSH_THEME="bira"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git python virtualenvwrapper
+  git 
 )
 
 source $ZSH/oh-my-zsh.sh

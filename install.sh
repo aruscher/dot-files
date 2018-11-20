@@ -12,11 +12,13 @@ rm ~/.stumpwmrc
 
 ln -s -i $BASE_DIR/spacemacs ~/.spacemacs
 ln -s -i $BASE_DIR/zshrc ~/.zshrc
-ln -s -i $BASE_DIR/stumpwmrc ~/.stumpwmrc
+
+mkdir ~/.stumpwm.d/
+ln -s -i ~./stumpwm.d/init.lisp ./stumpwm-config/init.lisp
 
 echo "Extend sbclrc to lookup user-code"
 cat sbclrc >> ~/.sbclrc
 
 echo "Copy Keyboard file"
 sudo mkdir -p /etc/X11/xorg.conf.d/
-cp ./keyboard.conf /etc//X11/xorg.conf.d/00-keyboar.conf
+sudo cp ./keyboard.conf /etc//X11/xorg.conf.d/00-keyboard.conf

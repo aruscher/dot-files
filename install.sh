@@ -14,7 +14,7 @@ ln -s -i $BASE_DIR/spacemacs ~/.spacemacs
 ln -s -i $BASE_DIR/zshrc ~/.zshrc
 
 mkdir ~/.stumpwm.d/
-ln -s -i ~./stumpwm.d/init.lisp ./stumpwm-config/init.lisp
+ln -s -i ./stumpwm-config/init.lisp ~/.stumpwm.d/init.lisp 
 
 echo "Extend sbclrc to lookup user-code"
 cat sbclrc >> ~/.sbclrc

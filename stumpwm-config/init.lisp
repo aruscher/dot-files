@@ -7,3 +7,8 @@
 (swank:create-server :port 4004
                      :style swank:*communication-style*
                      :dont-close t)
+
+
+(load "./modeline-config.lisp")
+
+

@@ -28,3 +28,8 @@ sudo cp ./xorg-config/touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
 
 echo "Blacklist PC-Speaker"
 sudo cp ./modprobe-confg/nobeep.conf /etc/modprobe.d/nobeep.conf
+
+echo "Create SSH-Key"
+ssh-keygen -t rsa -b 4096 -C "andreas.ruscheinski@googlemail.com"
+eval "$(ssh-agent -s)"
+ssh.add ~/.ssh/id_rsa

@@ -22,4 +22,9 @@ cat sbclrc >> ~/.sbclrc
 echo "Copy Keyboard file"
 sudo mkdir -p /etc/X11/xorg.conf.d/
 sudo cp ./xorg-config/keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+
+echo "Copy Touchpad file"
 sudo cp ./xorg-config/touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+
+echo "Blacklist PC-Speaker"
+sudo cp ./modprobe-confg/nobeep.conf /etc/modprobe.d/nobeep.conf

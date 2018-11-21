@@ -21,5 +21,5 @@ cat sbclrc >> ~/.sbclrc
 
 echo "Copy Keyboard file"
 sudo mkdir -p /etc/X11/xorg.conf.d/
-sudo cp ./keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
-sudo cp ./mouse.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+sudo cp ./xorg-config/keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+sudo cp ./xorg-config/touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf

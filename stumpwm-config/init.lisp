@@ -10,5 +10,5 @@
 
 
 (load "./modeline-config.lisp")
-
+(load "./applications-config.lisp")
 

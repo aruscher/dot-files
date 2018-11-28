@@ -9,6 +9,8 @@
                      :dont-close t)
 
 
-(load "./modeline-config.lisp")
-(load "./applications-config.lisp")
+
+
+(load "~/dot-files/stumpwm-config/modeline-config.lisp")
+(load "~/dot-files/stumpwm-config/applications-config.lisp")
 

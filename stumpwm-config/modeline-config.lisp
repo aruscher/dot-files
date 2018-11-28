@@ -3,7 +3,7 @@
 (toggle-mode-line (current-screen)
                   (current-head))
 
-(setf *mode-line-timeout* 1)
+(setf *mode-line-timeout* 20)
 (setf *time-modeline-string* "%k:%M %d/%m/%Y")
 
 (defvar *battary-command*
@@ -19,5 +19,5 @@
         " | %v"
         " | BAT:"
         (:eval (get-battary))
-        " |%d"))
+        " | %d"))
 

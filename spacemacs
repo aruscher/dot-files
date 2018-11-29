@@ -326,7 +326,9 @@ you should place your code here."
         TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
         TeX-source-correlate-start-server t)
   )
-
+(with-eval-after-load 'org 
+  (org-defkey org-mode-map [(meta return)] 'org-meta-return)  ;; The actual fix
+  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables

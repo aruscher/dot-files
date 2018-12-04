@@ -4,7 +4,7 @@ export PATH=$HOME/bin:"$HOME/anaconda3/bin":/usr/local/bin:$PATH
 if [ -d ~/.oh-my-zsh ]
 then
   export ZSH=~/.oh-my-zsh
-elif [-d /usr/share/oh-my-zsh ]
+elif [ -d /usr/share/oh-my-zsh ]
 then
   export ZSH=/usr/share/oh-my-zsh/
 fi

@@ -11,6 +11,6 @@
 
 
 
+(load "~/dot-files/stumpwm-config/commands-config.lisp")
 (load "~/dot-files/stumpwm-config/modeline-config.lisp")
-(load "~/dot-files/stumpwm-config/applications-config.lisp")
-
+(load "~/dot-files/stumpwm-config/keymap-config.lisp")

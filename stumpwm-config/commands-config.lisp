@@ -1,5 +1,4 @@
 (in-package :stumpwm)
-
 (defcommand firefox () ()
   (run-or-raise "firefox" '(:class "Firefox")))
 
@@ -8,3 +7,6 @@
 
 (defcommand xfce-terminal ()()
   (run-or-raise "xfce4-terminal" '(:class "xfce4-terminal")))
+
+(defcommand toggle-debug-modus () ()
+  (toggle-swank))

@@ -6,8 +6,7 @@ echo "Make code folder"
 mkdir ~/Code ~/Code/Java ~/Code/Python ~/Code/Common-Lisp
 
 echo "Link spacemacs" 
-rm ~/.spacemacs
-ln -s -i $BASE_DIR/spacemacs ~/.spacemacs
+ln -s -i $BASE_DIR/spacemacs-config/ ~/.spacemacs.d
 
 echo "Link ZSH"
 rm ~/.zshrc

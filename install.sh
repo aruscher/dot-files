@@ -6,18 +6,15 @@ echo "Make code folder"
 mkdir ~/Code ~/Code/Java ~/Code/Python ~/Code/Common-Lisp
 
 echo "Link spacemacs" 
-rm ~/.spacemacs
-ln -s -i $BASE_DIR/spacemacs ~/.spacemacs
+ln -s -i $BASE_DIR/spacemacs-config/ ~/.spacemacs.d
 
 echo "Link ZSH"
 rm ~/.zshrc
 ln -s -i $BASE_DIR/zshrc ~/.zshrc
 
 echo "Link Stumpwm"
-rm ~/.stumpwmrc
-rm -rf ~/.stumpwm.d/
-mkdir ~/.stumpwm.d/
-ln -s -i $BASE_DIR/stumpwm-config/init.lisp ~/.stumpwm.d/init.lisp
+ln -s -i $BASE_DIR/stumpvm-config/ ~/.stumpwm.d
+
 
 echo "Link sbclrc"
 rm ~/.sbclrc

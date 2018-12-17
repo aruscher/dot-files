@@ -1,10 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:"$HOME/anaconda3/bin":/usr/local/bin:$PATH
+export SBCL_HOME=/usr/lib/sbcl/
 
+# Load the right oh-my-zsh config
 if [ -d ~/.oh-my-zsh ]
 then
   export ZSH=~/.oh-my-zsh
-elif [-d /usr/share/oh-my-zsh ]
+elif [ -d /usr/share/oh-my-zsh ]
 then
   export ZSH=/usr/share/oh-my-zsh/
 fi

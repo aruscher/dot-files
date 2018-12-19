@@ -6,7 +6,7 @@
   (run-or-raise "emacs" '(:class "Emacs")))
 
 (defcommand xfce-terminal ()()
-  (run-or-raise "xfce4-terminal" '(:class "xfce4-terminal")))
+  (run-or-raise "xfce4-terminal" '(:class "Terminal")))
 
 (defcommand toggle-debug-modus () ()
   (toggle-swank))

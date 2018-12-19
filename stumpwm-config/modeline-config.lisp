@@ -15,8 +15,7 @@
 
 
 (setf *screen-mode-line-format*
-      '("%g"
-        " | %v"
+      '("%v"
         " | BAT:"
         (:eval (get-battary))
         " | %d"))

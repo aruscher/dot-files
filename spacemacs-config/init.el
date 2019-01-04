@@ -71,7 +71,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(org-projectile)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -341,6 +341,7 @@ you should place your code here."
  '(org-capture-templates
    (quote (
            ("w" "Work Templates")
+           ("wp" "Add work project")
            ("p" "Private Templates"))))
  '(org-log-into-drawer t)
  '(package-selected-packages

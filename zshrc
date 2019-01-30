@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:"$HOME/anaconda3/bin":/usr/local/bin:$PATH
+export PATH="$HOME/.gem/ruby/2.5.0/bin":$HOME/bin:"$HOME/anaconda3/bin":/usr/local/bin:$PATH
 export SBCL_HOME=/usr/lib/sbcl/
 
 # Load the right oh-my-zsh config

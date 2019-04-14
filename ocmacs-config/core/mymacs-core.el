@@ -1,0 +1,30 @@
+(require 'mymacs-use-packages)
+(require 'mymacs-core-packages)
+(require 'mymacs-keymap)
+
+(defun mymacs/init ()
+  (mymacs/setup-config)
+  (mymacs/init-use-package)
+  (mymacs/init-core-packages)
+  (mymacs/init-keymap))
+
+(defun mymacs/setup-config ()
+  (setq gc-cons-threshold 100000000)
+  (setq package-user-dir "~/.emacs.d/packages")
+  (setq delete-old-versions -1 )		
+  (setq version-control t )		
+  (setq vc-make-backup-files t )
+  (setq backup-directory-alist `(("." . "~/.emacs.d/backups")) ) 
+  (setq vc-follow-symlinks t )				       
+  (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) 
+  (setq inhibit-startup-screen t )	
+  (setq ring-bell-function 'ignore )	
+  (setq coding-system-for-read 'utf-8 )	
+  (setq coding-system-for-write 'utf-8 )
+  (setq sentence-end-double-space nil)	
+  (setq default-fill-column 80)		
+  (setq initial-scratch-message "Welcome in Emacs"))
+
+
+
+(provide 'mymacs-core)

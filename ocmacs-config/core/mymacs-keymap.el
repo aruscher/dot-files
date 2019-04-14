@@ -1,5 +1,16 @@
 (require 'mymacs-util-funcs)
 
+
+(defun mymacs/init-keymap ()
+  (mymacs/create-main-definer)
+  (mymacs/setup-main-definer)
+  (mymacs/fix-evil-neotree)
+  (mymacs/fix-evil-info))
+
+(defun mymacs/fix-evil-info ()
+  )
+
+
 (defun mymacs/create-main-definer ()
   (general-create-definer main-definer
     :states '(normal visual insert motion emacs)
@@ -42,10 +53,6 @@
     "hk" 'describe-key
     "hf" 'describe-function))
 
-(defun mymacs/init-keymap ()
-  (mymacs/create-main-definer)
-  (mymacs/setup-main-definer)
-  (mymacs/fix-evil-neotree))
 
 (defun mymacs/fix-evil-neotree ()
   (evil-define-key 'normal neotree-mode-map (kbd "'") 'neotree-quick-look)

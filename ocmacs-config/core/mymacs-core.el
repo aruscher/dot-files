@@ -1,12 +1,16 @@
 (require 'mymacs-use-packages)
 (require 'mymacs-core-packages)
 (require 'mymacs-keymap)
+(require 'mymacs-theme)
+(require 'mymacs-window)
 
 (defun mymacs/init ()
   (mymacs/setup-config)
   (mymacs/init-use-package)
   (mymacs/init-core-packages)
-  (mymacs/init-keymap))
+  (mymacs/init-keymap)
+  (mymacs/init-setup-window)
+  (mymacs/init-theme))
 
 (defun mymacs/setup-config ()
   (setq gc-cons-threshold 100000000)

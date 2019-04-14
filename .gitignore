@@ -45,9 +45,9 @@ python-*-docs-html
 /srecode-map.el
 /recentf
 .mc-lists.el
-*/packages*
-
-
+packages/
+backups/
+transient/
 
 # Private directory
 private/

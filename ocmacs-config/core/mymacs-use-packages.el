@@ -2,6 +2,10 @@
     (package-refresh-contents)
     (package-install 'use-package))
 
+(defun mymacs/kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 (defun mymacs/bootstrap-packages ()
 	(require 'package)

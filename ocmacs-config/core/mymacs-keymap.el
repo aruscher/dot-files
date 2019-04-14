@@ -18,6 +18,9 @@
     "ft" 'neotree-toggle
     "b" '(:ignore t :which-key "Buffer")
     "bp" 'previous-buffer
+    "bn" 'next-buffer
+    "bb" 'helm-buffers-list
+    "bko" 'mymacs/kill-other-buffers
     "w" '(:ignore t :which-key "Window")
     "w-" 'split-window-below
     "w/" 'split-window-right

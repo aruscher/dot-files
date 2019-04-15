@@ -49,6 +49,8 @@
     "gs" 'magit-status
     "h" '(:ignore t :which-key "Help")
     "hi" 'info
+    "ha" 'apropos
+    "hv" 'describe-variable
     "hd" 'describe-mode
     "hk" 'describe-key
     "hf" 'describe-function))

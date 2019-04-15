@@ -5,6 +5,7 @@
 (require 'mymacs-window)
 
 (defun mymacs/init ()
+  (interactive)
   (mymacs/setup-config)
   (mymacs/init-use-package)
   (mymacs/init-core-packages)

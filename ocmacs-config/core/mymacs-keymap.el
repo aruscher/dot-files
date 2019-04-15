@@ -45,6 +45,7 @@
     "qd" 'mymacs/restart-emacs-debug
     "c" '(:ignore t :which-key "Config")
     "cf" 'mymacs/open-config
+    "cR" 'mymacs/init
     "g" '(:ignore t :which-key "Git")
     "gs" 'magit-status
     "h" '(:ignore t :which-key "Help")

@@ -5,7 +5,11 @@
   (mymacs/create-main-definer)
   (mymacs/setup-main-definer)
   (mymacs/fix-evil-neotree)
-  (mymacs/fix-evil-info))
+  (mymacs/fix-evil-info)
+  (mymacs/set-helm-M-x))
+
+(defun mymacs/set-helm-M-x ()
+  (global-set-key (kbd "M-x") 'helm-M-x))
 
 (defun mymacs/fix-evil-info ()
   )

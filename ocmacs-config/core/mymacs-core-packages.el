@@ -30,6 +30,30 @@
 
   (use-package magit
     :ensure t
-  ))
+    )
+
+  (use-package aggressive-indent
+    :ensure t
+    :hook (emacs-lisp-mode . aggressive-indent-mode)
+    )
+  (use-package parinfer
+    :ensure t
+    :hook (
+	   (clojure-mode . parinfer-mode)
+	   (emacs-lisp-mode . parinfer-mode)
+	   (common-lisp-mode . parinfer-mode)
+	   (lisp-mode-mode . parinfer-mode)
+	   (scheme-mode-hook . parinfer-mode))
+    :init
+    (progn
+      (setq parinfer-extensions
+	    '(defaults 
+	       pretty-parens 
+	       evil          
+	       smart-yank))   
+      )))
+
+
+
 
 (provide 'mymacs-core-packages)

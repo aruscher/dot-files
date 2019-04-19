@@ -1,5 +1,7 @@
 
-(defun mymacs/start-elisp-module ()
-  )
 
 
+
+
+
+(provide 'elisp-module)

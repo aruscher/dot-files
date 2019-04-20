@@ -23,6 +23,7 @@
 
 
 (require 'mymacs-window)
+(require 'mymacs-font)
 (require 'mymacs-package-setup)
 (require 'mymacs-core-packages)
 (require 'mymacs-keymap)

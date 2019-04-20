@@ -48,6 +48,22 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
+  :init (global-company-mode t))
+
+
+(use-package company-quickhelp          ; Documentation popups for Company
+  :ensure t
+  :init (add-hook 'company-mode-hook #'company-quickhelp-mode))
+
+
+
+
+
 (message "Use Package Loaded")
 
 (provide 'mymacs-core-packages)

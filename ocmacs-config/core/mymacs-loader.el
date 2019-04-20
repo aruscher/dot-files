@@ -28,5 +28,8 @@
 (require 'mymacs-core-packages)
 (require 'mymacs-keymap)
 
+(require 'elisp-module)
+
+
 (provide 'mymacs-loader)
 

@@ -56,11 +56,13 @@
 (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
-
 (evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
 (evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
 (evil-define-key nil company-active-map (kbd "C-n") #'company-select-next-or-abort)
 (evil-define-key nil company-active-map (kbd "C-p") #'company-select-previous-or-abort)
+
+(evil-define-key nil custom-mode-map (kbd "j") #'widget-forward)
+(evil-define-key nil custom-mode-map (kbd "k") #'widget-backward)
 
 
 (provide 'mymacs-keymap)

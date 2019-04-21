@@ -40,9 +40,9 @@
   (emacs-lisp-mode . aggressive-indent-mode))
 
 
-(use-package spacemacs-theme
-  :defer t
-  :init (load-theme 'spacemacs-dark t))
+(use-package monokai-theme
+  :ensure t
+  :config (load-theme 'monokai t))
 
 (use-package rainbow-delimiters
   :ensure t

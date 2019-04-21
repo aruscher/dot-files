@@ -59,10 +59,10 @@
   :ensure t
   :init (add-hook 'company-mode-hook #'company-quickhelp-mode))
 
-(use-package parinfer
-  :ensure t
-  :init (setq parinfer-extensions '(defaults evil smart-yank))  
-  :hook (emacs-lisp-mode . parinfer-mode))
+;;(use-package parinfer
+;;  :ensure t
+;;  :init (setq parinfer-extensions '(defaults evil smart-yank))  
+;;  :hook (emacs-lisp-mode . parinfer-mode))
 
 
 (message "Use Package Loaded")

@@ -55,13 +55,14 @@
   (setq company-minimum-prefix-length 3)
   :init (global-company-mode t))
 
-
-(use-package company-quickhelp          ; Documentation popups for Company
+(use-package company-quickhelp
   :ensure t
   :init (add-hook 'company-mode-hook #'company-quickhelp-mode))
 
-
-
+(use-package parinfer
+  :ensure t
+  :init (setq parinfer-extensions '(defaults evil smart-yank))  
+  :hook (emacs-lisp-mode . parinfer-mode))
 
 
 (message "Use Package Loaded")

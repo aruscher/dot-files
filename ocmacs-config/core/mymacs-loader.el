@@ -1,3 +1,11 @@
+(defun use-module (module)
+  (require module))
+
+(defun use-modules (&rest modules)
+  (dolist (module modules)
+    (use-module module)))
+
+
 (setq gc-cons-threshold 100000000)
 (setq delete-old-versions -1 )		
 (setq version-control t )		
@@ -28,8 +36,7 @@
 (require 'mymacs-core-packages)
 (require 'mymacs-keymap)
 
-(require 'elisp-module)
-
+(use-modules 'elisp-module 'sml-module)
 
 (provide 'mymacs-loader)
 

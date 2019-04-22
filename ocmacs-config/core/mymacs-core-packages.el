@@ -42,22 +42,27 @@
 
 (use-package monokai-theme
   :ensure t
-  :config (load-theme 'monokai t))
+  :config
+  (load-theme 'monokai t))
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 (use-package company
   :ensure t
   :config
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 3)
-  :init (global-company-mode t))
+  (progn
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 3))
+  :init
+  (global-company-mode t))
 
 (use-package company-quickhelp
   :ensure t
-  :init (add-hook 'company-mode-hook #'company-quickhelp-mode))
+  :init
+  (add-hook 'company-mode-hook #'company-quickhelp-mode))
 
 ;;(use-package parinfer
 ;;  :ensure t

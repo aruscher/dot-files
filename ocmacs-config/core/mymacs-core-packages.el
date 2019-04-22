@@ -40,6 +40,22 @@
   (emacs-lisp-mode . aggressive-indent-mode))
 
 
+(use-package paredit
+  :ensure t
+  :hook
+  (
+   (emacs-lisp-mode . paredit-mode)
+   ;; enable in the *scratch* buffer
+   (lisp-interaction-mode . paredit-mode)
+   (ielm-mode . paredit-mode)
+   (lisp-mode . paredit-mode)
+   (eval-expression-minibuffer-setup . paredit-mode)))
+
+(use-package evil-paredit
+  :ensure t
+  :hook 
+  (emacs-lisp-mode-hook . evil-paredit-mode))
+
 (use-package monokai-theme
   :ensure t
   :config (load-theme 'monokai t))

@@ -44,8 +44,6 @@
   :hook
   (emacs-lisp-mode . aggressive-indent-mode))
 
-
-
 (use-package monokai-theme
   :ensure t
   :config
@@ -69,6 +67,10 @@
   :ensure t
   :init
   (add-hook 'company-mode-hook #'company-quickhelp-mode))
+
+(use-package smartparens
+  :ensure t
+  :hook (prog-mode . smartparens-mode))
 
 ;;(use-package parinfer
 ;;  :ensure t

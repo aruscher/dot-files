@@ -15,9 +15,9 @@
 
 (defun init-elisp-module ()
   (message "Elisp module initied")
+  (require 'smartparens-config)
   (setup-show-paren)
   (setup-mode-map))
-
 
 
 

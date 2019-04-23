@@ -71,7 +71,6 @@
 (use-package smartparens
   :ensure t
   :hook (prog-mode . smartparens-mode))
-
 ;;(use-package parinfer
 ;;  :ensure t
 ;;  :init (setq parinfer-extensions '(defaults evil smart-yank))  

@@ -70,7 +70,10 @@
 
 (use-package smartparens
   :ensure t
-  :hook (prog-mode . smartparens-mode))
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
+
 ;;(use-package parinfer
 ;;  :ensure t
 ;;  :init (setq parinfer-extensions '(defaults evil smart-yank))  

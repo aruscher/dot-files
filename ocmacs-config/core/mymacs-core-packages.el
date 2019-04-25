@@ -9,12 +9,12 @@
   :ensure t
   :after which-key
   :config
-  (general-override-mode 1))
+  (general-override-mode))
 
 (use-package evil
   :ensure t
   :config
-  (evil-mode 1))
+  (evil-mode))
 
 (use-package evil-magit
   :ensure t)
@@ -28,7 +28,7 @@
   :ensure t
   :config
   (setq helm-buffers-fuzzy-matching t)
-  (helm-mode 1))
+  (helm-mode))
 
 (use-package restart-emacs
   :ensure t)
@@ -61,7 +61,7 @@
     (setq company-idle-delay 0)
     (setq company-minimum-prefix-length 3))
   :init
-  (global-company-mode t))
+  (global-company-mode))
 
 (use-package company-quickhelp
   :ensure t
@@ -74,27 +74,5 @@
   :config
   (require 'smartparens-config))
 
-;;(use-package parinfer
-;;  :ensure t
-;;  :init (setq parinfer-extensions '(defaults evil smart-yank))  
-;;  :hook (emacs-lisp-mode . parinfer-mode))
-
-;; (use-package paredit
-;;   :ensure t
-;;   :hook
-;;   (
-;;    (emacs-lisp-mode . paredit-mode)
-;;    ;; enable in the *scratch* buffer
-;;    (lisp-interaction-mode . paredit-mode)
-;;    (ielm-mode . paredit-mode)
-;;    (lisp-mode . paredit-mode)
-;;    (eval-expression-minibuffer-setup . paredit-mode)))
-
-;; (use-package evil-paredit
-;;   :ensure t
-;;   :hook 
-;;   (emacs-lisp-mode-hook . evil-paredit-mode))
-
 (message "Use Package Loaded")
-
 (provide 'mymacs-core-packages)

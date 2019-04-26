@@ -9,60 +9,62 @@
 
 (main-definer
   "" 'nil
-  "a" '(:ignore t :which-key "Applications")
-  "f" '(:ignore t :which-key "File")
-  "fs" '(save-buffer :which-key "Save Buffer")
-  "ff" '(helm-find-files :which-key "Find Files")
-  "fj" '(dired :which-key "Dired")
-  "ft" '(neotree-toggle :which-key "Toogle Neotree")
-  "b" '(:ignore t :which-key "Buffer")
-  "bp" '(previous-buffer :which-key "Previous Buffer")
-  "bn" '(next-buffer :which-key "Next Buffer")
-  "bb" '(helm-buffers-list :which-key "Buffer List")
-  "bko" '(mymacs/kill-other-buffers :which-key "Kill Other Buffers")
-  "w" '(:ignore t :which-key "Window")
-  "w-" '(split-window-below :which-key "Split Window Below")
-  "w/" '(split-window-right :which-key "Split Window Right")
-  "wh" '(evil-window-left :which-key "Window Left")
-  "wj" '(evil-window-down :which-key "Window Open")
-  "wk" '(evil-window-up :which-key "Window Up")
-  "wl" '(evil-window-right :which-key "Window Right")
-  "q" '(:ignore t :which-key "Quit")
-  "qq" '(kill-emacs :which-key "Kill Emacs")
-  "qr" '(mymacs/restart-emacs :which-key "Restart Emacs")
-  "qd" '(mymacs/restart-emacs-debug :which-key "Restart Emacs (Debug)")
-  "c" '(:ignore t :which-key "Config")
-  "cf" '(mymacs/open-config :which-key "Open init.el")
-  "cR" 'mymacs/init
-  "g" '(:ignore t :which-key "Git")
-  "gs" '(magit-status :which-key "Magit Status")
-  "h" '(:ignore t :which-key "Help")
-  "hi" '(info :which-key "Info")
-  "ha" '(apropos :which-key "Apropos")
-  "hv" '(describe-variable :which-key "Describe Variable")
-  "hd" '(describe-mode :which-key "Describe Mode")
-  "hk" '(describe-key :which-key "Describe Key")
-  "hf" '(describe-function :which-key "Describe Function")
+  "a" '(:ignore t :which-key "applications")
+  "f" '(:ignore t :which-key "file")
+  "fs" '(save-buffer :which-key "save buffer")
+  "ff" '(helm-find-files :which-key "find files")
+  "fj" '(dired :which-key "dired")
+  "ft" '(neotree-toggle :which-key "toogle neotree")
+  "b" '(:ignore t :which-key "buffer")
+  "bp" '(previous-buffer :which-key "previous buffer")
+  "bn" '(next-buffer :which-key "next buffer")
+  "bb" '(helm-buffers-list :which-key "buffer list")
+  "bko" '(mymacs/kill-other-buffers :which-key "kill other buffers")
+  "w" '(:ignore t :which-key "window")
+  "w-" '(split-window-below :which-key "split window below")
+  "w/" '(split-window-right :which-key "split window right")
+  "wh" '(evil-window-left :which-key "window left")
+  "wj" '(evil-window-down :which-key "window open")
+  "wk" '(evil-window-up :which-key "window up")
+  "wl" '(evil-window-right :which-key "window right")
+  "q" '(:ignore t :which-key "quit")
+  "qq" '(kill-emacs :which-key "kill emacs")
+  "qr" '(mymacs/restart-emacs :which-key "restart emacs")
+  "qd" '(mymacs/restart-emacs-debug :which-key "restart emacs (debug)")
+  "c" '(:ignore t :which-key "config")
+  "cf" '(mymacs/open-config :which-key "open init.el")
+  "cr" 'mymacs/init
+  "g" '(:ignore t :which-key "git")
+  "gs" '(magit-status :which-key "magit status")
+  "h" '(:ignore t :which-key "help")
+  "hi" '(info :which-key "info")
+  "ha" '(apropos :which-key "apropos")
+  "hv" '(describe-variable :which-key "describe variable")
+  "hd" '(describe-mode :which-key "describe mode")
+  "hk" '(describe-key :which-key "describe key")
+  "hf" '(describe-function :which-key "describe function")
   )
 
-(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-x") 'helm-m-x)
 
+(ocmacs-define-evil-key-group 'normal neotree-mode-map
+			      "'" #'neotree-quick-look
+			      "q" #'neotree-hide
+			      "ret" #'neotree-enter
+			      "g" #'neotree-refresh
+			      "n" #'neotree-next-line
+			      "p" #'neotree-previous-line
+			      "a" #'neotree-stretch-toggle
+			      "h" #'neotree-hidden-file-toggle)
 
-(evil-define-key 'normal neotree-mode-map (kbd "'") #'neotree-quick-look)
-(evil-define-key 'normal neotree-mode-map (kbd "q") #'neotree-hide)
-(evil-define-key 'normal neotree-mode-map (kbd "RET") #'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "g") #'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "n") #'neotree-next-line)
-(evil-define-key 'normal neotree-mode-map (kbd "p") #'neotree-previous-line)
-(evil-define-key 'normal neotree-mode-map (kbd "A") #'neotree-stretch-toggle)
-(evil-define-key 'normal neotree-mode-map (kbd "H") #'neotree-hidden-file-toggle)
+(ocmacs-define-evil-key-group nil company-active-map
+			      "C-j" #'company-select-next
+			      "C-k" #'company-select-previous
+			      "C-n" #'company-select-next-or-abort
+			      "C-p" #'company-select-previous-or-abort)
 
-(evil-define-key nil company-active-map (kbd "C-j") #'company-select-next)
-(evil-define-key nil company-active-map (kbd "C-k") #'company-select-previous)
-(evil-define-key nil company-active-map (kbd "C-n") #'company-select-next-or-abort)
-(evil-define-key nil company-active-map (kbd "C-p") #'company-select-previous-or-abort)
-
-(evil-define-key nil custom-mode-map (kbd "j") #'widget-forward)
-(evil-define-key nil custom-mode-map (kbd "k") #'widget-backward)
+;; (ocmacs-define-evil-key-group nil custom-mode-map
+;; 			      "j" #'widget-forward
+;; 			      "k" #'widget-backward)
 
 (provide 'mymacs-keymap)

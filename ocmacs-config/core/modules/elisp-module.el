@@ -4,7 +4,7 @@
   (show-paren-mode))
 
 (defun setup-elisp-mode-map ()
-  (main-definer
+  (main-definer emacs-lisp-mode-map
     "me" '(:ignore t :which-key "Evaluate")
     "mee" '(eval-last-sexp :which-key "Evaluate Expression")
     "meb" '(eval-buffer :which-key "Evaluate Buffer")

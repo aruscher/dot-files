@@ -1,15 +1,17 @@
-(setq sml-program-name "smlnj")
 
 (use-package sml-mode
   :ensure t
   :mode ("\\.\\(sml\\|sig\\)\\'" . sml-mode))
 
+(require 'sml-mode)
+(setq sml-program-name "smlnj")
+
 (defun init-sml-module ()
   (message "Init SML Module")
-  (setup-mode-map))
+  (setup-sml-mode-map))
 
-(defun setup-mode-map ()
-  (main-definer
+(defun setup-sml-mode-map ()
+  (main-definer sml-mode-map
     "me" '(:ignore t :which-key "Evaluate")
     "mee" '(:which-key "Evaluate Expression")
     "meb" '(sml-send-buffer :which-key "Evaluate Buffer")

@@ -3,7 +3,7 @@
   (setq show-paren-delay 0)
   (show-paren-mode))
 
-(defun setup-mode-map ()
+(defun setup-elisp-mode-map ()
   (main-definer
     "me" '(:ignore t :which-key "Evaluate")
     "mee" '(eval-last-sexp :which-key "Evaluate Expression")
@@ -11,12 +11,10 @@
     "mer" '(eval-region :which-key "Evaluate Region")
     "mcw" '(paredit-wrap-round :which-key "Wrap Round")))
 
-
-
 (defun init-elisp-module ()
   (message "Elisp module initied")
   (setup-show-paren)
-  (setup-mode-map))
+  (setup-elisp-mode-map))
 
 
 

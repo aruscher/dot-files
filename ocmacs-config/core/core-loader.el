@@ -23,21 +23,22 @@
 (setq default-fill-column 80)		
 (setq initial-scratch-message "Welcome in Emacs")
 
-
 (require 'core-custom-file)
+(require 'core-package-setup)
+(require 'core-window)
 
 (defun core-init ()
-  (core-load-custom-file))
+  (core-load-custom-file)
+  (core-init-package)
+  (core-init-window)
+
+  (require 'core-packages)
+  (require 'core-keymap)
+  (core-use-modules 'elisp-module 'sml-module))
 
 
 
-(require 'mymacs-window)
-(require 'mymacs-font)
-(require 'mymacs-package-setup)
-(require 'core-packages)
-(require 'core-keymap)
 
-(core-use-modules 'elisp-module 'sml-module)
 
 (provide 'core-loader)
 

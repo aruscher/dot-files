@@ -33,4 +33,4 @@
 (defun ocmacs-define-evil-key-group (mode keymap &rest entries)
   (ocmacs-define-evil-key-group-inner mode keymap entries))
 
-(provide 'mymacs-util-funcs)
+(provide 'core-util)

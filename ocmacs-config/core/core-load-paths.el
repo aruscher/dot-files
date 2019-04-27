@@ -21,5 +21,8 @@
 (defconst my-auto-save-directory
   (expand-file-name "auto-save-list/" user-emacs-directory))
 
+(defconst package-directory
+  (expand-file-name "packages" user-emacs-directory))
+
 (add-to-loadpath-if-exists core-directory)
 (add-to-loadpath-if-exists module-directory)

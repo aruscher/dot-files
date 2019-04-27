@@ -1,4 +1,47 @@
 (require 'use-package)
+(setq use-package-always-ensure t)
+
+(defun core-use-package (name &rest args)
+  (progn `(use-package ,name
+	    ,@args)
+	 (message "foo")))
+
+
+(defvar core-packages
+  '((which-key
+     :config (which-key-mode))
+    (general
+     :after which-key
+     :config (general-override-mode))
+    (evil
+     :config (evil-mode))
+    (evil-magit)
+    (evil-commentary
+     :init (evil-commentary-mode))
+    (helm
+     :config (progn
+	       (setq helm-buffers-fuzzy-matching t)
+	       (helm-mode)))
+    (restart-emacs)
+    (neotree)
+    (magit)
+    (aggressive-indent
+     :hook (emacs-lisp-mode . aggressive-indent-mode))
+    (monokai-theme
+     :config (load-theme 'monokai t))
+    (rainbow-delimiters
+     :hook (prog-mode . rainbow-delimiters-mode))
+    (company
+     :config (progn
+	       (setq company-idle-delay 0)
+	       (setq company-minimum-prefix-length 3))
+     :init (global-company-mode))
+    (company-quickhelp
+     :init (add-hook 'company-mode-hook #'company-quickhelp-mode))
+    (smartparens
+     :hook (prog-mode . smartparens-mode)
+     :config (require 'smartparens-config))))
+
 
 (use-package which-key
   :ensure t

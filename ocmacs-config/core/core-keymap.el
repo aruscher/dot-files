@@ -1,4 +1,4 @@
-(require 'mymacs-util-funcs)
+(require 'core-util)
 (require 'general)
 
 (general-create-definer main-definer

@@ -6,6 +6,9 @@
   :prefix "SPC"
   :non-normal-prefix "C-SPC") 
 
+(general-create-definer my-local-definer
+  :states '(normal visual insert motion emacs)
+  :prefix "SPC m")
 
 (main-definer
   "" 'nil
@@ -45,7 +48,7 @@
   "hf" '(describe-function :which-key "describe function")
   )
 
-(global-set-key (kbd "M-x") 'helm-m-x)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 (ocmacs-define-evil-key-group 'normal neotree-mode-map
 			      "'" #'neotree-quick-look

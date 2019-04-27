@@ -6,10 +6,6 @@
   :prefix "SPC"
   :non-normal-prefix "C-SPC") 
 
-(general-create-definer my-local-definer
-  :states '(normal visual insert motion emacs)
-  :prefix "SPC m")
-
 (main-definer
   "" 'nil
   "a" '(:ignore t :which-key "applications")
@@ -35,7 +31,9 @@
   "qr" '(mymacs/restart-emacs :which-key "restart emacs")
   "qd" '(mymacs/restart-emacs-debug :which-key "restart emacs (debug)")
   "c" '(:ignore t :which-key "config")
-  "cf" '(mymacs/open-config :which-key "open init.el")
+  "cf" '(dired-user-emacs-directory :which-key "Dired Emacs Directory")
+  "cc" '(dired-core-directory :which-key "Dired Core Directory")
+  "cm" '(dired-module-directory :which-key "Dired Module Directory")
   "cr" 'mymacs/init
   "g" '(:ignore t :which-key "git")
   "gs" '(magit-status :which-key "magit status")
@@ -53,7 +51,7 @@
 (ocmacs-define-evil-key-group 'normal neotree-mode-map
 			      "'" #'neotree-quick-look
 			      "q" #'neotree-hide
-			      "ret" #'neotree-enter
+			      "RET" #'neotree-enter
 			      "g" #'neotree-refresh
 			      "n" #'neotree-next-line
 			      "p" #'neotree-previous-line
@@ -70,4 +68,4 @@
 ;; 			      "j" #'widget-forward
 ;; 			      "k" #'widget-backward)
 
-(provide 'mymacs-keymap)
+(provide 'core-keymap)

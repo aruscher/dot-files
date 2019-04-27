@@ -27,16 +27,13 @@
 
 (load custom-file)
 
-
-
-
 (require 'mymacs-window)
 (require 'mymacs-font)
 (require 'mymacs-package-setup)
-(require 'mymacs-core-packages)
-(require 'mymacs-keymap)
+(require 'core-packages)
+(require 'core-keymap)
 
 (use-modules 'elisp-module 'sml-module)
 
-(provide 'mymacs-loader)
+(provide 'core-loader)
 

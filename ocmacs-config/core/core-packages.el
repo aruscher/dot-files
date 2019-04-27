@@ -74,5 +74,4 @@
   :config
   (require 'smartparens-config))
 
-(message "Use Package Loaded")
-(provide 'mymacs-core-packages)
+(provide 'core-packages)

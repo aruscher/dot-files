@@ -1,6 +1,14 @@
-(defun mymacs/open-config ()
+(defun dired-user-emacs-directory()
   (interactive)
-  (find-file mymacs-config-file)) 
+  (dired user-emacs-directory))
+
+(defun dired-core-directory()
+  (interactive)
+  (dired core-directory))
+
+(defun dired-module-directory()
+  (interactive)
+  (dired module-directory))
 
 (defun mymacs/restart-emacs(&optional arguments)
   (interactive)

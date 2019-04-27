@@ -1,18 +1,20 @@
-(defun use-module (module)
+(defun core-use-module (module)
   (require module))
 
-(defun use-modules (&rest modules)
+(defun core-use-modules (&rest modules)
   (dolist (module modules)
-    (use-module module)))
+    (core-use-module module)))
 
 
 (setq gc-cons-threshold 100000000)
 (setq delete-old-versions -1 )		
 (setq version-control t )		
 (setq vc-make-backup-files t )
-(setq backup-directory-alist `(("." . "~/.emacs.d/backups")) ) 
+(setq backup-directory-alist
+      `(("." . ,my-backup-directory)))
 (setq vc-follow-symlinks t )				       
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)) ) 
+(setq auto-save-file-name-transforms
+      `((".*" ,my-auto-save-directory t))) 
 (setq inhibit-startup-screen t )	
 (setq ring-bell-function 'ignore )	
 (setq coding-system-for-read 'utf-8 )	
@@ -21,11 +23,13 @@
 (setq default-fill-column 80)		
 (setq initial-scratch-message "Welcome in Emacs")
 
-(setq custom-file "~/.emacs.d/.emacs-custom.el")
-(unless (file-exists-p custom-file)
-	(with-temp-buffer (write-file custom-file)))
 
-(load custom-file)
+(require 'core-custom-file)
+
+(defun core-init ()
+  (core-load-custom-file))
+
+
 
 (require 'mymacs-window)
 (require 'mymacs-font)
@@ -33,7 +37,7 @@
 (require 'core-packages)
 (require 'core-keymap)
 
-(use-modules 'elisp-module 'sml-module)
+(core-use-modules 'elisp-module 'sml-module)
 
 (provide 'core-loader)
 

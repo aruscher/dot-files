@@ -4,12 +4,13 @@
   (show-paren-mode))
 
 (defun setup-elisp-mode-map ()
-  (my-local-definer emacs-lisp-mode-map
-    "e" '(:ignore t :which-key "Evaluate")
-    "ee" '(eval-last-sexp :which-key "Evaluate Expression")
-    "eb" '(eval-buffer :which-key "Evaluate Buffer")
-    "er" '(eval-region :which-key "Evaluate Region")
-    "cw" '(paredit-wrap-round :which-key "Wrap Round")))
+  ;; (my-local-definer emacs-lisp-mode-map
+  ;;   "e" '(:ignore t :which-key "Evaluate")
+  ;;   "ee" '(eval-last-sexp :which-key "Evaluate Expression")
+  ;;   "eb" '(eval-buffer :which-key "Evaluate Buffer")
+  ;;   "er" '(eval-region :which-key "Evaluate Region")
+  ;;   "cw" '(paredit-wrap-round :which-key "Wrap Round")))
+  nil)
 
 (defun init-elisp-module ()
   (message "Elisp module initied")

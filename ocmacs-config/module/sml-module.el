@@ -11,12 +11,13 @@
   (setup-sml-mode-map))
 
 (defun setup-sml-mode-map ()
-  (main-definer sml-mode-map
-    "me" '(:ignore t :which-key "Evaluate")
-    "mee" '(:which-key "Evaluate Expression")
-    "meb" '(sml-send-buffer :which-key "Evaluate Buffer")
-    "mer" '(sml-send-region :which-key "Evaluate Region")
-    ))
+  ;; (main-definer sml-mode-map
+  ;;   "me" '(:ignore t :which-key "Evaluate")
+  ;;   "mee" '(:which-key "Evaluate Expression")
+  ;;   "meb" '(sml-send-buffer :which-key "Evaluate Buffer")
+  ;;   "mer" '(sml-send-region :which-key "Evaluate Region")
+  ;;   ))
+  nil)
 
 
 (message "SML module loaded")

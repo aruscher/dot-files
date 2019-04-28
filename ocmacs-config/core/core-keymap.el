@@ -11,6 +11,7 @@
     :prefix "SPC"
     :non-normal-prefix "C-SPC") 
 
+  
   (main-definer
     "" 'nil
     "a" '(:ignore t :which-key "applications")

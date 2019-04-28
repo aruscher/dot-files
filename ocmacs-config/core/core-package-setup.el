@@ -12,4 +12,6 @@
   (package-initialize)
   (core-maybe-install-use-package))
 
+
+(core-init-package)
 (provide 'core-package-setup)

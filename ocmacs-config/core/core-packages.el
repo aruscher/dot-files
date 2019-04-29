@@ -1,7 +1,5 @@
 (require 'core-package-setup)
-
 (defun core-use-packages () 
-  (require 'use-package)
 
   (setq use-package-always-ensure t)
 

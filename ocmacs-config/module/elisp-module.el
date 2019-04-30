@@ -12,14 +12,11 @@
   ;;   "cw" '(paredit-wrap-round :which-key "Wrap Round")))
   nil)
 
-(defun init-elisp-module ()
-  (message "Elisp module initied")
-  (setup-show-paren)
-  (setup-elisp-mode-map))
 
-;; (macroexpand '(core-define-module elisp-module
-;; 				  :init (message "ELISP") (message "Foo")
-;; 				  :hooks 'foo-hook 'bar-hook))
+(core-define-module elisp-module
+		    :init
+		    (setq show-paren-style 'mixed)
+		    (setq show-paren-delay 0)
+		    (show-paren-mode)
+		    :hooks 'emacs-lisp-mode-hook)
 
-(add-hook 'emacs-lisp-mode-hook #'init-elisp-module)
-(provide 'elisp-module)

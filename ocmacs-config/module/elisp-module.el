@@ -17,7 +17,8 @@
   (setup-show-paren)
   (setup-elisp-mode-map))
 
-
+;; (core-define-module elisp-module
+;; 		    :init (message "ELISP"))
 
 (add-hook 'emacs-lisp-mode-hook #'init-elisp-module)
 (provide 'elisp-module)

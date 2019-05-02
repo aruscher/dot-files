@@ -1,7 +1,7 @@
 (defvar core-active-modules '())
 
 (setq core-module-keywords
-      '(:init :foo))
+      '(:init :hooks))
 
 
 (defun core-use-module (module)
@@ -30,12 +30,14 @@
 	  (setq result (append (list kw inner-args) result))
 	  (setq inner-args '()))
 	(setq kw arg))
-       (t (push arg inner-args))))
+       (t
+	(push arg inner-args))))
     (append (list kw inner-args) result)))
 
 (defun core-args-to-pargs (args)
   (core-build-pargs
    (core-normalize-args args)))
+
 
 (defmacro core-define-module (module-name &rest args)
   (let ((init-f-name (intern (format "init-%s" module-name)))
@@ -49,8 +51,5 @@
 	   (dolist (hook (plist-get pargs :hooks) result)
 	     (push (list 'add-hook hook `#',init-f-name) result)))
        (provide ',module-name))))
-
-
-
 
 (provide 'core-module)

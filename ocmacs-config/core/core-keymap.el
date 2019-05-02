@@ -5,52 +5,85 @@
 (require 'evil)
 (require 'restart-emacs)
 
-(defun core-init-keymap ()
-  (general-create-definer main-definer
-    :states '(normal visual insert motion emacs)
-    :prefix "SPC"
-    :non-normal-prefix "C-SPC") 
+(defvar core-definer-name 'main-definer)
 
-  
-  (main-definer
-    "" 'nil
-    "a" '(:ignore t :which-key "applications")
-    "f" '(:ignore t :which-key "file")
-    "fs" '(save-buffer :which-key "save buffer")
-    "ff" '(helm-find-files :which-key "find files")
-    "fj" '(dired :which-key "dired")
-    "ft" '(neotree-toggle :which-key "toogle neotree")
-    "b" '(:ignore t :which-key "buffer")
-    "bp" '(previous-buffer :which-key "previous buffer")
-    "bn" '(next-buffer :which-key "next buffer")
-    "bb" '(helm-buffers-list :which-key "buffer list")
-    "bko" '(mymacs/kill-other-buffers :which-key "kill other buffers")
-    "w" '(:ignore t :which-key "window")
-    "w-" '(split-window-below :which-key "split window below")
-    "w/" '(split-window-right :which-key "split window right")
-    "wh" '(evil-window-left :which-key "window left")
-    "wj" '(evil-window-down :which-key "window open")
-    "wk" '(evil-window-up :which-key "window up")
-    "wl" '(evil-window-right :which-key "window right")
-    "q" '(:ignore t :which-key "quit")
-    "qq" '(kill-emacs :which-key "kill emacs")
-    "qr" '(mymacs/restart-emacs :which-key "restart emacs")
-    "qd" '(mymacs/restart-emacs-debug :which-key "restart emacs (debug)")
-    "c" '(:ignore t :which-key "config")
-    "cf" '(dired-user-emacs-directory :which-key "Dired Emacs Directory")
-    "cc" '(dired-core-directory :which-key "Dired Core Directory")
-    "cm" '(dired-module-directory :which-key "Dired Module Directory")
-    "cr" 'mymacs/init
-    "g" '(:ignore t :which-key "git")
-    "gs" '(magit-status :which-key "magit status")
-    "h" '(:ignore t :which-key "help")
-    "hi" '(info :which-key "info")
-    "ha" '(apropos :which-key "apropos")
-    "hv" '(describe-variable :which-key "describe variable")
-    "hd" '(describe-mode :which-key "describe mode")
-    "hk" '(describe-key :which-key "describe key")
-    "hf" '(describe-function :which-key "describe function")
-    )
+(defmacro core-create-core-definer (&rest args)
+  `(progn
+     (general-create-definer ,core-definer-name ,@args)
+     (,core-definer-name
+      "" 'nil)))
+
+(defmacro core-definer-item (name argument func)
+  (let ((prefix-argument (concat %prefix name)))))
+
+
+(defun core-build-item-entries (prefix items)
+  (let (result)
+    (dolist (item items result)
+      (if (stringp item)
+	  (push (concat prefix item) result)
+	(push item result)))
+    (reverse result)))
+
+(defmacro core-definer-menu (prefix item &rest items)
+  (let ((item-entries (core-build-item-entries prefix items)))
+    `(,core-definer-name
+      ,prefix ,item
+      ,@item-entries)))
+
+(defun core-init-keymap ()
+  (core-create-core-definer
+   :states '(normal visual insert motion emacs)
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC") 
+
+  (core-definer-menu
+   "f" '(:ignore t :which-key "File")
+   "s" '(save-buffer :which-key "Save Buffer")
+   "f" '(helm-find-files :which-key "Find Files")
+   "j" '(dired :which-key "Dired") 
+   "t" '(neotree-toggle :which-key "Neotree"))
+
+  (core-definer-menu
+   "b" '(:ignore t :which-key "Buffer")
+   "p" '(previous-buffer :which-key "Previous Buffer")
+   "n" '(next-buffer :which-key "Next Buffer")
+   "b" '(helm-buffers-list :which-key "Buffer List")
+   "ko" '(mymacs/kill-other-buffers :which-key "Kill Other Buffers"))
+
+  (core-definer-menu
+   "w" '(:ignore t :which-key "Window")
+   "-" '(split-window-below :which-key "Split Window Below")
+   "/" '(split-window-right :which-key "Split Window Right")
+   "h" '(evil-window-left :which-key "Window Left")
+   "j" '(evil-window-down :which-key "Window Down")
+   "k" '(evil-window-up :which-key "Window Up")
+   "l" '(evil-window-right :which-key "Window Right"))
+
+  (core-definer-menu
+   "q" '(:ignore t :which-key "Quit")
+   "q" '(kill-emacs :which-key "Kill Emacs")
+   "r" '(mymacs/restart-emacs :which-key "Restart Emacs")
+   "d" '(mymacs/restart-emacs-debug :which-key "Restart Emacs (Debug)"))
+
+  (core-definer-menu
+   "c" '(:ignore t :which-key "config")
+   "f" '(dired-user-emacs-directory :which-key "Dired Emacs Directory")
+   "c" '(dired-core-directory :which-key "Dired Core Directory")
+   "m" '(dired-module-directory :which-key "Dired Module Directory"))
+
+  (core-definer-menu
+   "g" '(:ignore t :which-key "Git")
+   "s" '(magit-status :which-key "Magit Status"))
+
+  (core-definer-menu
+   "h" '(:ignore t :which-key "Help")
+   "i" '(info :which-key "Info")
+   "a" '(apropos :which-key "Apropos")
+   "v" '(describe-variable :which-key "Describe Variable")
+   "d" '(describe-mode :which-key "Describe Mode")
+   "k" '(describe-key :which-key "Describe Key")
+   "f" '(describe-function :which-key "Describe Function"))
 
   (global-set-key (kbd "M-x") 'helm-M-x)
 

@@ -1,8 +1,3 @@
-(defun setup-show-paren ()
-  (setq show-paren-style 'mixed)
-  (setq show-paren-delay 0)
-  (show-paren-mode))
-
 (defun setup-elisp-mode-map ()
   ;; (my-local-definer emacs-lisp-mode-map
   ;;   "e" '(:ignore t :which-key "Evaluate")

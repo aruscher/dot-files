@@ -7,6 +7,16 @@
   ;;   "cw" '(paredit-wrap-round :which-key "Wrap Round")))
   nil)
 
+(macroexpand
+ '(core-define-module elisp-module
+		      :init
+		      (setq show-paren-style 'mixed)
+		      (setq show-paren-delay 0)
+		      (show-paren-mode)
+		      :hooks 'emacs-lisp-mode-hook
+		      :mode-key
+		      "e" '(:ignore t :which-key "Evaluate")
+		      "ee" '(eval-last-sexp :which-key "Expression")))
 
 (core-define-module elisp-module
 		    :init

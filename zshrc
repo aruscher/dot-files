@@ -2,6 +2,9 @@
 export PATH="$HOME/.gem/ruby/2.5.0/bin":$HOME/bin:"$HOME/anaconda3/bin":/usr/local/bin:$PATH
 export SBCL_HOME=/usr/lib/sbcl/
 
+
+export EDITOR=vim
+
 # Load the right oh-my-zsh config
 if [ -d ~/.oh-my-zsh ]
 then

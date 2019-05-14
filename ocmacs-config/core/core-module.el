@@ -1,8 +1,9 @@
+(require 'core-keymap)
+
 (defvar core-active-modules '())
 
 (setq core-module-keywords
-      '(:init :hooks))
-
+      '(:init :hooks :mode-keys))
 
 (defun core-use-module (module)
   (require module)
@@ -27,29 +28,39 @@
       (cond
        ((keywordp arg)
 	(when kw
-	  (setq result (append (list kw inner-args) result))
+	  (setq result (append (list kw (reverse inner-args) result)))
 	  (setq inner-args '()))
 	(setq kw arg))
        (t
 	(push arg inner-args))))
-    (append (list kw inner-args) result)))
+    (append (list kw (reverse inner-args)) result)))
 
 (defun core-args-to-pargs (args)
   (core-build-pargs
    (core-normalize-args args)))
 
+(defun core-build-hooks (init-f-name hooks)
+  (let (result)
+    (dolist (hook hooks result)
+      (push `(add-hook ,hook #',init-f-name) result))))
 
 (defmacro core-define-module (module-name &rest args)
-  (let ((init-f-name (intern (format "init-%s" module-name)))
-	(pargs (core-args-to-pargs args)))
-    (message "%s" pargs)
+  (let* ((init-f-name (intern (format "init-%s" module-name)))
+	 (pargs (core-args-to-pargs args))
+	 (init-fs (plist-get pargs :init))
+	 (mode-keys (plist-get pargs :mode-key))
+	 (hook-adds
+	  (core-build-hooks init-f-name
+			    (plist-get pargs :hooks))))
+    (print pargs)
     `(progn
        (defun ,init-f-name ()
 	 (message "Init %s" ',module-name)
-	 ,@(plist-get pargs :init))
-       ,@(let (result)
-	   (dolist (hook (plist-get pargs :hooks) result)
-	     (push (list 'add-hook hook `#',init-f-name) result)))
+	 ,@init-fs)
+       (core-definer-menu "m" "Mode"
+			  "" 'nil
+			  ,@mode-keys)
+       ,@hook-adds
        (provide ',module-name))))
 
 (provide 'core-module)

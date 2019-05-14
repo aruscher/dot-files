@@ -6,6 +6,9 @@
 (require 'restart-emacs)
 
 (defvar core-definer-name 'main-definer)
+(defvar inner-prefix "")
+
+
 
 (defmacro core-create-core-definer (&rest args)
   `(progn
@@ -25,10 +28,20 @@
 	(push item result)))
     (reverse result)))
 
+
+;; (define-menu
+;;   (menu :prefix "f"
+;; 	:name "Files"
+;; 	(menu :prefix "b"
+;; 	      :name "Test"
+;; 	      (item "a" "Foo" 'save-buffer))
+;; 	(item "a" "A" 'save-buffer)))
+
 (defmacro core-definer-menu (prefix item &rest items)
-  (let ((item-entries (core-build-item-entries prefix items)))
+  (let* ((inner-prefix (concat inner-prefix prefix))
+	 (item-entries (core-build-item-entries prefix items)))
     `(,core-definer-name
-      ,prefix ,item
+      ,inner-prefix ,item
       ,@item-entries)))
 
 (defun core-init-keymap ()

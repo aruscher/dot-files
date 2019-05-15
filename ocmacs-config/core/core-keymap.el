@@ -9,7 +9,6 @@
 (defvar inner-prefix "")
 
 
-
 (defmacro core-create-core-definer (&rest args)
   `(progn
      (general-create-definer ,core-definer-name ,@args)
@@ -29,13 +28,46 @@
     (reverse result)))
 
 
-;; (define-menu
-;;   (menu :prefix "f"
-;; 	:name "Files"
-;; 	(menu :prefix "b"
-;; 	      :name "Test"
-;; 	      (item "a" "Foo" 'save-buffer))
-;; 	(item "a" "A" 'save-buffer)))
+;; (defun menu-entry (params)
+;;   (let* ((prefix (plist-get params :prefix))
+;; 	 (label (plist-get params :label))
+;; 	 (inner-prefix (plist-get params :innerprefix))
+;; 	 (menu-prefix (concat inner-prefix prefix))
+;; 	 (entries (mapcar (lambda (x)
+;; 			    (plist-put x :innerprefix menu-prefix))
+;; 			  (plist-get params :entries)))
+;; 	 (menu-entries (mapcar #'build-entry entries)))
+;;     `(,menu-prefix '(:ignore t :which-key ,label)
+;; 		   ,@menu-entries
+;; 		   )))
+
+;; (defun item-entry (params)
+;;   (let* ((prefix (plist-get params :prefix))
+;; 	 (label (plist-get params :label))
+;; 	 (func (plist-get params :func))
+;; 	 (inner-prefix (plist-get params :innerprefix))
+;; 	 (item-prefix (concat inner-prefix prefix)))
+;;     `(,item-prefix '(,func :which-key ,label))))
+
+;; (defun build-entry (entry)
+;;   (let ((type (plist-get entry :type)))
+;;     (pcase type
+;;       ('menu (funcall #'menu-entry entry))
+;;       ('item (funcall #'item-entry entry)))))
+
+;; (setq test-menu 
+;;       '(:type menu
+;; 	      :prefix "a"
+;; 	      :label "Files"
+;; 	      :entries ((:type item
+;; 			       :prefix "b"
+;; 			       :label "foo")
+;; 			(:type menu
+;; 			       :prefix "c"
+;; 			       :label "C"
+;; 			       :entries ((:type item
+;; 						:prefix "d"
+;; 						:label "D"))))))
 
 (defmacro core-definer-menu (prefix item &rest items)
   (let* ((inner-prefix (concat inner-prefix prefix))

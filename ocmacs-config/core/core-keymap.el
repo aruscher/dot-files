@@ -28,32 +28,40 @@
     (reverse result)))
 
 
-;; (defun menu-entry (params)
-;;   (let* ((prefix (plist-get params :prefix))
-;; 	 (label (plist-get params :label))
-;; 	 (inner-prefix (plist-get params :innerprefix))
-;; 	 (menu-prefix (concat inner-prefix prefix))
-;; 	 (entries (mapcar (lambda (x)
-;; 			    (plist-put x :innerprefix menu-prefix))
-;; 			  (plist-get params :entries)))
-;; 	 (menu-entries (mapcar #'build-entry entries)))
-;;     `(,menu-prefix '(:ignore t :which-key ,label)
-;; 		   ,@menu-entries
-;; 		   )))
+(defun menu-entry (args)
+  (let* ((prefix (plist-get args :prefix))
+	 (parent-prefix (plist-get args :parent-prefix))
+	 (menu-prefix (concat parent-prefix prefix))
+	 (label (plist-get args :label))
+	 (entries (mapcar (lambda (entry)
+			    (build-entry (append entry `(:parent-prefix ,menu-prefix))))
+			  (plist-get args :entries)))
+	 (entries-flat (apply #'append entries))
+	 (menu-prefix (concat parent-prefix prefix)))
+    `(,menu-prefix '(:ignore t :which-key ,label)
+		   ,@entries-flat)))
 
-;; (defun item-entry (params)
-;;   (let* ((prefix (plist-get params :prefix))
-;; 	 (label (plist-get params :label))
-;; 	 (func (plist-get params :func))
-;; 	 (inner-prefix (plist-get params :innerprefix))
-;; 	 (item-prefix (concat inner-prefix prefix)))
-;;     `(,item-prefix '(,func :which-key ,label))))
+(defun item-entry (args)
+  (let* ((prefix (plist-get args :prefix))
+	 (parent-prefix (plist-get args :parent-prefix))
+	 (label (plist-get args :label))
+	 (func (plist-get args :func))
+	 (item-prefix (concat parent-prefix prefix)))
+    `(,item-prefix '(,func :which-key ,label))))
 
-;; (defun build-entry (entry)
-;;   (let ((type (plist-get entry :type)))
-;;     (pcase type
-;;       ('menu (funcall #'menu-entry entry))
-;;       ('item (funcall #'item-entry entry)))))
+
+(defun build-entry (entry)
+  (let ((type (car entry))
+	(args (cdr entry)))
+    (pcase type
+      ('menu (menu-entry args))
+      ('item (item-entry args)))))
+
+(defmacro define-menu (menu)
+  (let ((entries (build-entry menu)))
+    `(,core-definer-name
+      ,@entries)))
+
 
 ;; (setq test-menu 
 ;;       '(:type menu
@@ -80,21 +88,52 @@
   (core-create-core-definer
    :states '(normal visual insert motion emacs)
    :prefix "SPC"
-   :non-normal-prefix "C-SPC") 
+   :non-normal-prefix "C-SPC")
 
-  (core-definer-menu
-   "f" '(:ignore t :which-key "File")
-   "s" '(save-buffer :which-key "Save Buffer")
-   "f" '(helm-find-files :which-key "Find Files")
-   "j" '(dired :which-key "Dired") 
-   "t" '(neotree-toggle :which-key "Neotree"))
+  (define-menu
+    (menu :prefix "f"
+	  :label "File"
+	  :entries ((item :prefix "s"
+			  :label "Save Buffer"
+			  :func save-buffer)
+		    (item :prefix "f"
+			  :label "Find Files"
+			  :func helm-find-files)
+		    (item :prefix "j"
+			  :label "Dired"
+			  :func dired)
+		    (item :prefix "t"
+			  :label "Neotree"
+			  :func neotree-toggle))))
+  (define-menu 
+    (menu :prefix "b"
+	  :label "Buffer"
+	  :entries ((item :prefix "p"
+			  :label "Previous Buffer"
+			  :func previous-buffer)
+		    (item :prefix "n"
+			  :label "Next Buffer"
+			  :func next-buffer)
+		    (item :prefix "b"
+			  :label "Buffer List"
+			  :func helm-buffers-list)
+		    (item :prefix "ko"
+			  :label "Kill Other Buffer"
+			  :func mymacs/kill-other-buffers))))
+  
+  ;; (core-definer-menu
+  ;;  "f" '(:ignore t :which-key "File")
+  ;;  "s" '(save-buffer :which-key "Save Buffer")
+  ;;  "f" '(helm-find-files :which-key "Find Files")
+  ;;  "j" '(dired :which-key "Dired") 
+  ;;  "t" '(neotree-toggle :which-key "Neotree"))
 
-  (core-definer-menu
-   "b" '(:ignore t :which-key "Buffer")
-   "p" '(previous-buffer :which-key "Previous Buffer")
-   "n" '(next-buffer :which-key "Next Buffer")
-   "b" '(helm-buffers-list :which-key "Buffer List")
-   "ko" '(mymacs/kill-other-buffers :which-key "Kill Other Buffers"))
+  ;; (core-definer-menu
+  ;;  "b" '(:ignore t :which-key "Buffer")
+  ;;  "p" '(previous-buffer :which-key "Previous Buffer")
+  ;;  "n" '(next-buffer :which-key "Next Buffer")
+  ;;  "b" '(helm-buffers-list :which-key "Buffer List")
+  ;;  "ko" '(mymacs/kill-other-buffers :which-key "Kill Other Buffers"))
 
   (core-definer-menu
    "w" '(:ignore t :which-key "Window")

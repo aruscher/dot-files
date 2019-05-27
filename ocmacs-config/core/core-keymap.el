@@ -62,21 +62,6 @@
     `(,core-definer-name
       ,@entries)))
 
-
-;; (setq test-menu 
-;;       '(:type menu
-;; 	      :prefix "a"
-;; 	      :label "Files"
-;; 	      :entries ((:type item
-;; 			       :prefix "b"
-;; 			       :label "foo")
-;; 			(:type menu
-;; 			       :prefix "c"
-;; 			       :label "C"
-;; 			       :entries ((:type item
-;; 						:prefix "d"
-;; 						:label "D"))))))
-
 (defmacro core-definer-menu (prefix item &rest items)
   (let* ((inner-prefix (concat inner-prefix prefix))
 	 (item-entries (core-build-item-entries prefix items)))
@@ -120,54 +105,82 @@
 		    (item :prefix "ko"
 			  :label "Kill Other Buffer"
 			  :func mymacs/kill-other-buffers))))
-  
-  ;; (core-definer-menu
-  ;;  "f" '(:ignore t :which-key "File")
-  ;;  "s" '(save-buffer :which-key "Save Buffer")
-  ;;  "f" '(helm-find-files :which-key "Find Files")
-  ;;  "j" '(dired :which-key "Dired") 
-  ;;  "t" '(neotree-toggle :which-key "Neotree"))
 
-  ;; (core-definer-menu
-  ;;  "b" '(:ignore t :which-key "Buffer")
-  ;;  "p" '(previous-buffer :which-key "Previous Buffer")
-  ;;  "n" '(next-buffer :which-key "Next Buffer")
-  ;;  "b" '(helm-buffers-list :which-key "Buffer List")
-  ;;  "ko" '(mymacs/kill-other-buffers :which-key "Kill Other Buffers"))
+  (define-menu
+    (menu :prefix "w"
+	  :label "Window"
+	  :entries ((item :prefix "-"
+			  :label "Split Window Below"
+			  :func split-window-below)
+		    (item :prefix "/"
+			  :label "Split Window Right"
+			  :func split-window-right)
+		    (item :prefix "h"
+			  :label "Window Left"
+			  :func evil-window-left)
+		    (item :prefix "j"
+			  :label "Window Down"
+			  :func evil-window-down)
+		    (item :prefix "k"
+			  :label "Window Up"
+			  :func evil-window-up)
+		    (item :prefix "l"
+			  :label "Window Right"
+			  :func evil-window-right)
+		    )))
 
-  (core-definer-menu
-   "w" '(:ignore t :which-key "Window")
-   "-" '(split-window-below :which-key "Split Window Below")
-   "/" '(split-window-right :which-key "Split Window Right")
-   "h" '(evil-window-left :which-key "Window Left")
-   "j" '(evil-window-down :which-key "Window Down")
-   "k" '(evil-window-up :which-key "Window Up")
-   "l" '(evil-window-right :which-key "Window Right"))
+  (define-menu
+    (menu :prefix "q"
+	  :label "Quit"
+	  :entries ((item :prefix "q"
+			  :label "Kill Emacs"
+			  :func kill-emacs)
+		    (item :prefix "r"
+			  :label "Restart Emacs"
+			  :func mymacs/restart-emacs))))
 
-  (core-definer-menu
-   "q" '(:ignore t :which-key "Quit")
-   "q" '(kill-emacs :which-key "Kill Emacs")
-   "r" '(mymacs/restart-emacs :which-key "Restart Emacs")
-   "d" '(mymacs/restart-emacs-debug :which-key "Restart Emacs (Debug)"))
+  (define-menu
+    (menu :prefix "c"
+	  :label "Config"
+	  :entries ((item :prefix "f"
+			  :label "Dired Emacs Directory"
+			  :func dired-user-emacs-directory)
+		    (item :prefix "c"
+			  :label "Dired Core Directory"
+			  :func dired-core-directory)
+		    (item :prefix "m"
+			  :label "Dired Module Directory"
+			  :func dired-module-directory))))
 
-  (core-definer-menu
-   "c" '(:ignore t :which-key "config")
-   "f" '(dired-user-emacs-directory :which-key "Dired Emacs Directory")
-   "c" '(dired-core-directory :which-key "Dired Core Directory")
-   "m" '(dired-module-directory :which-key "Dired Module Directory"))
+  (define-menu
+    (menu :prefix "g"
+	  :label "Git"
+	  :entries ((item :prefix "s"
+			  :label "Magit Status"
+			  :func magit-status))))
 
-  (core-definer-menu
-   "g" '(:ignore t :which-key "Git")
-   "s" '(magit-status :which-key "Magit Status"))
+  (define-menu
+    (menu :prefix "h"
+	  :label "Help"
+	  :entries ((item :prefix "i"
+			  :label "Info"
+			  :func info)
+		    (item :prefix "a"
+			  :label "Apropos"
+			  :func apropros)
+		    (item :prefix "v"
+			  :label "Describe Variable"
+			  :func describe-variable)
+		    (item :prefix "m"
+			  :label "Describe Mode"
+			  :func describe-mode)
+		    (item :prefix "k"
+			  :label "Describe Key"
+			  :func describe-key)
+		    (item :prefix "f"
+			  :label "Describe Function"
+			  :func describe-function))))
 
-  (core-definer-menu
-   "h" '(:ignore t :which-key "Help")
-   "i" '(info :which-key "Info")
-   "a" '(apropos :which-key "Apropos")
-   "v" '(describe-variable :which-key "Describe Variable")
-   "d" '(describe-mode :which-key "Describe Mode")
-   "k" '(describe-key :which-key "Describe Key")
-   "f" '(describe-function :which-key "Describe Function"))
 
   (global-set-key (kbd "M-x") 'helm-M-x)
 

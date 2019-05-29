@@ -9,6 +9,10 @@
   (expand-file-name "core" user-emacs-directory)
   "The mymacs core directory")
 
+(defconst core-tests-directory
+  (expand-file-name "tests" core-directory))
+
+
 (defconst module-directory
   (expand-file-name "module" user-emacs-directory))
 
@@ -25,4 +29,5 @@
   (expand-file-name "packages" user-emacs-directory))
 
 (add-to-loadpath-if-exists core-directory)
+(add-to-loadpath-if-exists core-tests-directory)
 (add-to-loadpath-if-exists module-directory)

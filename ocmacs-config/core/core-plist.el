@@ -1,5 +1,4 @@
 (defun core-plist (cplist)
-  (print cplist)
   (if (null cplist) '()
     (let* ((predicate (lambda (x) (not (keywordp x))))
 	   (head (car cplist))

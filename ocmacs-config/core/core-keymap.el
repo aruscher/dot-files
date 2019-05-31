@@ -1,9 +1,6 @@
 (require 'core-util)
-(require 'general)
-(require 'neotree)
-(require 'magit)
-(require 'evil)
-(require 'restart-emacs)
+
+
 
 (defvar core-definer-name 'main-definer)
 (defvar inner-prefix "")

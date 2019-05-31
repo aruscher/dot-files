@@ -7,7 +7,7 @@
     (package-install 'use-package)))
 
 (defun core-package-setup ()
-  (setq package-user-dir package-directory)
+  (setq package-user-dir core-package-directory)
   (add-to-list 'package-archives
 	       '("melpa" . "http://melpa.org/packages/"))
   (package-initialize)

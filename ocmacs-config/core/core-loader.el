@@ -1,11 +1,10 @@
 (require 'core-settings)
 (require 'core-package-setup)
 (require 'core-packages)
-;; (require 'core-module)
-;; (require 'core-keymap)
+(require 'core-module)
+(require 'core-keymap)
 
-;; (require 'core-window)
-;; (require 'core-custom-file)
+(require 'core-custom-file)
 
 
 

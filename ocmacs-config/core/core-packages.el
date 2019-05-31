@@ -1,4 +1,3 @@
-(require 'core-package-setup)
 (defun core-use-packages () 
 
   (setq use-package-always-ensure t)

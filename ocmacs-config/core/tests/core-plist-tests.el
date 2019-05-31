@@ -32,4 +32,4 @@
     (should (equal (plist-get result :bak) 6))))
 
 
-(provide 'core-plist-test)
+(provide 'core-plist-tests)

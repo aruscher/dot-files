@@ -33,4 +33,9 @@
 (defun ocmacs-define-evil-key-group (mode keymap &rest entries)
   (ocmacs-define-evil-key-group-inner mode keymap entries))
 
+(defun core-ensure-list (list)
+  (if (listp list) list
+    (list list)))
+
+
 (provide 'core-util)

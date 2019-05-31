@@ -1,13 +1,18 @@
-(defun core-default-settings ()
+(require 'core-special-directories)
+
+(defun core-settings-startup ()
+  )
+
+(defun core-settings-default ()
   (setq gc-cons-threshold 100000000)
   (setq delete-old-versions -1 )		
   (setq version-control t )		
   (setq vc-make-backup-files t )
   (setq backup-directory-alist
-	`(("." . ,my-backup-directory)))
+	`(("." . ,core-backup-directory)))
   (setq vc-follow-symlinks t )				       
   (setq auto-save-file-name-transforms
-	`((".*" ,my-auto-save-directory t))) 
+	`((".*" ,core-auto-save-directory t))) 
   (setq inhibit-startup-screen t )	
   (setq ring-bell-function 'ignore )	
   (setq coding-system-for-read 'utf-8 )	

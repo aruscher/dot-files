@@ -2,7 +2,7 @@
 		   "core/core-load-paths.el"))
 
 (require 'core-loader)
-(core-init)
+(core-load)
 
 
 

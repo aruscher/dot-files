@@ -1,12 +1,11 @@
-(defun core-maybe-create-custom-file ()
-  (unless (file-exists-p custom-file)
-    (with-temp-buffer (write-file custom-file))))
+(require 'core-special-files)
 
-(defun core-load-custom-file ()
-  (setq custom-file my-custom-file)
-  (core-maybe-create-custom-file)
-  (load custom-file))
+(defun core-maybe-create-custom-file (file)
+  (unless (file-exists-p file)
+    (with-temp-buffer (write-file file))))
 
-
+(setq custom-file core-custom-file)
+(core-maybe-create-custom-file custom-file)
+(load custom-file)
 
 (provide 'core-custom-file)

@@ -1,17 +1,16 @@
 (require 'package)
+(require 'core-special-directories)
 
-(defun core-maybe-install-use-package ()
+(defun core-package--maybe-install-use-package ()
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package)))
 
-(defun core-init-package ()
+(defun core-package-setup ()
   (setq package-user-dir package-directory)
   (add-to-list 'package-archives
 	       '("melpa" . "http://melpa.org/packages/"))
   (package-initialize)
-  (core-maybe-install-use-package))
+  (core-package--maybe-install-use-package))
 
-
-(core-init-package)
 (provide 'core-package-setup)

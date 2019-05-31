@@ -1,16 +1,20 @@
-(require 'core-custom-file)
 (require 'core-settings)
+(require 'core-package-setup)
 (require 'core-packages)
-(require 'core-module)
-(require 'core-window)
-(require 'core-keymap)
+;; (require 'core-module)
+;; (require 'core-keymap)
 
-(defun core-init ()
-  (core-default-settings)
+;; (require 'core-window)
+;; (require 'core-custom-file)
+
+
+
+(defun core-load () 
+  (core-settings-startup)
+  (core-package-setup)
   (core-use-packages)
-  (core-load-custom-file)
-  (core-init-window)
   (core-init-keymap)
+  (core-settings-default)
   (core-use-modules 'elisp-module 'sml-module))
 
 (provide 'core-loader)

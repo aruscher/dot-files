@@ -1,7 +1,5 @@
 (require 'core-util)
 
-
-
 (defvar core-definer-name 'main-definer)
 (defvar inner-prefix "")
 

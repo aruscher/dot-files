@@ -8,11 +8,11 @@
 
 (defun core-load ()
   (core-settings-startup)
-  (core-package-setup)
+  (core-package-setup-use-package)
   (core-use-packages)
   (core-init-keymap)
-  (core-settings-default)
-  (core-use-modules 'elisp-module 'sml-module))
+  (core-settings-default))
+  ;; (core-use-modules 'elisp-module 'sml-module))
 
 (provide 'core-loader)
 

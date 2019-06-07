@@ -3,11 +3,14 @@
 (require 'core-packages)
 (require 'core-module)
 (require 'core-keymap)
-
 (require 'core-custom-file)
+
+(require 'core-paths)
+
 
 (defun core-load ()
   (core-settings-startup)
+  (core-paths-load-paths)
   (core-package-setup-use-package)
   (core-use-packages)
   (core-init-keymap)

@@ -7,7 +7,7 @@
 (defconst core-package-directory
   (expand-file-name "packages" user-emacs-directory))
 
-(defconst core-module-directory
-  (expand-file-name "module" user-emacs-directory))
+(defconst core-modules-directory
+  (expand-file-name "modules" user-emacs-directory))
 
 (provide 'core-special-directories)

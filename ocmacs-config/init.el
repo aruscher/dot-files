@@ -1,5 +1,5 @@
-(load-file (concat (file-name-directory load-file-name)
-		   "core/core-load-paths.el"))
+(add-to-list 'load-path
+	     (expand-file-name "core" user-emacs-directory))
 
 (require 'core-loader)
 (core-load)

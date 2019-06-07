@@ -21,4 +21,8 @@
   (setq default-fill-column 80)		
   (setq initial-scratch-message "Welcome in Emacs"))
 
+
+(defun core-settings-startup ()
+  nil)
+
 (provide 'core-settings)

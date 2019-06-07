@@ -6,9 +6,7 @@
 
 (require 'core-custom-file)
 
-
-
-(defun core-load () 
+(defun core-load ()
   (core-settings-startup)
   (core-package-setup)
   (core-use-packages)

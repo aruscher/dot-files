@@ -9,24 +9,19 @@
   ;;   :after which-key
   ;;   :config (general-override-mode))
 
-  (use-package evil
-    :config (evil-mode))
+  ;; (use-package evil
+  ;;   :config (evil-mode))
 
-  (use-package evil-magit)
+  ;; (use-package evil-magit)
 
-  (use-package evil-commentary
-    :init (evil-commentary-mode))
+  ;; (use-package evil-commentary
+  ;;   :init (evil-commentary-mode))
 
-  (use-package helm
-    :config (progn
-	      (setq helm-buffers-fuzzy-matching t)
-	      (helm-mode)))
+  ;; (use-package helm
+  ;;   :config (progn
+  ;; 	      (setq helm-buffers-fuzzy-matching t)
+  ;; 	      (helm-mode)))
 
-  (use-package restart-emacs)
-
-  (use-package neotree)
-
-  (use-package magit)
 
   (use-package aggressive-indent
     :hook (emacs-lisp-mode . aggressive-indent-mode))

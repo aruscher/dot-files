@@ -13,7 +13,10 @@
   (core-use-packages)
   (core-load-package-modules
    'which-key
-   'general)
+   'general
+   'evil
+   'helm)
+  ;; 'others)
   (core-init-keymap)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))

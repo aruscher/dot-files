@@ -1,3 +1,4 @@
+(require 'core-package-module)
 (require 'use-package)
 
 (define-package-module which-key

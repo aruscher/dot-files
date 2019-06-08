@@ -7,9 +7,7 @@
   (when (file-exists-p dir)
     (core-paths--add-to-loadpath dir)))
 
-(defun core-paths-load-paths ()
-  (core-paths--add-to-loadpath-if-exists core-modules-directory)
-  (core-paths--add-to-loadpath-if-exists core-package-module-directory))
-
+(core-paths--add-to-loadpath-if-exists core-modules-directory)
+(core-paths--add-to-loadpath-if-exists core-package-module-directory)
 
 (provide 'core-paths)

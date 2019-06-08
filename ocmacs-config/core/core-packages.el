@@ -5,9 +5,9 @@
   ;; (use-package which-key
   ;;   :config (which-key-mode))
 
-  (use-package general
-    :after which-key
-    :config (general-override-mode))
+  ;; (use-package general
+  ;;   :after which-key
+  ;;   :config (general-override-mode))
 
   (use-package evil
     :config (evil-mode))

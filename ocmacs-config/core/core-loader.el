@@ -5,13 +5,14 @@
 (require 'core-module)
 (require 'core-keymap)
 (require 'core-custom-file)
-
+(require 'core-package-module)
 
 (defun core-load ()
   (core-settings-startup)
   (core-paths-load-paths)
   (core-package-setup-use-package)
   (core-use-packages)
+  (core-load-package-module 'which-key)
   (core-init-keymap)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))

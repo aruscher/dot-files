@@ -1,5 +1,9 @@
+(require 'use-package)
 
-(defun load-which-key ()
-  (message "Load Which-key"))
+(define-package-module which-key
+  :packages
+  (use-package which-key
+    :ensure t
+    :config (which-key-mode)))
 
-(provide 'core-which-key-module)
+

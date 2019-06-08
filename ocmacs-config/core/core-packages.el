@@ -2,8 +2,8 @@
 
   (setq use-package-always-ensure t)
 
-  (use-package which-key
-    :config (which-key-mode))
+  ;; (use-package which-key
+  ;;   :config (which-key-mode))
 
   (use-package general
     :after which-key

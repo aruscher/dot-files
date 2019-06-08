@@ -1,11 +1,10 @@
 (require 'core-settings)
+(require 'core-paths)
 (require 'core-package-setup)
 (require 'core-packages)
 (require 'core-module)
 (require 'core-keymap)
 (require 'core-custom-file)
-
-(require 'core-paths)
 
 
 (defun core-load ()

@@ -8,7 +8,8 @@
 
 (defun core-load-package-module (package-symbol)
   (require (core-package-module-name package-symbol))
-  (funcall (core-package-loadf-name package-symbol)))
+  (funcall (core-package-loadf-name package-symbol))
+  (push package-symbol core-loaded-package-modules))
 
 (defun core-load-package-modules (&rest package-symbols)
   (dolist (package-symbol package-symbols)
@@ -31,9 +32,9 @@
 (defmacro define-package-module (package-name &rest args)
   (let* ((pargs (core-plist args))
 	 (packages (plist-get pargs :packages))
+	 (required-packages (plist-get pargs :require))
 	 (loadf-name (core-package-loadf-name package-name)))
     `(progn
-       (push ',package-name core-loaded-package-modules)
        (defun ,loadf-name ()
 	 (message "Load %s" ',package-name)
 	 ,@(core-ensure-list-of-list packages))

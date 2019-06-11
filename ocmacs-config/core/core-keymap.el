@@ -162,7 +162,7 @@
 			  :func info)
 		    (item :prefix "a"
 			  :label "Apropos"
-			  :func apropros)
+			  :func helm-apropos)
 		    (item :prefix "v"
 			  :label "Describe Variable"
 			  :func describe-variable)

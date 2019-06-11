@@ -15,8 +15,8 @@
    'which-key
    'general
    'evil
-   'helm)
-  ;; 'others)
+   'helm
+   'others)
   (core-init-keymap)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))

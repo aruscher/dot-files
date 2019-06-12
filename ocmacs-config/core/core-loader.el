@@ -16,7 +16,10 @@
    'general
    'evil
    'helm
-   'others)
+   'others
+
+
+   'menu)
   (core-init-keymap)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))

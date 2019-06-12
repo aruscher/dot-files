@@ -46,16 +46,16 @@
 
 (ert-deftest core-menu-tests--menu-entry ()
   (should (equal (core-menu--menu-entry core-menu-tests-simple-menu)
-		 '("b" (:ignore t :which-key "Buffer"))))
+		 '("b" '(:ignore t :which-key "Buffer"))))
   (should (equal (core-menu--menu-entry core-menu-tests-menu-with-entries)
-		 '("b" (:ignore t :which-key "Buffer")
-		   "bp" (previous-buffer :which-key "Previous Buffer")
-		   "bn" (next-buffer :which-key "Next Buffer"))))
+		 '("b" '(:ignore t :which-key "Buffer")
+		   "bp" '(previous-buffer :which-key "Previous Buffer")
+		   "bn" '(next-buffer :which-key "Next Buffer"))))
   (should (equal (core-menu--menu-entry core-menu-tests-menu-with-menu-entries)
-		 '("a" (:ignore t :which-key "A")
-		   "ab" (:ignore t :which-key "B")
-		   "abc" (foo :which-key "C")
-		   "ad" (foo :which-key "D")))))
+		 '("a" '(:ignore t :which-key "A")
+		   "ab" '(:ignore t :which-key "B")
+		   "abc" '(foo :which-key "C")
+		   "ad" '(foo :which-key "D")))))
 
 (ert-deftest core-menu-tests--item-menu-errors ()
   (should-error (core-menu--menu-entry core-menu-tests-item))
@@ -64,7 +64,7 @@
 
 (ert-deftest core-menu-tests--item-entry ()
   (let ((result (core-menu--item-entry core-menu-tests-item)))
-    (should (equal result '("s" (save-buffer :which-key "Save Buffer"))))))
+    (should (equal result '("s" '(save-buffer :which-key "Save Buffer"))))))
 
 (ert-deftest core-menu-tests--item-entry-errors ()
   (should-error (core-menu--item-entry '(:prefix "s" :label "Save Buffer" :func save-buffer)))

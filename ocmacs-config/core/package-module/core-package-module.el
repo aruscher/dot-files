@@ -1,4 +1,5 @@
 (require 'core-plist)
+(require 'core-menu)
 
 (defvar core-loaded-package-modules '())
 
@@ -33,11 +34,17 @@
   (let* ((pargs (core-plist args))
 	 (packages (plist-get pargs :packages))
 	 (required-packages (plist-get pargs :require))
+	 (menu (plist-get pargs :menu))
 	 (loadf-name (core-package-loadf-name package-name)))
     `(progn
        (defun ,loadf-name ()
 	 (message "Load %s" ',package-name)
-	 ,@(core-ensure-list-of-list packages))
+	 ,@(cl-loop for requirement
+		    in (core-ensure-list-of-list required-packages)
+		    collect `(core-require-package-loaded ,requirement))
+	 ,@(core-ensure-list-of-list packages)
+	 ,(unless (null menu) 
+	    `(main-definer ,@(core-menu-build menu))))
        (provide ',(core-package-module-name package-name)))))
 
 

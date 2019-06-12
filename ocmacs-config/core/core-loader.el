@@ -17,8 +17,6 @@
    'evil
    'helm
    'others
-
-
    'menu)
   (core-init-keymap)
   (core-settings-default))

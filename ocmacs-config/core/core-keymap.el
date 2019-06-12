@@ -120,15 +120,15 @@
   			  :func evil-window-right)
   		    )))
 
-  (define-menu
-    (menu :prefix "q"
-  	  :label "Quit"
-  	  :entries ((item :prefix "q"
-  			  :label "Kill Emacs"
-  			  :func kill-emacs)
-  		    (item :prefix "r"
-  			  :label "Restart Emacs"
-  			  :func mymacs/restart-emacs))))
+  ;; (define-menu
+  ;;   (menu :prefix "q"
+  ;; 	  :label "Quit"
+  ;; 	  :entries ((item :prefix "q"
+  ;; 			  :label "Kill Emacs"
+  ;; 			  :func kill-emacs)
+  ;; 		    (item :prefix "r"
+  ;; 			  :label "Restart Emacs"
+  ;; 			  :func mymacs/restart-emacs))))
 
   (define-menu
     (menu :prefix "c"

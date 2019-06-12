@@ -1,7 +1,6 @@
 (require 'core-plist)
 (require 'core-util)
 
-
 (defun core-menu--item-entry (item-arg &optional parent-prefix)
   (let* ((head (car item-arg))
 	 (tail (cdr item-arg))
@@ -18,7 +17,7 @@
       (error ":func is missing for item-entry: %s" item-arg))
     (when (null label)
       (error ":label is missing for item-entry: %s" item-arg))
-    `(,entry-prefix (,func :which-key ,label))))
+    `(,entry-prefix '(,func :which-key ,label))))
 
 (defun core-menu--menu-entry (menu-arg &optional parent-prefix)
   (let* ((head (car menu-arg))
@@ -34,7 +33,7 @@
       (error ":prefix is missing for menu-entry: %s" item-arg))
     (when (null label)
       (error ":label is missing for menu-entry: %s" item-arg))
-    `(,entry-prefix (:ignore t :which-key ,label)
+    `(,entry-prefix '(:ignore t :which-key ,label)
 		    ,@(apply #'append
 			     (mapcar
 			      (lambda (x)

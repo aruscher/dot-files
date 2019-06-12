@@ -44,7 +44,11 @@
 		    collect `(core-require-package-loaded ,requirement))
 	 ,@(core-ensure-list-of-list packages)
 	 ,(unless (null menu) 
-	    `(main-definer ,@(core-menu-build menu))))
+	    `(main-definer
+	       ,@(apply #'append
+			(cl-loop for menu
+				 in (core-ensure-list-of-list menu)
+				 collect (core-menu-build menu))))))
        (provide ',(core-package-module-name package-name)))))
 
 

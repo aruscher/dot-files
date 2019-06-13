@@ -32,14 +32,6 @@
   (use-package rainbow-delimiters
     :hook (prog-mode . rainbow-delimiters-mode))
 
-  (use-package company
-    :config (progn
-	      (setq company-idle-delay 0)
-	      (setq company-minimum-prefix-length 3))
-    :init (global-company-mode))
-
-  (use-package company-quickhelp
-    :hook (company-mode-hook . company-quickhelp-mode))
 
   (use-package smartparens
     :hook (prog-mode . smartparens-mode)

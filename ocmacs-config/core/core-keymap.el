@@ -77,13 +77,13 @@
 				"n" #'neotree-next-line
 				"p" #'neotree-previous-line
 				"a" #'neotree-stretch-toggle
-				"h" #'neotree-hidden-file-toggle)
+				"h" #'neotree-hidden-file-toggle))
 
-  (ocmacs-define-evil-key-group nil company-active-map
-				"C-j" #'company-select-next
-				"C-k" #'company-select-previous
-				"C-n" #'company-select-next-or-abort
-				"C-p" #'company-select-previous-or-abort))
+;; (ocmacs-define-evil-key-group nil company-active-map
+;; 				"C-j" #'company-select-next
+;; 				"C-k" #'company-select-previous
+;; 				"C-n" #'company-select-next-or-abort
+;; 				"C-p" #'company-select-previous-or-abort))
 
 ;; (ocmacs-define-evil-key-group nil custom-mode-map
 ;; 			      "j" #'widget-forward

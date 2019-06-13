@@ -2,7 +2,7 @@
 (require 'core-package-module)
 
 (define-package-module general
-  :require 'evil
+  :require-module 'evil
   :packages
   (use-package general
     :ensure t
@@ -15,6 +15,7 @@
       :prefix "SPC"
       :non-normal-prefix "C-SPC")
     )
+  :menu-definer main-definer
   :menu 
   (menu :prefix "b"
 	:label "Buffer"
@@ -61,42 +62,6 @@
 	(item :prefix "r"
 	      :label "Restart Emacs"
 	      :func mymacs/restart-emacs))
-  (menu :prefix "b"
-	:label "Buffer"
-	:entries
-	(item :prefix "p"
-	      :label "Previous Buffer"
-	      :func previous-buffer)
-	(item :prefix "n"
-	      :label "Next Buffer"
-	      :func next-buffer)
-	(item :prefix "b"
-	      :label "Buffer List"
-	      :func helm-buffers-list)
-	(item :prefix "ko"
-	      :label "Kill Other Buffer"
-	      :func mymacs/kill-other-buffers))
-  (menu :prefix "w"
-	:label "Window"
-	:entries
-	(item :prefix "-"
-	      :label "Split Window Below"
-	      :func split-window-below)
-	(item :prefix "/"
-	      :label "Split Window Right"
-	      :func split-window-right)
-	(item :prefix "h"
-	      :label "Window Left"
-	      :func evil-window-left)
-	(item :prefix "j"
-	      :label "Window Down"
-	      :func evil-window-down)
-	(item :prefix "k"
-	      :label "Window Up"
-	      :func evil-window-up)
-	(item :prefix "l"
-	      :label "Window Right"
-	      :func evil-window-right))
   (menu :prefix "c"
 	:label "Config"
 	:entries

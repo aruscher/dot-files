@@ -65,21 +65,21 @@
       ,@item-entries)))
 
 (defun core-init-keymap ()
-  (define-menu
-    (menu :prefix "f"
-  	  :label "File"
-  	  :entries ((item :prefix "s"
-  			  :label "Save Buffer"
-  			  :func save-buffer)
-  		    (item :prefix "f"
-  			  :label "Find Files"
-  			  :func helm-find-files)
-  		    (item :prefix "j"
-  			  :label "Dired"
-  			  :func dired)
-  		    (item :prefix "t"
-  			  :label "Neotree"
-  			  :func neotree-toggle))))
+  ;; (define-menu
+  ;;   (menu :prefix "f"
+  ;; 	  :label "File"
+  ;; 	  :entries ((item :prefix "s"
+  ;; 			  :label "Save Buffer"
+  ;; 			  :func save-buffer)
+  ;; 		    (item :prefix "f"
+  ;; 			  :label "Find Files"
+  ;; 			  :func helm-find-files)
+  ;; 		    (item :prefix "j"
+  ;; 			  :label "Dired"
+  ;; 			  :func dired)
+  ;; 		    (item :prefix "t"
+  ;; 			  :label "Neotree"
+  ;; 			  :func neotree-toggle))))
 
   (define-menu 
     (menu :prefix "b"

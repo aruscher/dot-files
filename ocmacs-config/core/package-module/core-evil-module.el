@@ -5,9 +5,16 @@
   :packages
   (use-package evil
     :ensure t
-    :config (evil-mode))
+    :init
+    (setq evil-want-keybinding nil)
+    :config (evil-mode 1))
   (use-package evil-magit
     :ensure t)
   (use-package evil-commentary
     :ensure t
-    :init (evil-commentary-mode)))
+    :init (evil-commentary-mode))
+  (use-package evil-collection
+    :ensure t
+    :after evil
+    :config
+    (evil-collection-init)))

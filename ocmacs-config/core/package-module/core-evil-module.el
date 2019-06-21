@@ -9,9 +9,11 @@
     (setq evil-want-keybinding nil)
     :config (evil-mode 1))
   (use-package evil-magit
-    :ensure t)
+    :ensure t
+    :after evil)
   (use-package evil-commentary
     :ensure t
+    :after evil
     :init (evil-commentary-mode))
   (use-package evil-collection
     :ensure t

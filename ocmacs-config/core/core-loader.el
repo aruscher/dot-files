@@ -8,7 +8,6 @@
 (defun core-load ()
   (core-settings-startup)
   (core-package-setup-use-package)
-  ;; (core-use-packages)
   (core-load-package-modules
    'which-key
    'general

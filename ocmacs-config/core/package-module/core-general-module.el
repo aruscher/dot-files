@@ -6,7 +6,7 @@
   :packages
   (use-package general
     :ensure t
-    :after which-key
+    :after which-key evil
     :config
     (general-override-mode 1)
     (general-auto-unbind-keys)
@@ -14,5 +14,3 @@
       :states '(normal visual insert motion emacs)
       :prefix "SPC"
       :non-normal-prefix "C-SPC")))
-    
-

@@ -13,4 +13,6 @@
     (general-create-definer main-definer
       :states '(normal visual insert motion emacs)
       :prefix "SPC"
-      :non-normal-prefix "C-SPC")))
+      :non-normal-prefix "C-SPC"
+      :keymaps 'override
+      )))

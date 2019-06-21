@@ -2,8 +2,6 @@
 (require 'core-settings)
 (require 'core-package-setup)
 (require 'core-packages)
-(require 'core-module)
-(require 'core-keymap)
 (require 'core-custom-file)
 (require 'core-package-module)
 
@@ -20,7 +18,6 @@
    'company
    'others
    'menu)
-  (core-init-keymap)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))
 

@@ -66,18 +66,17 @@
 
 (defun core-init-keymap ()
 
+)
 
-  (global-set-key (kbd "M-x") 'helm-M-x)
-
-  (ocmacs-define-evil-key-group 'normal neotree-mode-map
-				"'" #'neotree-quick-look
-				"q" #'neotree-hide
-				"RET" #'neotree-enter
-				"g" #'neotree-refresh
-				"n" #'neotree-next-line
-				"p" #'neotree-previous-line
-				"a" #'neotree-stretch-toggle
-				"h" #'neotree-hidden-file-toggle))
+  ;; (ocmacs-define-evil-key-group 'normal neotree-mode-map
+  ;; 				"'" #'neotree-quick-look
+  ;; 				"q" #'neotree-hide
+  ;; 				"RET" #'neotree-enter
+  ;; 				"g" #'neotree-refresh
+  ;; 				"n" #'neotree-next-line
+  ;; 				"p" #'neotree-previous-line
+  ;; 				"a" #'neotree-stretch-toggle
+  ;; 				"h" #'neotree-hidden-file-toggle))
 
 ;; (ocmacs-define-evil-key-group nil company-active-map
 ;; 				"C-j" #'company-select-next

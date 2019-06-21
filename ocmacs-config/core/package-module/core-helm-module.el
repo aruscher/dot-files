@@ -7,4 +7,5 @@
     :ensure t
     :config 
     (setq helm-buffers-fuzzy-matching t)
-    (helm-mode)))
+    (helm-mode)
+    (global-set-key (kbd "M-x") 'helm-M-x)))

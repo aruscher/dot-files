@@ -1,8 +1,5 @@
 (require 'core-special-directories)
 
-(defun core-settings-startup ()
-  )
-
 (defun core-settings-default ()
   (setq gc-cons-threshold 100000000)
   (setq delete-old-versions -1 )		

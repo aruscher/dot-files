@@ -38,7 +38,19 @@
 	      :func evil-window-up)
 	(item :prefix "l"
 	      :label "Window Right"
-	      :func evil-window-right))
+	      :func evil-window-right)
+	(item :prefix "H"
+	      :label "Move Window Left"
+	      :func evil-window-move-far-left)
+	(item :prefix "J"
+	      :label "Move Window Down"
+	      :func evil-window-move-very-bottom)
+	(item :prefix "K"
+	      :label "Move Window Up"
+	      :func evil-window-move-very-top)
+	(item :prefix "L"
+	      :label "Move Window Right"
+	      :func evil-window-move-far-right))
   (menu :prefix "q"
 	:label "Quit"
 	:entries

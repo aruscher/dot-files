@@ -3,6 +3,7 @@
 (define-package-module company
   :packages
   (use-package company
+	:ensure t
     :config (progn
 	      (setq company-idle-delay 0)
 	      (setq company-minimum-prefix-length 3))

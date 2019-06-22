@@ -17,6 +17,9 @@
 	(item :prefix "b"
 	      :label "Buffer List"
 	      :func helm-buffers-list)
+	(item :prefix "kb"
+	      :label "Kill Buffer"
+	      :func kill-buffer)
 	(item :prefix "ko"
 	      :label "Kill Other Buffer"
 	      :func mymacs/kill-other-buffers))
@@ -33,7 +36,8 @@
 	      :label "Window Left"
 	      :func evil-window-left)
 	(item :prefix "j"
-	      :label "Window Down" :func evil-window-down)
+	      :label "Window Down"
+	      :func evil-window-down)
 	(item :prefix "k"
 	      :label "Window Up"
 	      :func evil-window-up)

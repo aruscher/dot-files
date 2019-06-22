@@ -1,7 +1,6 @@
 (require 'core-paths)
 (require 'core-settings)
 (require 'core-package-setup)
-(require 'core-packages)
 (require 'core-custom-file)
 (require 'core-package-module)
 (require 'core-language-module)
@@ -22,7 +21,6 @@
    'prog
    'elisp)
   (core-settings-default))
-  ;; (core-use-modules 'elisp-module 'sml-module))
 
 (provide 'core-loader)
 

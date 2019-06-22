@@ -3,8 +3,12 @@
 
 (define-language-module elisp
   :require-module 'prog
+  :packages 
+  (use-package aggressive-indent
+    :ensure t)
   :hooks 'emacs-lisp-mode-hook
-  :init 
+  :init
+  (aggressive-indent-mode)
   (setq show-paren-style 'mixed)
   (setq show-paren-delay 0)
   (show-paren-mode))

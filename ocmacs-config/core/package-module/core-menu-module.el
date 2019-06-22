@@ -1,4 +1,5 @@
 (require 'core-package-module)
+(require 'core-special-directories)
 
 (define-package-module menu
   :require-module 'general
@@ -65,13 +66,24 @@
 	:entries
 	(item :prefix "f"
 	      :label "Dired Emacs Directory"
-	      :func dired-user-emacs-directory)
+	      :func (lambda ()
+		      (interactive)
+		      (dired user-emacs-directory)))
 	(item :prefix "c"
 	      :label "Dired Core Directory"
-	      :func dired-core-directory)
-	(item :prefix "m"
-	      :label "Dired Module Directory"
-	      :func dired-module-directory))
+	      :func (lambda ()
+		      (interactive)
+		      (dired core-directory)))
+	(item :prefix "p"
+	      :label "Dired Package Module Directory"
+	      :func (lambda ()
+		      (interactive)
+		      (dired core-package-module-directory)))
+	(item :prefix "l"
+	      :label "Dired Language Module Directory"
+	      :func (lambda ()
+		      (interactive)
+		      (dired core-language-module-directory))))
   (menu :prefix "g"
 	:label "Git"
 	:entries

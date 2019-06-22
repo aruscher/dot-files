@@ -16,10 +16,13 @@
   (setq coding-system-for-write 'utf-8 )
   (setq sentence-end-double-space nil)	
   (setq default-fill-column 80)		
-  (setq initial-scratch-message "Welcome in Emacs"))
+  (setq initial-scratch-message "Welcome in Emacs")
+  )
 
 
 (defun core-settings-startup ()
-  nil)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  )
 
 (provide 'core-settings)

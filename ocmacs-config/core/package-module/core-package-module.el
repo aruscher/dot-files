@@ -1,5 +1,6 @@
 (require 'core-plist)
 (require 'core-menu)
+(require 'core-util)
 
 (defvar core-loaded-package-modules '())
 
@@ -15,12 +16,11 @@
 
 (defun core-package-module-name (package-symbol)
   (intern
-   (concat "core-" (symbol-name package-symbol) "-module")))
+   (format "core-%s-module" (symbol-name package-symbol))))
 
 (defun core-package-loadf-name (package-symbol)
   (intern
-   (concat "core-load-" (symbol-name package-symbol) "-module")))
-
+   (format "load-%s" (core-package-module-name package-symbol))))
 
 (defun core-ensure-list-of-list (a-list)
   (if (listp (car a-list))
@@ -36,10 +36,10 @@
 	 (loadf-name (core-package-loadf-name package-name)))
     `(progn
        (defun ,loadf-name ()
-	 (message "Load %s" ',package-name)
 	 ,(when required-modules
 	    `(core-load-package-modules
 	      ,@(core-ensure-list-of-list required-modules)))
+	 (message "Load %s" ',package-name)
 	 ;; ,@(cl-loop for requirement
 	 ;; 	    in (core-ensure-list-of-list required-modules)
 	 ;; 	    collect `(core-require-package-loaded ,requirement))

@@ -14,7 +14,7 @@
   (expand-file-name "packages" user-emacs-directory))
 
 (defconst core-language-module-directory
-  (expand-file-name "language-modules" core-directory))
+  (expand-file-name "language-module" core-directory))
 
 
 

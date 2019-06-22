@@ -1,15 +1,3 @@
-(defun dired-user-emacs-directory()
-  (interactive)
-  (dired user-emacs-directory))
-
-(defun dired-core-directory()
-  (interactive)
-  (dired core-directory))
-
-(defun dired-module-directory()
-  (interactive)
-  (dired module-directory))
-
 (defun mymacs/restart-emacs(&optional arguments)
   (interactive)
   (restart-emacs arguments))
@@ -23,10 +11,10 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
-
-(defun core-ensure-list (list)
-  (if (listp list) list
-    (list list)))
+(defun core-ensure-list-of-list (a-list)
+  (if (listp (car a-list))
+      a-list
+    (list a-list)))
 
 
 (provide 'core-util)

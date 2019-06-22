@@ -4,6 +4,7 @@
 (require 'core-packages)
 (require 'core-custom-file)
 (require 'core-package-module)
+(require 'core-language-module)
 
 (defun core-load ()
   (core-settings-startup)
@@ -17,6 +18,8 @@
    'company
    'others
    'menu)
+  (core-load-language-modules
+   'elisp)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))
 

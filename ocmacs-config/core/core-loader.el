@@ -19,6 +19,7 @@
    'others
    'menu)
   (core-load-language-modules
+   'prog
    'elisp)
   (core-settings-default))
   ;; (core-use-modules 'elisp-module 'sml-module))

@@ -1,5 +1,6 @@
 (require 'core-plist)
 (require 'core-util)
+(require 'core-package-module)
 
 (defvar core-loaded-language-modules '())
 
@@ -25,21 +26,26 @@
 (defmacro define-language-module (package-name &rest args)
   (let* ((pargs (core-plist args))
 	 (packages (plist-get pargs :packages))
-	 (required-modules (plist-get pargs :require-module))
+	 (required-language-modules (plist-get pargs :require-module))
+	 (required-package-modules (plist-get pargs :require-package-module))
 	 (init (plist-get pargs :init))
 	 (hooks (plist-get pargs :hooks))
 	 (loadf-name (core-language-loadf-name package-name)))
     `(progn
        (defun ,loadf-name ()
-	 ,(when required-modules
+	 ,(when required-language-modules
 	    `(core-load-language-modules
-	      ,@(core-ensure-list-of-list required-modules)))
-	 ,@init)
+	      ,@(core-ensure-list-of-list required-language-modules)))
+	 ,(when required-package-modules
+	    `(core-load-package-modules
+	      ,@(core-ensure-list-of-list required-package-modules)))
+	 ,@init
 	 (message "Load %s" ',package-name)
-       ,@(cl-loop for hook
-		  in (core-ensure-list-of-list hooks)
-		  collect `(add-hook ,hook #',loadf-name))
-       (provide ',(core-language-module-name package-name)))))
+	 ,@(core-ensure-list-of-list packages)
+	 ,@(cl-loop for hook
+		    in (core-ensure-list-of-list hooks)
+		    collect `(add-hook ,hook #',loadf-name)))
+	 (provide ',(core-language-module-name package-name)))))
 
 
 

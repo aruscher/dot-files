@@ -40,9 +40,6 @@
 	    `(core-load-package-modules
 	      ,@(core-ensure-list-of-list required-modules)))
 	 (message "Load %s" ',package-name)
-	 ;; ,@(cl-loop for requirement
-	 ;; 	    in (core-ensure-list-of-list required-modules)
-	 ;; 	    collect `(core-require-package-loaded ,requirement))
 	 ,@(core-ensure-list-of-list packages)
 	 ,(unless (null menu) 
 	    `(,menu-definer

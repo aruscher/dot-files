@@ -7,9 +7,10 @@
   (use-package general
     :ensure t
     :after which-key evil
-    :config
+    :init 
     (general-override-mode 1)
     (general-auto-unbind-keys)
+    :config
     (general-create-definer main-definer
       :states '(normal visual insert motion emacs)
       :prefix "SPC"

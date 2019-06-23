@@ -6,12 +6,26 @@
   :packages 
   (use-package aggressive-indent
     :ensure t)
+  (use-package paredit
+    :ensure t)
+  (use-package evil-paredit
+    :ensure t
+    :hook (emacs-lisp-mode-hook . evil-paredit-mode))
   :hooks 'emacs-lisp-mode-hook
   :init
   (aggressive-indent-mode)
-  (setq show-paren-style 'mixed)
+  (setq show-paren-style 'parenthesis)
   (setq show-paren-delay 0)
-  (show-paren-mode))
+  (show-paren-mode)
+  :menu
+  (menu :prefix "e"
+	:label "Evaluate"
+	:entries
+	(item :prefix "e"
+	      :label "Evaluate last expression"
+	      :func eval-last-sexp)))
+
+
 
 
 ;; (defun setup-elisp-mode-map ()
@@ -40,4 +54,5 @@
 ;; 		    (setq show-paren-delay 0)
 ;; 		    (show-paren-mode)
 ;; 		    :hooks 'emacs-lisp-mode-hook)
+
 

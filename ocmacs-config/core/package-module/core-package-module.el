@@ -42,11 +42,11 @@
 	 (message "Load %s" ',package-name)
 	 ,@(core-ensure-list-of-list packages)
 	 ,(unless (null menu) 
-	    `(,menu-definer
-	      ,@(apply #'append
-		       (cl-loop for menu
-				in (core-ensure-list-of-list menu)
-				collect (core-menu-build menu))))))
+	    `(main-definer
+	       ,@(apply #'append
+			(cl-loop for menu
+				 in (core-ensure-list-of-list menu)
+				 collect (core-menu-build menu))))))
        (provide ',(core-package-module-name package-name)))))
 
 

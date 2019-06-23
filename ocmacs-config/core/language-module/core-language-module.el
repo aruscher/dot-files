@@ -1,4 +1,5 @@
 (require 'core-plist)
+(require 'core-menu)
 (require 'core-util)
 (require 'core-package-module)
 
@@ -29,6 +30,7 @@
 	 (required-language-modules (plist-get pargs :require-module))
 	 (required-package-modules (plist-get pargs :require-package-module))
 	 (init (plist-get pargs :init))
+	 (menu (plist-get pargs :menu))
 	 (hooks (plist-get pargs :hooks))
 	 (loadf-name (core-language-loadf-name package-name)))
     `(progn
@@ -41,11 +43,18 @@
 	      ,@(core-ensure-list-of-list required-package-modules)))
 	 ,@init
 	 (message "Load %s" ',package-name)
-	 ,@(core-ensure-list-of-list packages)
-	 ,@(cl-loop for hook
-		    in (core-ensure-list-of-list hooks)
-		    collect `(add-hook ,hook #',loadf-name)))
-	 (provide ',(core-language-module-name package-name)))))
+	 ,(when  menu
+	    `(main-definer
+	       ,@(core-menu-build `(menu :prefix "m"
+					 :label "Mode"
+					 :entries
+					 ,@(core-ensure-list-of-list menu))))))
+
+       ,@(core-ensure-list-of-list packages)
+       ,@(cl-loop for hook
+		  in (core-ensure-list-of-list hooks)
+		  collect `(add-hook ,hook #',loadf-name))
+       (provide ',(core-language-module-name package-name)))))
 
 
 

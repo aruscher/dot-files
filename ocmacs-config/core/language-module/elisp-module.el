@@ -18,13 +18,21 @@
   (setq show-paren-delay 0)
   (show-paren-mode)
   :menu
+  (item :prefix "'"
+	:label "IElm"
+	:func ielm)
   (menu :prefix "e"
 	:label "Evaluate"
 	:entries
 	(item :prefix "e"
-	      :label "Evaluate last expression"
-	      :func eval-last-sexp)))
-
+	      :label "Last Expression"
+	      :func eval-last-sexp)
+	(item :prefix "b"
+	      :label "Buffer"
+	      :func eval-buffer)
+	(item :prefix "f"
+	      :label "Defun"
+	      :func eval-defun)))
 
 
 

@@ -10,7 +10,5 @@
 (dolist (config-file my-config-files)
   (load config-file))
 
-;;; TODO: Checkout ace-window
-
 
 

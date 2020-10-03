@@ -1,4 +1,3 @@
-
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
@@ -6,6 +5,22 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+
+(ql:quickload '(:quickproject :osicat :inferior-shell))
+
+;;; Quickproject setup
+(setf quickproject:*author* "Andreas Ruscheinski <andreas.ruscheinski@gmail.com>")
+(setf quickproject:*template-directory*
+      (truename "~/dot-files/quickproject-template"))
+
+(setf quickproject:*after-make-project-hooks*
+      (list
+       (lambda (pathname &rest args)
+         (declare (ignore args))
+         (nix:chdir (fad:pathname-as-directory pathname))
+         (inferior-shell:run (list "git" "init" "."))
+         (inferior-shell:run  (list "git" "add" "."))
+         (inferior-shell:run (list "git" "commit" "-m" "Initial commit")))))
 
 (pushnew (truename "~/Code/Common-Lisp") ql:*local-project-directories*)
 (ql:register-local-projects)

@@ -5,16 +5,10 @@ BASE_DIR=`dirname ${SCRIPT}`
 echo "Make code folder"
 mkdir ~/Code ~/Code/Java ~/Code/Python ~/Code/Common-Lisp
 
-echo "Link spacemacs" 
-ln -s -i $BASE_DIR/spacemacs-config/ ~/.spacemacs.d
 
 echo "Link ZSH"
 rm ~/.zshrc
 ln -s -i $BASE_DIR/zshrc ~/.zshrc
-
-echo "Link Stumpwm"
-ln -s -i $BASE_DIR/stumpvm-config/ ~/.stumpwm.d
-
 
 echo "Link sbclrc"
 rm ~/.sbclrc

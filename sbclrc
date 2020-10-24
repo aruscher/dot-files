@@ -24,3 +24,10 @@
 
 (pushnew (truename "~/Code/Common-Lisp") ql:*local-project-directories*)
 (ql:register-local-projects)
+
+(defun disasm-method (name specializers)
+  "E.g. (disasm-method 'package:generic-fun '(class t))"
+  (let* ((method (find-method name nil specializers))
+         (function (sb-mop:method-function method))
+         (fast-function (sb-pcl::%method-function-fast-function function)))
+    (disassemble fast-function)))

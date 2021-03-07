@@ -1,0 +1,273 @@
+#+title: My new Emacs Configuration From Scratch
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
+
+* Welcome
+
+This is my new emacs configuration from scretch.
+This time I hope not to clutter everything by getting a better structure and only installing the packages I really need.
+  
+* Configure Emacs GUI Stuff
+
+By default Emacs comes with a lots of annoying bars and menues etc. I don't want them:
+#+begin_src emacs-lisp
+    (setq inhibit-startup-message t)
+    (scroll-bar-mode -1)        ; Disable visible scrollbar
+    (tool-bar-mode -1)          ; Disable the toolbar
+    (tooltip-mode -1)           ; Disable tooltips
+    (defalias 'yes-or-no-p 'y-or-n-p) ; Remap yes-or-no to y-or-n
+#+end_src
+
+Next lets enable the good stuff:
+#+begin_src emacs-lisp
+    (defalias 'yes-or-no-p 'y-or-n-p) ; Remap yes-or-no to y-or-n
+    (column-number-mode) ; Show line number and column in the minibuffer
+    (global-display-line-numbers-mode t) ; Show line numbers on the side
+    (global-hl-line-mode t) ; Highlight the current line
+    (show-paren-mode t) ; Show matching parens
+#+end_src
+
+I don't want the linenumbers in the shell-buffers:
+#+begin_src emacs-lisp
+    (dolist (mode '(term-mode-hook eshell-mode-hook shell-mode-hook))
+      (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+
+* Package System Setup
+
+Instead of using the Emacs' own package manager, I'm going to use [[https://github.com/jwiegley/use-package][use-package]] which promises to automate the installation and configuration of packages much easier.
+#+begin_src emacs-lisp
+    ;; Initialize package sources
+    (require 'package)
+
+    (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			     ("org" . "https://orgmode.org/elpa/")
+			     ("elpa" . "https://elpa.gnu.org/packages/")))
+
+    (package-initialize)
+    (unless package-archive-contents
+      (package-refresh-contents))
+
+    ;; Initialize use-package on non-Linux platforms
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
+
+    (require 'use-package)
+    (setq use-package-always-ensure t)
+#+end_src
+  
+* Font, Theme and Modeline 
+** Font Configuration
+  
+Use the Fira-Code Font as default.
+On Linux Mint/Ubuntu, you have to install the font by running ~sudo apt install fonts-firacode~.
+On Archlinux, you have to install the font by running ~sudo pacman -Sy ttf-fira-code~.
+#+begin_src emacs-lisp
+     (set-face-attribute 'default nil
+			 :family "Fira Code Retina"
+			 :height 110
+			 :weight 'normal
+			 :width 'normal)
+
+     (set-face-attribute 'fixed-pitch nil
+			 :family "Fira Code Retina"
+			 :height 110
+			 :weight 'normal
+			 :width 'normal)
+#+end_src
+
+** Theme Configuration
+
+Lets use the [[https://github.com/hlissner/emacs-doom-themes][emacs-doom-themes]] for now. 
+Taking a look at the [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][screenshots]] might help to decide the beste theme for you.
+#+begin_src emacs-lisp
+     (use-package doom-themes
+       :config (load-theme 'doom-palenight t))
+#+end_src
+
+** All the icons
+   
+Install all the icons.
+#+begin_src emacs-lisp
+     (use-package all-the-icons
+       :if (display-graphic-p)
+       :commands all-the-icons-install-fonts
+       :init
+       (unless (find-font (font-spec :name "all-the-icons"))
+	 (all-the-icons-install-fonts t)))
+
+     (use-package all-the-icons-dired
+       :if (display-graphic-p)
+       :hook (dired-mode . all-the-icons-dired-mode))
+#+end_src
+   
+** Modeline Configuration
+
+Lets use the [[https://github.com/seagle0128/doom-modeline][doom-modeline]] for now.
+#+begin_src emacs-lisp
+     (use-package doom-modeline
+       :init (doom-modeline-mode 1))
+#+end_src
+
+* General Packages
+** Dashboard
+
+Its a nice dashboard.
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :config
+    (setq dashboard-startup-banner nil)
+    (setq dashboard-items
+          '((recents . 5)
+            (projects .5)))
+    (dashboard-setup-startup-hook))
+#+end_src
+
+** Which-Key
+   
+Its a nice package.
+#+begin_src emacs-lisp
+     (use-package which-key
+       :init (which-key-mode)
+       :diminish which-key-mode
+       :config
+       (setq which-key-idle-delay 0.3))
+#+end_src
+** IVY
+   
+Ivy provides an completion framework for a lots commands similar to Helm.
+I used Helm before but lets try IVY:
+#+begin_src emacs-lisp
+	  (use-package counsel
+	    :diminish
+	    :bind (("C-s" . swiper-isearch)
+		   ("M-x" . counsel-M-x)
+		   ("C-h a" . counsel-apropos)
+		   ("C-x b" . counsel-ibuffer)
+		   ("C-x C-f" . counsel-find-file))
+	    :config
+	    (ivy-mode 1)
+	    (setq ivy-use-virtual-buffers t)
+	    (setq ivy-count-format "(%d/%d) ")
+	    (setq ivy-initial-inputs-alist nil))
+#+end_src
+
+Let's also use ivy-rich for much more details in the output:
+
+#+begin_src emacs-lisp
+     (use-package ivy-rich
+       :init (ivy-rich-mode 1))
+#+end_src
+** Helpful
+
+A better Emacs *help* buffer 
+#+begin_src emacs-lisp
+     (use-package helpful
+       :custom
+       (counsel-describe-function-function #'helpful-callable)
+       (counsel-describe-variable-function #'helpful-variable)
+       :bind
+       ([remap describe-function] . counsel-describe-function)
+       ([remap describe-command] . helpful-command)
+       ([remap describe-variable] . counsel-describe-variable)
+       ([remap describe-key] . helpful-key))
+#+end_src
+** Projectile
+   
+Should gives much more intelligence how to work with projects.
+#+begin_src emacs-lisp
+  (use-package projectile
+    :diminish projectile
+    :config (projectile-mode)
+    :custom ((projectile-completion-system 'ivy))
+    :bind-keymap
+    ("C-c p" . projectile-command-map)
+    :init
+    (setq projectile-project-search-path
+          (seq-filter #'file-directory-p '("~/Code/Python" "~/Code/Common-Lisp")))
+    (setq projectile-switch-project-action #'projectile-dired))
+#+end_src
+
+** Magit
+   
+Installing the true git client.
+#+begin_src emacs-lisp
+     (use-package magit)
+#+end_src
+* Programming-Setup
+** General Packages
+*** Rainbow-Delimiters
+    
+Use rainbow-delimters to make your delimiters colorfull.
+#+begin_src emacs-lisp
+      (use-package rainbow-delimiters
+	:hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+*** Language-Server
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :config
+    (lsp-enable-which-key-integration t))
+#+end_src
+*** Company-Mode
+
+#+begin_src emacs-lisp
+  (use-package company
+    :hook (prog-mode . company-mode)
+    :config
+    (setq company-idle-delay 0.3
+          company-minimum-prefix-length 2))
+
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+#+end_src
+
+*** Paredit
+
+#+begin_src emacs-lisp
+  (use-package paredit)
+#+end_src
+*** Flycheck
+
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :defer t)
+#+end_src
+
+** Languages
+*** Emacs Lisp
+
+#+begin_src emacs-lisp
+  (defun my/emacs-mode-hook ()
+    (paredit-mode t)
+    (flycheck-mode)
+    (eldoc-mode t))
+
+  (use-package emacs-lisp-mode
+    :ensure nil
+    :hook (emacs-lisp-mode . my/emacs-mode-hook))
+#+end_src
+
+*** Python
+
+#+begin_src emacs-lisp
+  (use-package python
+    :ensure nil
+    :custom
+    (python-shell-interpreter "python3"))
+#+end_src
+* Text-Setup
+** Org-Mode
+
+Some nice configurations for org-mode.
+#+begin_src emacs-lisp
+  (defun my/org-mode-hook ()
+    (org-indent-mode)
+    (visual-line-mode 1))
+
+  (use-package org
+    :hook (org-mode . my/org-mode-hook))
+#+end_src

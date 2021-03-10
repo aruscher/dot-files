@@ -113,6 +113,39 @@
 
 (use-package magit)
 
+(defun bjm/elfeed-load-db-and-open ()
+  (interactive)
+  (elfeed-db-load)
+  (elfeed)
+  (elfeed-search-update--force))
+
+(defun bjm/elfeed-save-db-and-bury ()
+  (interactive)
+  (elfeed-db-save)
+  (elfeed-db-compact)
+  (quit-window))
+
+(defun bjm/elfeed-mark-all-as-read ()
+  (interactive)
+  (mark-whole-buffer)
+  (elfeed-search-untag-all-unread))
+
+(use-package elfeed
+  :ensure t
+  :bind (:map elfeed-search-mode-map
+              ("q" . bjm/elfeed-save-db-and-bury)
+              ("Q" . bjm/elfeed-save-db-and-bury))
+  :config
+  (setq elfeed-db-directory "~/Dropbox/shared/elfeeddb"))
+
+(use-package elfeed-org
+  :ensure t
+  :after elfeed
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files
+        (list "~/.emacs.d/feeds.org")))
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -157,3 +190,16 @@
 
 (use-package org
   :hook (org-mode . my/org-mode-hook))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(elfeed-org elfeed which-key use-package rainbow-delimiters projectile paredit magit lsp-mode ivy-rich helpful flycheck doom-themes doom-modeline dashboard counsel company-box all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -1,0 +1,19 @@
+* Blogs                                                              :elfeed:
+** Coding                                                            :coding:
+*** Python                                                           :python:
+**** https://planetpython.org/rss20.xml
+*** Lisp                                                               :lisp:
+**** http://planet.lisp.org/rss20.xml
+** Emacs                                                              :emacs:
+*** https://planet.emacslife.com/atom.xml
+** Comics                                                            :comics:
+*** https://xkcd.com/rss.xml
+** Misc                                                                :misc:
+*** http://syndication.thedailywtf.com/TheDailyWtf
+*** https://hnrss.org/frontpage?count=100&points=100
+*** https://lobste.rs/rss
+*** https://www.sicpers.info/feed/rss
+*** [[https://www.hoheluft-magazin.de/feed/][Hoheluft Magazin]]
+** News                                                                :news:
+*** http://quillette.com/feed/
+*** https://aeon.co/feed.rss

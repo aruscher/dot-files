@@ -13,6 +13,16 @@
 (dolist (mode '(term-mode-hook eshell-mode-hook shell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; Automatically tangle our Emacs.org config file when we save it
+(defun my/org-babel-tangle-config ()
+  (when (string-equal (file-name-directory (buffer-file-name))
+		      (file-truename (expand-file-name user-emacs-directory)))
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle))))
+
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
+
 ;; Initialize package sources
 (require 'package)
 
@@ -30,6 +40,15 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
 
 (set-face-attribute 'default nil
 		    :family "Fira Code Retina"
@@ -168,7 +187,12 @@
 (use-package paredit)
 
 (use-package flycheck
-  :defer t)
+  :defer t
+  :hook (prog-mode . flycheck-mode)
+  :config
+  (setq-default flycheck-emacs-lisp-initialize-packages t
+                flycheck-highlighting-mode 'lines
+                flycheck-emacs-lisp-load-path 'inherit))
 
 (defun my/emacs-mode-hook ()
   (paredit-mode t)
@@ -188,18 +212,9 @@
   (org-indent-mode)
   (visual-line-mode 1))
 
+(defun my/disable-emacs-checkdoc ()
+  (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+
 (use-package org
-  :hook (org-mode . my/org-mode-hook))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(elfeed-org elfeed which-key use-package rainbow-delimiters projectile paredit magit lsp-mode ivy-rich helpful flycheck doom-themes doom-modeline dashboard counsel company-box all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  :hook  ((org-mode . my/org-mode-hook)
+          (org-src-mode . my/disable-emacs-checkdoc)))

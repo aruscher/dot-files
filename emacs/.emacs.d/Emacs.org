@@ -32,6 +32,21 @@ I don't want the linenumbers in the shell-buffers:
       (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
+* Autosave this file as init.el
+
+Automatically tangle this file after saving.
+#+begin_src emacs-lisp
+  ;; Automatically tangle our Emacs.org config file when we save it
+  (defun my/org-babel-tangle-config ()
+    (when (string-equal (file-name-directory (buffer-file-name))
+			(file-truename (expand-file-name user-emacs-directory)))
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+	(org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
+#+end_src
+
 * Package System Setup
 
 Instead of using the Emacs' own package manager, I'm going to use [[https://github.com/jwiegley/use-package][use-package]] which promises to automate the installation and configuration of packages much easier.
@@ -55,6 +70,16 @@ Instead of using the Emacs' own package manager, I'm going to use [[https://gith
     (setq use-package-always-ensure t)
 #+end_src
   
+#+begin_src emacs-lisp
+  (use-package auto-package-update
+    :custom
+    (auto-package-update-interval 7)
+    (auto-package-update-prompt-before-update t)
+    (auto-package-update-hide-results t)
+    :config
+    (auto-package-update-maybe)
+    (auto-package-update-at-time "09:00"))
+#+end_src
 * Font, Theme and Modeline 
 ** Font Configuration
   
@@ -275,7 +300,12 @@ Use rainbow-delimters to make your delimiters colorfull.
 
 #+begin_src emacs-lisp
   (use-package flycheck
-    :defer t)
+    :defer t
+    :hook (prog-mode . flycheck-mode)
+    :config
+    (setq-default flycheck-emacs-lisp-initialize-packages t
+                  flycheck-highlighting-mode 'lines
+                  flycheck-emacs-lisp-load-path 'inherit))
 #+end_src
 
 ** Languages
@@ -309,6 +339,10 @@ Some nice configurations for org-mode.
     (org-indent-mode)
     (visual-line-mode 1))
 
+  (defun my/disable-emacs-checkdoc ()
+    (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+
   (use-package org
-    :hook (org-mode . my/org-mode-hook))
+    :hook  ((org-mode . my/org-mode-hook)
+            (org-src-mode . my/disable-emacs-checkdoc)))
 #+end_src

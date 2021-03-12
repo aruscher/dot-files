@@ -134,6 +134,13 @@ Lets use the [[https://github.com/seagle0128/doom-modeline][doom-modeline]] for 
 #+end_src
 
 * General Packages
+
+** Fix some weird exec-path tings
+#+begin_src emacs-lisp
+  (use-package exec-path-from-shell
+    :config
+    (exec-path-from-shell-initialize))
+#+end_src
 ** Dashboard
 
 Its a nice dashboard.
@@ -330,6 +337,36 @@ Use rainbow-delimters to make your delimiters colorfull.
     :custom
     (python-shell-interpreter "python3"))
 #+end_src
+
+*** Rust
+
+You have to install some things before using rust.
+
+#+begin_src bash
+  git clone https://github.com/rust-analyzer/rust-analyzer.git
+  cd rust-analyzer
+  cargo xtask install --server
+#+end_src
+
+#+begin_src emacs-lisp
+  (defun my/cargo-run ()
+    "Build and run Rust code."
+    (interactive)
+    (rustic-cargo-run)
+    (let ((orig-win (selected-window))
+          (run-win (display-buffer (get-buffer "*rustic-compilation*") nil 'visible)))
+      (select-window run-win)
+      (comint-mode)
+      (read-only-mode 0)
+      (select-window orig-win)))
+
+  (use-package rustic
+    :bind ("C-c r" . my/cargo-run)
+    :hook (rust-mode . lsp)
+    :config (setq rustic-format-on-save t)
+    :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
+#+end_src
+
 * Text-Setup
 ** Org-Mode
 

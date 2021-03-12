@@ -79,6 +79,10 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
 
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package dashboard
   :config
   (setq dashboard-startup-banner nil)
@@ -207,6 +211,23 @@
   :ensure nil
   :custom
   (python-shell-interpreter "python3"))
+
+(defun my/cargo-run ()
+  "Build and run Rust code."
+  (interactive)
+  (rustic-cargo-run)
+  (let ((orig-win (selected-window))
+        (run-win (display-buffer (get-buffer "*rustic-compilation*") nil 'visible)))
+    (select-window run-win)
+    (comint-mode)
+    (read-only-mode 0)
+    (select-window orig-win)))
+
+(use-package rustic
+  :bind ("C-c r" . my/cargo-run)
+  :hook (rust-mode . lsp)
+  :config (setq rustic-format-on-save t)
+  :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
 
 (defun my/org-mode-hook ()
   (org-indent-mode)

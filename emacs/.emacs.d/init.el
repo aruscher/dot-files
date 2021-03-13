@@ -172,13 +172,6 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :config
-  (lsp-enable-which-key-integration t))
-
 (use-package company
   :hook (prog-mode . company-mode)
   :config
@@ -187,6 +180,13 @@
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
 
 (use-package paredit)
 
@@ -224,10 +224,18 @@
     (select-window orig-win)))
 
 (use-package rustic
-  :bind ("C-c r" . my/cargo-run)
+  :bind (:map rustic-mode-map
+              ("C-c r" . my/cargo-run))
   :hook (rust-mode . lsp)
   :config (setq rustic-format-on-save t)
   :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
+
+(use-package sly
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+(use-package sly-macrostep
+  :ensure t)
 
 (defun my/org-mode-hook ()
   (org-indent-mode)

@@ -264,8 +264,6 @@ Elfeed is RSS client for emacs.
           (list "~/.emacs.d/feeds.org")))
 #+end_src
 
-#+RESULTS:
-
 * Programming-Setup
 ** General Packages
 *** Rainbow-Delimiters
@@ -274,16 +272,6 @@ Use rainbow-delimters to make your delimiters colorfull.
 #+begin_src emacs-lisp
       (use-package rainbow-delimiters
 	:hook (prog-mode . rainbow-delimiters-mode))
-#+end_src
-*** Language-Server
-
-#+begin_src emacs-lisp
-  (use-package lsp-mode
-    :commands (lsp lsp-deferred)
-    :init
-    (setq lsp-keymap-prefix "C-c l")
-    :config
-    (lsp-enable-which-key-integration t))
 #+end_src
 *** Company-Mode
 
@@ -298,6 +286,17 @@ Use rainbow-delimters to make your delimiters colorfull.
     :hook (company-mode . company-box-mode))
 #+end_src
 
+*** Language-Server
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :config
+    (lsp-enable-which-key-integration t))
+
+#+end_src
 *** Paredit
 
 #+begin_src emacs-lisp
@@ -361,10 +360,21 @@ You have to install some things before using rust.
       (select-window orig-win)))
 
   (use-package rustic
-    :bind ("C-c r" . my/cargo-run)
+    :bind (:map rustic-mode-map
+                ("C-c r" . my/cargo-run))
     :hook (rust-mode . lsp)
     :config (setq rustic-format-on-save t)
     :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
+#+end_src
+
+*** Common Lisp
+#+begin_src emacs-lisp
+  (use-package sly
+    :config
+    (setq inferior-lisp-program "sbcl"))
+
+  (use-package sly-macrostep
+    :ensure t)
 #+end_src
 
 * Text-Setup

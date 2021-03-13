@@ -198,6 +198,12 @@
                 flycheck-highlighting-mode 'lines
                 flycheck-emacs-lisp-load-path 'inherit))
 
+(defun my/lisp-mode-hook ()
+  (enable-paredit-mode))
+
+(add-hook 'lisp-mode-hook
+          #'my/lisp-mode-hook)
+
 (defun my/emacs-mode-hook ()
   (paredit-mode t)
   (flycheck-mode)
@@ -206,6 +212,13 @@
 (use-package emacs-lisp-mode
   :ensure nil
   :hook (emacs-lisp-mode . my/emacs-mode-hook))
+
+(use-package sly
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+(use-package sly-macrostep
+  :ensure t)
 
 (use-package python
   :ensure nil
@@ -229,13 +242,6 @@
   :hook (rust-mode . lsp)
   :config (setq rustic-format-on-save t)
   :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
-
-(use-package sly
-  :config
-  (setq inferior-lisp-program "sbcl"))
-
-(use-package sly-macrostep
-  :ensure t)
 
 (defun my/org-mode-hook ()
   (org-indent-mode)

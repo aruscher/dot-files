@@ -315,7 +315,18 @@ Use rainbow-delimters to make your delimiters colorfull.
 #+end_src
 
 ** Languages
-*** Emacs Lisp
+*** Lisp
+**** General Lisp
+
+#+begin_src emacs-lisp
+  (defun my/lisp-mode-hook ()
+    (enable-paredit-mode))
+
+  (add-hook 'lisp-mode-hook
+            #'my/lisp-mode-hook)
+#+end_src
+
+**** Emacs Lisp
 
 #+begin_src emacs-lisp
   (defun my/emacs-mode-hook ()
@@ -326,6 +337,17 @@ Use rainbow-delimters to make your delimiters colorfull.
   (use-package emacs-lisp-mode
     :ensure nil
     :hook (emacs-lisp-mode . my/emacs-mode-hook))
+#+end_src
+
+**** Common Lisp
+
+#+begin_src emacs-lisp
+  (use-package sly
+    :config
+    (setq inferior-lisp-program "sbcl"))
+
+  (use-package sly-macrostep
+    :ensure t)
 #+end_src
 
 *** Python
@@ -365,16 +387,6 @@ You have to install some things before using rust.
     :hook (rust-mode . lsp)
     :config (setq rustic-format-on-save t)
     :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
-#+end_src
-
-*** Common Lisp
-#+begin_src emacs-lisp
-  (use-package sly
-    :config
-    (setq inferior-lisp-program "sbcl"))
-
-  (use-package sly-macrostep
-    :ensure t)
 #+end_src
 
 * Text-Setup

@@ -214,8 +214,10 @@
   :hook (emacs-lisp-mode . my/emacs-mode-hook))
 
 (use-package sly
+  :hook (lisp-mode . sly-editing-mode)
   :config
-  (setq inferior-lisp-program "sbcl"))
+  (setq inferior-lisp-program "sbcl")
+  (sly-setup))
 
 (use-package sly-macrostep
   :ensure t)

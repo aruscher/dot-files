@@ -6,6 +6,18 @@
 This is my new emacs configuration from scretch.
 This time I hope not to clutter everything by getting a better structure and only installing the packages I really need.
   
+* Move Backups and Custom-Files
+#+begin_src emacs-lisp
+  ;; Move backup directory to .emacs.d/backups
+  (defvar my/backup-directory
+    (expand-file-name "backups" user-emacs-directory)) 
+  (setq backup-directory-alist (list (cons "." my/backup-directory)))
+
+  ;; Move custom file to ~/.emacs.d/custom.el
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (when (file-exists-p custom-file)
+    (load custom-file))
+#+end_src
 * Configure Emacs GUI Stuff
 
 By default Emacs comes with a lots of annoying bars and menues etc. I don't want them:
@@ -312,6 +324,20 @@ Use rainbow-delimters to make your delimiters colorfull.
     (setq-default flycheck-emacs-lisp-initialize-packages t
                   flycheck-highlighting-mode 'lines
                   flycheck-emacs-lisp-load-path 'inherit))
+#+end_src
+*** Highlight Todos
+#+begin_src emacs-lisp
+  (use-package hl-todo
+    :hook (prog-mode . hl-todo-mode)
+    :config
+    (setq hl-todo-highlight-punctuation ":"
+          hl-todo-keyword-faces
+          `(("TODO"       warning bold)
+            ("FIXME"      error bold)
+            ("HACK"       font-lock-constant-face bold)
+            ("REVIEW"     font-lock-keyword-face bold)
+            ("NOTE"       success bold)
+            ("DEPRECATED" font-lock-doc-face bold))))
 #+end_src
 
 ** Languages

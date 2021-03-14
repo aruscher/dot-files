@@ -1,3 +1,13 @@
+;; Move backup directory to .emacs.d/backups
+(defvar my/backup-directory
+  (expand-file-name "backups" user-emacs-directory)) 
+(setq backup-directory-alist (list (cons "." my/backup-directory)))
+
+;; Move custom file to ~/.emacs.d/custom.el
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
@@ -197,6 +207,18 @@
   (setq-default flycheck-emacs-lisp-initialize-packages t
                 flycheck-highlighting-mode 'lines
                 flycheck-emacs-lisp-load-path 'inherit))
+
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold))))
 
 (defun my/lisp-mode-hook ()
   (enable-paredit-mode))

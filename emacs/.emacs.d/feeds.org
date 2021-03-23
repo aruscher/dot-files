@@ -17,3 +17,5 @@
 ** News                                                                :news:
 *** http://quillette.com/feed/
 *** https://aeon.co/feed.rss
+*** http://service.mvnet.de/_php/feedcreator/feeds/feed_Regierungsportal_106.xml
+*** https://www.rostock-heute.de/feed

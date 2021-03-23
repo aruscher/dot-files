@@ -278,3 +278,7 @@
 (use-package org
   :hook  ((org-mode . my/org-mode-hook)
           (org-src-mode . my/disable-emacs-checkdoc)))
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode))

@@ -1,9 +1,9 @@
-;; Move backup directory to .emacs.d/backups
+; Move backup directory to .emacs.d/backups
 (defvar my/backup-directory
   (expand-file-name "backups" user-emacs-directory)) 
 (setq backup-directory-alist (list (cons "." my/backup-directory)))
 
-;; Move custom file to ~/.emacs.d/custom.el
+; Move custom file to ~/.emacs.d/custom.el
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -14,12 +14,12 @@
 (tooltip-mode -1)           ; Disable tooltips
 (defalias 'yes-or-no-p 'y-or-n-p) ; Remap yes-or-no to y-or-n
 
-(defalias 'yes-or-no-p 'y-or-n-p) ; Remap yes-or-no to y-or-n
 (column-number-mode) ; Show line number and column in the minibuffer
 (global-display-line-numbers-mode t) ; Show line numbers on the side
 (global-hl-line-mode t) ; Highlight the current line
 (show-paren-mode t) ; Show matching parens
 
+;; Don't show line numbers in shell-modes
 (dolist (mode '(term-mode-hook eshell-mode-hook shell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -236,7 +236,8 @@
   :hook (emacs-lisp-mode . my/emacs-mode-hook))
 
 (use-package sly
-  :hook (lisp-mode . sly-editing-mode)
+  :hook ((lisp-mode . sly-editing-mode)
+         (sly-mrepl-mode . company-mode))
   :config
   (setq inferior-lisp-program "sbcl")
   (sly-setup))

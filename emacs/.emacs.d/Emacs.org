@@ -427,6 +427,10 @@ Some nice configurations for org-mode.
     (org-indent-mode)
     (visual-line-mode 1))
 
+  (defvar my-org-directory "~/ORG-MyLife")
+  (defvar my-org-todo-file (expand-file-name "todos.org" my-org-directory))
+
+
   (defun my/disable-emacs-checkdoc ()
     (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
@@ -434,9 +438,12 @@ Some nice configurations for org-mode.
     :hook  ((org-mode . my/org-mode-hook)
             (org-src-mode . my/disable-emacs-checkdoc))
     :config
-    (let ((my-org-dir "~/ORG-MyLife"))
-      (when (file-exists-p my-org-dir)
-        (setq org-directory my-org-dir))))
+    (when (file-exists-p my-org-directory)
+      (setq org-directory my-org-directory)
+      (setq org-agenda-files (list my-org-todo-file)))
+    (setq org-agenda-start-with-log-mode t
+          org-log-done 'time
+          org-log-into-drawer t))
 
   (use-package org-bullets
     :after org

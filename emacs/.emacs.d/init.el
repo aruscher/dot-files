@@ -273,7 +273,9 @@
   (visual-line-mode 1))
 
 (defvar my-org-directory "~/ORG-MyLife")
-(defvar my-org-bibliography "~/ORG-MyLife/bibliography.bib")
+(defvar my-org-todo-file "~/ORG-MyLife/todos.org")
+(defvar my-org-roam-directory "~/ORG-MyLife/roam")
+(defvar my-org-bibliography-file "~/ORG-MyLife/bibliography.bib")
 
 (defun my/disable-emacs-checkdoc ()
   (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
@@ -282,12 +284,16 @@
   :hook  ((org-mode . my/org-mode-hook)
           (org-src-mode . my/disable-emacs-checkdoc))
   :config
-  ;; (when (file-exists-p my-org-directory)
-  ;;   (setq org-directory my-org-directory)
-  ;;   (setq org-agenda-files (list my-org-todo-file)))
+  (setq org-directory my-org-directory)
+  (setq org-agenda-files (list my-org-todo-file))
+
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
-        org-log-into-drawer t))
+        org-log-into-drawer t)
+
+  (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline my-org-todo-file "Tasks")
+                               "* TODO %i%?"))))
 
 (use-package org-bullets
   :after org
@@ -297,15 +303,15 @@
 
 (use-package org-ref
   :config
-  (setq org-ref-default-bibliography (list my-org-bibliography)
-        bibtex-completion-bibliography (list my-org-bibliography)))
+  (setq org-ref-default-bibliography (list my-org-bibliography-file)
+        bibtex-completion-bibliography (list my-org-bibliography-file)))
 
 (use-package org-roam
       :ensure t
       :hook
       (after-init . org-roam-mode)
       :custom
-      (org-roam-directory my-org-directory)
+      (org-roam-directory my-org-roam-directory)
       :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)

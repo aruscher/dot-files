@@ -119,3 +119,4 @@ private/
 /new-emacs/ido.last
 /emacs/.emacs.d/.last-package-update-day
 /emacs/.emacs.d/.lsp-session-v1
+/emacs/.emacs.d/custom.el

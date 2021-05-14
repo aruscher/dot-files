@@ -380,12 +380,17 @@ Use rainbow-delimters to make your delimiters colorfull.
     :ensure t)
 #+end_src
 *** Python
-
 #+begin_src emacs-lisp
   (use-package python
     :ensure nil
     :custom
     (python-shell-interpreter "python3"))
+
+  (use-package lsp-pyright
+    :ensure t
+    :hook (python-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp-deferred))))
 #+end_src
 
 *** Rust

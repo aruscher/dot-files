@@ -250,6 +250,12 @@
   :custom
   (python-shell-interpreter "python3"))
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred))))
+
 (defun my/cargo-run ()
   "Build and run Rust code."
   (interactive)

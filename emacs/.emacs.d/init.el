@@ -274,6 +274,10 @@
   :config (setq rustic-format-on-save t)
   :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
 
+(use-package graphviz-dot-mode
+  :config
+  (setq graphviz-dot-indent-width 4))
+
 (defun my/org-mode-hook ()
   (org-indent-mode)
   (visual-line-mode 1))
@@ -298,8 +302,9 @@
         org-log-into-drawer t)
 
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                               (file+headline my-org-todo-file "Tasks")
-                               "* TODO %i%?"))))
+                                 (file+headline my-org-todo-file "Tasks")
+                                 "* TODO %i%?")))
+  (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
 (use-package org-bullets
   :after org
@@ -312,16 +317,22 @@
   (setq org-ref-default-bibliography (list my-org-bibliography-file)
         bibtex-completion-bibliography (list my-org-bibliography-file)))
 
+(defun my/rebuild-roam-db ()
+  (interactive)
+  (org-roam-db-clear)
+  (org-roam-db-update))
+
 (use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory my-org-roam-directory)
-      :bind (:map org-roam-mode-map
+  :ensure t
+  :hook
+  (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory my-org-roam-directory)
+  :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph))
+               ("C-c n g" . org-roam-graph)
+               ("C-c n r" . my/rebuild-roam-db))
               :map org-mode-map
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))

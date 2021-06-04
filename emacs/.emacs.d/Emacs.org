@@ -494,6 +494,33 @@ Some nice configurations for org-mode.
                 (("C-c n i" . org-roam-insert))
                 (("C-c n I" . org-roam-insert-immediate))))
 
+  (use-package org-journal
+    :after org
+    :bind (("C-c T" . org-journal-new-entry)
+           ("C-c Y" . journal-file-yesterday))
+    :preface
+    (defun get-journal-file-yesterday ()
+      "Gets filename for yesterday's journal entry."
+      (let* ((yesterday (time-subtract (current-time) (days-to-time 1)))
+             (daily-name (format-time-string "%Y%m%d" yesterday)))
+        (expand-file-name (concat org-journal-dir daily-name ".org"))))
+
+    (defun journal-file-yesterday ()
+      "Creates and load a file based on yesterday's date."
+      (interactive)
+      (find-file (get-journal-file-yesterday)))
+    :custom
+    (org-journal-date-format "%e %b %Y (%A)")
+    (org-journal-dir (format "~/ORG-MyLife/journal/" (format-time-string "%Y")))
+    (org-journal-enable-encryption t)
+    (org-journal-file-format "%Y%m%d.org")
+    (org-journal-time-format ""))
+
+   (use-package org-crypt
+     :ensure nil
+          :after org
+     :init (org-crypt-use-before-save-magic)
+     :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
 #+end_src
 ** Provenance
 #+begin_src emacs-lisp

@@ -320,6 +320,14 @@
               (("C-c n i" . org-roam-insert))
               (("C-c n I" . org-roam-insert-immediate))))
 
+(use-package prov-macs
+  :ensure nil
+  :load-path "~/.emacs.d/my-packages/prov-macs")
+
+(use-package pdf-tools
+  :config (pdf-tools-install)
+  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode nil))))
+
 (defun my/open-config ()
   (interactive)
   (find-file (expand-file-name "Emacs.org" user-emacs-directory)))

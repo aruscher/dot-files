@@ -15,6 +15,7 @@
 *** https://www.sicpers.info/feed/rss
 *** [[https://www.hoheluft-magazin.de/feed/][Hoheluft Magazin]]
 *** https://esoteric.codes/rss
+*** http://catless.ncl.ac.uk/risksrss2.xml
 ** News                                                                :news:
 *** http://quillette.com/feed/
 *** https://aeon.co/feed.rss

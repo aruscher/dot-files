@@ -495,6 +495,19 @@ Some nice configurations for org-mode.
                 (("C-c n I" . org-roam-insert-immediate))))
 
 #+end_src
+** Provenance
+#+begin_src emacs-lisp
+  (use-package prov-macs
+    :ensure nil
+    :load-path "~/.emacs.d/my-packages/prov-macs")
+#+end_src
+* Reader
+** PDF-Tools
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :config (pdf-tools-install)
+    :hook (pdf-view-mode . (lambda () (display-line-numbers-mode nil))))
+#+end_src
 * Some helper functions 
 #+begin_src emacs-lisp
   (defun my/open-config ()

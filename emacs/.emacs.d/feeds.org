@@ -16,6 +16,7 @@
 *** [[https://www.hoheluft-magazin.de/feed/][Hoheluft Magazin]]
 *** https://esoteric.codes/rss
 *** http://catless.ncl.ac.uk/risksrss2.xml
+*** https://zettelkasten.de/feed.atom
 ** News                                                                :news:
 *** http://quillette.com/feed/
 *** https://aeon.co/feed.rss

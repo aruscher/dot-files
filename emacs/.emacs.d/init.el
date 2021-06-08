@@ -60,6 +60,10 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 
+(use-package quelpa-use-package
+  :init (setq quelpa-update-melpa-p nil)
+  :config (quelpa-use-package-activate-advice))
+
 (set-face-attribute 'default nil
 		    :family "Fira Code Retina"
 		    :height 110
@@ -310,7 +314,7 @@
   :after org
   :hook (org-mode . org-bullets-mode))
 
-(use-package org-roam-bibtex)
+;; (use-package org-roam-bibtex)
 
 (use-package org-ref
   :config
@@ -322,20 +326,31 @@
   (org-roam-db-clear)
   (org-roam-db-update))
 
+;; (use-package org-roam
+;;   :ensure t
+;;   :hook
+;;   (after-init . org-roam-mode)
+;;   :custom
+;;   (org-roam-directory my-org-roam-directory)
+  ;; :bind (:map org-roam-mode-map
+  ;;             (("C-c n l" . org-roam)
+  ;;              ("C-c n f" . org-roam-find-file)
+  ;;              ("C-c n g" . org-roam-graph)
+  ;;              ("C-c n r" . my/rebuild-roam-db))
+  ;;             :map org-mode-map
+  ;;             (("C-c n i" . org-roam-insert))
+  ;;             (("C-c n I" . org-roam-insert-immediate))))
+
 (use-package org-roam
-  :ensure t
-  :hook
-  (after-init . org-roam-mode)
+  :quelpa ((org-roam :fetcher github
+                     :repo "aruscher/org-roam"
+                     :branch "v2"))
   :custom
   (org-roam-directory my-org-roam-directory)
-  :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-graph)
-               ("C-c n r" . my/rebuild-roam-db))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))
-              (("C-c n I" . org-roam-insert-immediate))))
+  :commands (org-roam-setup)
+  :config (org-roam-setup))
+
+(use-package emacsql-sqlite)
 
 (use-package org-journal
   :after org

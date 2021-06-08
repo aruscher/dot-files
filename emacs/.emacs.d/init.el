@@ -348,6 +348,18 @@
   :custom
   (org-roam-directory my-org-roam-directory)
   :commands (org-roam-setup)
+    ;;             (("C-c n l" . org-roam)
+  ;;              ("C-c n f" . org-roam-find-file)
+  ;;              ("C-c n g" . org-roam-graph)
+  ;;              ("C-c n r" . my/rebuild-roam-db))
+  ;;             :map org-mode-map
+  ;;             (("C-c n i" . org-roam-insert))
+  ;;             (("C-c n I" . org-roam-insert-immediate))))
+
+  :bind (("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n l" . org-roam-buffer-toggle))
+
   :config (org-roam-setup))
 
 (use-package emacsql-sqlite)

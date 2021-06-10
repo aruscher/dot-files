@@ -94,6 +94,13 @@ Instead of using the Emacs' own package manager, I'm going to use [[https://gith
     (auto-package-update-maybe)
     (auto-package-update-at-time "09:00"))
 #+end_src
+
+#+begin_src emacs-lisp
+  (use-package quelpa-use-package
+    :init (setq quelpa-update-melpa-p nil)
+    :config (quelpa-use-package-activate-advice))
+#+end_src
+
 * Font, Theme and Modeline 
 ** Font Configuration
   
@@ -467,7 +474,7 @@ Some nice configurations for org-mode.
     :after org
     :hook (org-mode . org-bullets-mode))
 
-  (use-package org-roam-bibtex)
+  ;; (use-package org-roam-bibtex)
 
   (use-package org-ref
     :config
@@ -479,20 +486,35 @@ Some nice configurations for org-mode.
     (org-roam-db-clear)
     (org-roam-db-update))
 
+  ;; (use-package org-roam
+  ;;   :ensure t
+  ;;   :hook
+  ;;   (after-init . org-roam-mode)
+  ;;   :custom
+  ;;   (org-roam-directory my-org-roam-directory)
+    ;; :bind (:map org-roam-mode-map
+    ;;             (("C-c n l" . org-roam)
+    ;;              ("C-c n f" . org-roam-find-file)
+    ;;              ("C-c n g" . org-roam-graph)
+    ;;              ("C-c n r" . my/rebuild-roam-db))
+    ;;             :map org-mode-map
+    ;;             (("C-c n i" . org-roam-insert))
+    ;;             (("C-c n I" . org-roam-insert-immediate))))
+
   (use-package org-roam
-    :ensure t
-    :hook
-    (after-init . org-roam-mode)
+    :quelpa ((org-roam :fetcher github
+                       :repo "aruscher/org-roam"
+                       :branch "v2"))
     :custom
     (org-roam-directory my-org-roam-directory)
-    :bind (:map org-roam-mode-map
-                (("C-c n l" . org-roam)
-                 ("C-c n f" . org-roam-find-file)
-                 ("C-c n g" . org-roam-graph)
-                 ("C-c n r" . my/rebuild-roam-db))
-                :map org-mode-map
-                (("C-c n i" . org-roam-insert))
-                (("C-c n I" . org-roam-insert-immediate))))
+    :commands (org-roam-setup)
+    :bind (("C-c n f" . org-roam-node-find)
+           ("C-c n i" . org-roam-node-insert)
+           ("C-c n l" . org-roam-buffer-toggle))
+
+    :config (org-roam-setup))
+
+  (use-package emacsql-sqlite)
 
   (use-package org-journal
     :after org

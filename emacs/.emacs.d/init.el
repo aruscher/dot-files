@@ -343,15 +343,15 @@
 
 (use-package org-roam
   :quelpa ((org-roam :fetcher github
-                     :repo "aruscher/org-roam"
+                     :repo "org-roam/org-roam"
                      :branch "v2"))
   :custom
   (org-roam-directory my-org-roam-directory)
   :commands (org-roam-setup)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
+         ("C-c n g" . org-roam-graph)
          ("C-c n l" . org-roam-buffer-toggle))
-
   :config (org-roam-setup))
 
 (use-package emacsql-sqlite)
@@ -385,8 +385,9 @@
    :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
 
 (use-package prov-macs
-  :ensure nil
-  :load-path "~/.emacs.d/my-packages/prov-macs")
+  :quelpa ((prov-macs :fetcher github-ssh
+                      :repo "aruscher/prov-macs"
+                      :branch "main")))
 
 (use-package pdf-tools
   :config (pdf-tools-install)

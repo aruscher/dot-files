@@ -445,47 +445,47 @@ Some nice configurations for org-mode.
   (defun my/org-mode-hook ()
     (org-indent-mode)
     (visual-line-mode 1))
-
+  
   (defvar my-org-directory "~/ORG-MyLife")
   (defvar my-org-todo-file "~/ORG-MyLife/todos.org")
   (defvar my-org-roam-directory "~/ORG-MyLife/roam")
   (defvar my-org-bibliography-file "~/ORG-MyLife/bibliography.bib")
-
+  
   (defun my/disable-emacs-checkdoc ()
     (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
-
+  
   (use-package org
     :hook  ((org-mode . my/org-mode-hook)
             (org-src-mode . my/disable-emacs-checkdoc))
     :config
     (setq org-directory my-org-directory)
     (setq org-agenda-files (list my-org-todo-file))
-
+  
     (setq org-agenda-start-with-log-mode t
           org-log-done 'time
           org-log-into-drawer t)
-
+  
     (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                    (file+headline my-org-todo-file "Tasks")
                                    "* TODO %i%?")))
     (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
-
+  
   (use-package org-bullets
     :after org
     :hook (org-mode . org-bullets-mode))
-
+  
   ;; (use-package org-roam-bibtex)
-
+  
   (use-package org-ref
     :config
     (setq org-ref-default-bibliography (list my-org-bibliography-file)
           bibtex-completion-bibliography (list my-org-bibliography-file)))
-
+  
   (defun my/rebuild-roam-db ()
     (interactive)
     (org-roam-db-clear)
     (org-roam-db-update))
-
+  
   ;; (use-package org-roam
   ;;   :ensure t
   ;;   :hook
@@ -500,22 +500,22 @@ Some nice configurations for org-mode.
     ;;             :map org-mode-map
     ;;             (("C-c n i" . org-roam-insert))
     ;;             (("C-c n I" . org-roam-insert-immediate))))
-
+  
   (use-package org-roam
     :quelpa ((org-roam :fetcher github
-                       :repo "aruscher/org-roam"
+                       :repo "org-roam/org-roam"
                        :branch "v2"))
     :custom
     (org-roam-directory my-org-roam-directory)
     :commands (org-roam-setup)
     :bind (("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
+           ("C-c n g" . org-roam-graph)
            ("C-c n l" . org-roam-buffer-toggle))
-
     :config (org-roam-setup))
-
+  
   (use-package emacsql-sqlite)
-
+  
   (use-package org-journal
     :after org
     :bind (("C-c T" . org-journal-new-entry)
@@ -526,7 +526,7 @@ Some nice configurations for org-mode.
       (let* ((yesterday (time-subtract (current-time) (days-to-time 1)))
              (daily-name (format-time-string "%Y%m%d" yesterday)))
         (expand-file-name (concat org-journal-dir daily-name ".org"))))
-
+  
     (defun journal-file-yesterday ()
       "Creates and load a file based on yesterday's date."
       (interactive)
@@ -537,7 +537,7 @@ Some nice configurations for org-mode.
     (org-journal-enable-encryption t)
     (org-journal-file-format "%Y%m%d.org")
     (org-journal-time-format ""))
-
+  
    (use-package org-crypt
      :ensure nil
           :after org
@@ -547,8 +547,9 @@ Some nice configurations for org-mode.
 ** Provenance
 #+begin_src emacs-lisp
   (use-package prov-macs
-    :ensure nil
-    :load-path "~/.emacs.d/my-packages/prov-macs")
+    :quelpa ((prov-macs :fetcher github-ssh
+                        :repo "aruscher/prov-macs"
+                        :branch "main")))
 #+end_src
 * Reader
 ** PDF-Tools

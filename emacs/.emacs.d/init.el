@@ -241,13 +241,29 @@
 
 (use-package sly
   :hook ((lisp-mode . sly-editing-mode)
-         (sly-mrepl-mode . company-mode))
+         (sly-mrepl-mode . company-mode)
+         (sly-mrepl-mode . paredit-mode))
   :config
   (setq inferior-lisp-program "sbcl")
   (sly-setup))
 
 (use-package sly-macrostep
   :ensure t)
+
+
+(use-package sly-quicklisp
+  :ensure t
+  :defer t
+  :after sly
+  :commands (sly-quickload))
+
+(use-package sly-asdf
+  :ensure t
+  :defer t
+  :after sly
+  :config
+  (add-to-list 'sly-contribs 'sly-asdf 'append)
+  (sly-setup sly-contribs))
 
 (use-package python
   :ensure nil
@@ -332,14 +348,14 @@
 ;;   (after-init . org-roam-mode)
 ;;   :custom
 ;;   (org-roam-directory my-org-roam-directory)
-  ;; :bind (:map org-roam-mode-map
-  ;;             (("C-c n l" . org-roam)
-  ;;              ("C-c n f" . org-roam-find-file)
-  ;;              ("C-c n g" . org-roam-graph)
-  ;;              ("C-c n r" . my/rebuild-roam-db))
-  ;;             :map org-mode-map
-  ;;             (("C-c n i" . org-roam-insert))
-  ;;             (("C-c n I" . org-roam-insert-immediate))))
+;; :bind (:map org-roam-mode-map
+;;             (("C-c n l" . org-roam)
+;;              ("C-c n f" . org-roam-find-file)
+;;              ("C-c n g" . org-roam-graph)
+;;              ("C-c n r" . my/rebuild-roam-db))
+;;             :map org-mode-map
+;;             (("C-c n i" . org-roam-insert))
+;;             (("C-c n I" . org-roam-insert-immediate))))
 
 (use-package org-roam
   :quelpa ((org-roam :fetcher github
@@ -378,11 +394,11 @@
   (org-journal-file-format "%Y%m%d.org")
   (org-journal-time-format ""))
 
- (use-package org-crypt
-   :ensure nil
-        :after org
-   :init (org-crypt-use-before-save-magic)
-   :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
+;; (use-package org-crypt
+;;   :ensure nil
+;;   :after org
+;;   :init (org-crypt-use-before-save-magic)
+;;   :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
 
 (use-package prov-macs
   :quelpa ((prov-macs :fetcher github-ssh

@@ -378,13 +378,29 @@ Use rainbow-delimters to make your delimiters colorfull.
 #+begin_src emacs-lisp
   (use-package sly
     :hook ((lisp-mode . sly-editing-mode)
-           (sly-mrepl-mode . company-mode))
+           (sly-mrepl-mode . company-mode)
+           (sly-mrepl-mode . paredit-mode))
     :config
     (setq inferior-lisp-program "sbcl")
     (sly-setup))
 
   (use-package sly-macrostep
     :ensure t)
+
+
+  (use-package sly-quicklisp
+    :ensure t
+    :defer t
+    :after sly
+    :commands (sly-quickload))
+
+  (use-package sly-asdf
+    :ensure t
+    :defer t
+    :after sly
+    :config
+    (add-to-list 'sly-contribs 'sly-asdf 'append)
+    (sly-setup sly-contribs))
 #+end_src
 *** Python
 #+begin_src emacs-lisp
@@ -445,62 +461,62 @@ Some nice configurations for org-mode.
   (defun my/org-mode-hook ()
     (org-indent-mode)
     (visual-line-mode 1))
-  
+
   (defvar my-org-directory "~/ORG-MyLife")
   (defvar my-org-todo-file "~/ORG-MyLife/todos.org")
   (defvar my-org-roam-directory "~/ORG-MyLife/roam")
   (defvar my-org-bibliography-file "~/ORG-MyLife/bibliography.bib")
-  
+
   (defun my/disable-emacs-checkdoc ()
     (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
-  
+
   (use-package org
     :hook  ((org-mode . my/org-mode-hook)
             (org-src-mode . my/disable-emacs-checkdoc))
     :config
     (setq org-directory my-org-directory)
     (setq org-agenda-files (list my-org-todo-file))
-  
+
     (setq org-agenda-start-with-log-mode t
           org-log-done 'time
           org-log-into-drawer t)
-  
+
     (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                    (file+headline my-org-todo-file "Tasks")
                                    "* TODO %i%?")))
     (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
-  
+
   (use-package org-bullets
     :after org
     :hook (org-mode . org-bullets-mode))
-  
+
   ;; (use-package org-roam-bibtex)
-  
+
   (use-package org-ref
     :config
     (setq org-ref-default-bibliography (list my-org-bibliography-file)
           bibtex-completion-bibliography (list my-org-bibliography-file)))
-  
+
   (defun my/rebuild-roam-db ()
     (interactive)
     (org-roam-db-clear)
     (org-roam-db-update))
-  
+
   ;; (use-package org-roam
   ;;   :ensure t
   ;;   :hook
   ;;   (after-init . org-roam-mode)
   ;;   :custom
   ;;   (org-roam-directory my-org-roam-directory)
-    ;; :bind (:map org-roam-mode-map
-    ;;             (("C-c n l" . org-roam)
-    ;;              ("C-c n f" . org-roam-find-file)
-    ;;              ("C-c n g" . org-roam-graph)
-    ;;              ("C-c n r" . my/rebuild-roam-db))
-    ;;             :map org-mode-map
-    ;;             (("C-c n i" . org-roam-insert))
-    ;;             (("C-c n I" . org-roam-insert-immediate))))
-  
+  ;; :bind (:map org-roam-mode-map
+  ;;             (("C-c n l" . org-roam)
+  ;;              ("C-c n f" . org-roam-find-file)
+  ;;              ("C-c n g" . org-roam-graph)
+  ;;              ("C-c n r" . my/rebuild-roam-db))
+  ;;             :map org-mode-map
+  ;;             (("C-c n i" . org-roam-insert))
+  ;;             (("C-c n I" . org-roam-insert-immediate))))
+
   (use-package org-roam
     :quelpa ((org-roam :fetcher github
                        :repo "org-roam/org-roam"
@@ -513,9 +529,9 @@ Some nice configurations for org-mode.
            ("C-c n g" . org-roam-graph)
            ("C-c n l" . org-roam-buffer-toggle))
     :config (org-roam-setup))
-  
+
   (use-package emacsql-sqlite)
-  
+
   (use-package org-journal
     :after org
     :bind (("C-c T" . org-journal-new-entry)
@@ -526,7 +542,7 @@ Some nice configurations for org-mode.
       (let* ((yesterday (time-subtract (current-time) (days-to-time 1)))
              (daily-name (format-time-string "%Y%m%d" yesterday)))
         (expand-file-name (concat org-journal-dir daily-name ".org"))))
-  
+
     (defun journal-file-yesterday ()
       "Creates and load a file based on yesterday's date."
       (interactive)
@@ -537,12 +553,12 @@ Some nice configurations for org-mode.
     (org-journal-enable-encryption t)
     (org-journal-file-format "%Y%m%d.org")
     (org-journal-time-format ""))
-  
-   (use-package org-crypt
-     :ensure nil
-          :after org
-     :init (org-crypt-use-before-save-magic)
-     :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
+
+  ;; (use-package org-crypt
+  ;;   :ensure nil
+  ;;   :after org
+  ;;   :init (org-crypt-use-before-save-magic)
+  ;;   :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
 #+end_src
 ** Provenance
 #+begin_src emacs-lisp

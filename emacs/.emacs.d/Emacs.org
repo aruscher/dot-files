@@ -557,6 +557,10 @@ Some nice configurations for org-mode.
   (use-package pdf-tools
     :config (pdf-tools-install)
     :hook (pdf-view-mode . (lambda () (display-line-numbers-mode nil))))
+
+  (use-package pdf-view-restore
+    :after pdf-tools
+    :hook(pdf-view-mode 'pdf-view-restore-mode))
 #+end_src
 * Some helper functions 
 #+begin_src emacs-lisp

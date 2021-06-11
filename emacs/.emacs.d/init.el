@@ -393,6 +393,10 @@
   :config (pdf-tools-install)
   :hook (pdf-view-mode . (lambda () (display-line-numbers-mode nil))))
 
+(use-package pdf-view-restore
+  :after pdf-tools
+  :hook(pdf-view-mode 'pdf-view-restore-mode))
+
 (defun my/open-config ()
   (interactive)
   (find-file (expand-file-name "Emacs.org" user-emacs-directory)))

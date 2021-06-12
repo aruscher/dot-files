@@ -250,12 +250,11 @@
 (use-package sly-macrostep
   :ensure t)
 
-
-(use-package sly-quicklisp
-  :ensure t
-  :defer t
-  :after sly
-  :commands (sly-quickload))
+;; (use-package sly-quicklisp
+;;   :ensure t
+;;   :defer t
+;;   :after sly
+;;   :commands (sly-quickload))
 
 (use-package sly-asdf
   :ensure t

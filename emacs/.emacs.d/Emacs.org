@@ -244,7 +244,7 @@ Should gives much more intelligence how to work with projects.
    
 Installing the true git client.
 #+begin_src emacs-lisp
-     (use-package magit)
+  (use-package magit)
 #+end_src
 ** Elfeed
 
@@ -383,17 +383,16 @@ Use rainbow-delimters to make your delimiters colorfull.
     :config
     (setq inferior-lisp-program "sbcl")
     (sly-setup))
-
+  
   (use-package sly-macrostep
     :ensure t)
-
-
-  (use-package sly-quicklisp
-    :ensure t
-    :defer t
-    :after sly
-    :commands (sly-quickload))
-
+  
+  ;; (use-package sly-quicklisp
+  ;;   :ensure t
+  ;;   :defer t
+  ;;   :after sly
+  ;;   :commands (sly-quickload))
+  
   (use-package sly-asdf
     :ensure t
     :defer t

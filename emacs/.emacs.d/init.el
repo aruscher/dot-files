@@ -250,20 +250,6 @@
 (use-package sly-macrostep
   :ensure t)
 
-;; (use-package sly-quicklisp
-;;   :ensure t
-;;   :defer t
-;;   :after sly
-;;   :commands (sly-quickload))
-
-(use-package sly-asdf
-  :ensure t
-  :defer t
-  :after sly
-  :config
-  (add-to-list 'sly-contribs 'sly-asdf 'append)
-  (sly-setup sly-contribs))
-
 (use-package python
   :ensure nil
   :custom

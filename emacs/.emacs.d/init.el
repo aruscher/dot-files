@@ -343,17 +343,23 @@
 ;;             (("C-c n I" . org-roam-insert-immediate))))
 
 (use-package org-roam
-  :quelpa ((org-roam :fetcher github
-                     :repo "org-roam/org-roam"
-                     :branch "v2"))
-  :custom
-  (org-roam-directory my-org-roam-directory)
-  :commands (org-roam-setup)
+  :after org
+  :load-path "./my-packages/org-roam"
+  :commands (org-roam-setup
+             org-roam-node-find
+             org-roam-node-insert
+             org-roam-graph
+             org-roam-buffer-toggle
+             org-roam-db-sync)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n g" . org-roam-graph)
+         ("C-c n s" . org-roam-db-sync)
          ("C-c n l" . org-roam-buffer-toggle))
-  :config (org-roam-setup))
+  :config
+  (setq org-roam-directory my-org-roam-directory
+        org-roam-file-extensions '("org"))
+  (org-roam-setup))
 
 (use-package emacsql-sqlite)
 

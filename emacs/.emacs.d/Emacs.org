@@ -285,6 +285,12 @@ Elfeed is RSS client for emacs.
     (setq rmh-elfeed-org-files
           (list "~/.emacs.d/feeds.org")))
 #+end_src
+** EMACS Startup Profiler
+#+begin_src emacs-lisp
+  (use-package esup
+    :config
+    (setq esup-depth 0))
+#+end_src
 
 * Programming-Setup
 ** General Packages
@@ -470,6 +476,7 @@ Some nice configurations for org-mode.
   ;; (use-package org-roam-bibtex)
   
   (use-package org-ref
+    :after org
     :config
     (setq org-ref-default-bibliography (list my-org-bibliography-file)
           bibtex-completion-bibliography (list my-org-bibliography-file)))
@@ -548,6 +555,7 @@ Some nice configurations for org-mode.
 ** PDF-Tools
 #+begin_src emacs-lisp
   (use-package pdf-tools
+    :defer 2
     :config (pdf-tools-install)
     :hook (pdf-view-mode . (lambda () (display-line-numbers-mode nil))))
   

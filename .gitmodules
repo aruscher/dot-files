@@ -1,6 +1,3 @@
 [submodule "emacs/.emacs.d/my-packages/prov-macs"]
 	path = emacs/.emacs.d/my-packages/prov-macs
 	url = git@github.com:aruscher/prov-macs.git
-[submodule "emacs/.emacs.d/my-packages/org-roam"]
-	path = emacs/.emacs.d/my-packages/org-roam
-	url = git@github.com:org-roam/org-roam.git

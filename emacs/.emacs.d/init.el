@@ -163,6 +163,10 @@
   (setq rmh-elfeed-org-files
         (list "~/.emacs.d/feeds.org")))
 
+(use-package esup
+  :config
+  (setq esup-depth 0))
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -261,6 +265,7 @@
 ;; (use-package org-roam-bibtex)
 
 (use-package org-ref
+  :after org
   :config
   (setq org-ref-default-bibliography (list my-org-bibliography-file)
         bibtex-completion-bibliography (list my-org-bibliography-file)))
@@ -329,6 +334,7 @@
 ;;   :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
 
 (use-package pdf-tools
+  :defer 2
   :config (pdf-tools-install)
   :hook (pdf-view-mode . (lambda () (display-line-numbers-mode nil))))
 

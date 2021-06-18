@@ -3,7 +3,7 @@
   (expand-file-name "backups" user-emacs-directory)) 
 (setq backup-directory-alist (list (cons "." my/backup-directory)))
 
-; Move custom file to ~/.emacs.d/custom.el
+                                        ; Move custom file to ~/.emacs.d/custom.el
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -26,55 +26,40 @@
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun my/org-babel-tangle-config ()
   (when (string-equal (file-name-directory (buffer-file-name))
-		      (file-truename (expand-file-name user-emacs-directory)))
+                      (file-truename (expand-file-name user-emacs-directory)))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
 
-;; Initialize package sources
-(require 'package)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;; Initialize use-package on non-Linux platforms
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-(use-package auto-package-update
-  :custom
-  (auto-package-update-interval 7)
-  (auto-package-update-prompt-before-update t)
-  (auto-package-update-hide-results t)
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "09:00"))
-
-(use-package quelpa-use-package
-  :init (setq quelpa-update-melpa-p nil)
-  :config (quelpa-use-package-activate-advice))
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
 (set-face-attribute 'default nil
-		    :family "Fira Code Retina"
-		    :height 110
-		    :weight 'normal
-		    :width 'normal)
+                    :family "Fira Code Retina"
+                    :height 110
+                    :weight 'normal
+                    :width 'normal)
 
 (set-face-attribute 'fixed-pitch nil
-		    :family "Fira Code Retina"
-		    :height 110
-		    :weight 'normal
-		    :width 'normal)
+                    :family "Fira Code Retina"
+                    :height 110
+                    :weight 'normal
+                    :width 'normal)
 
 (use-package doom-themes
   :config (load-theme 'doom-palenight t))
@@ -107,17 +92,15 @@
 
 (use-package which-key
   :init (which-key-mode)
-  :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
 
 (use-package counsel
-  :diminish
   :bind (("C-s" . swiper-isearch)
-	 ("M-x" . counsel-M-x)
-	 ("C-h a" . counsel-apropos)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file))
+         ("M-x" . counsel-M-x)
+         ("C-h a" . counsel-apropos)
+         ("C-x b" . counsel-ibuffer)
+         ("C-x C-f" . counsel-find-file))
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
@@ -138,8 +121,6 @@
   ([remap describe-key] . helpful-key))
 
 (use-package projectile
-  :diminish projectile
-  :config (projectile-mode)
   :custom ((projectile-completion-system 'ivy))
   :bind-keymap
   ("C-c p" . projectile-command-map)
@@ -148,7 +129,8 @@
         (seq-filter #'file-directory-p '("~/Code/Python" "~/Code/Common-Lisp")))
   (setq projectile-switch-project-action #'projectile-dired))
 
-(use-package magit)
+;; (use-package magit)
+(straight-use-package 'magit)
 
 (defun bjm/elfeed-load-db-and-open ()
   (interactive)
@@ -168,7 +150,6 @@
   (elfeed-search-untag-all-unread))
 
 (use-package elfeed
-  :ensure t
   :bind (:map elfeed-search-mode-map
               ("q" . bjm/elfeed-save-db-and-bury)
               ("Q" . bjm/elfeed-save-db-and-bury))
@@ -176,7 +157,6 @@
   (setq elfeed-db-directory "~/Dropbox/shared/elfeeddb"))
 
 (use-package elfeed-org
-  :ensure t
   :after elfeed
   :config
   (elfeed-org)
@@ -195,17 +175,9 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :config
-  (lsp-enable-which-key-integration t))
-
 (use-package paredit)
 
 (use-package flycheck
-  :defer t
   :hook (prog-mode . flycheck-mode)
   :config
   (setq-default flycheck-emacs-lisp-initialize-packages t
@@ -236,7 +208,7 @@
   (eldoc-mode t))
 
 (use-package emacs-lisp-mode
-  :ensure nil
+  :straight nil
   :hook (emacs-lisp-mode . my/emacs-mode-hook))
 
 (use-package sly
@@ -249,35 +221,6 @@
 
 (use-package sly-macrostep
   :ensure t)
-
-(use-package python
-  :ensure nil
-  :custom
-  (python-shell-interpreter "python3"))
-
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp-deferred))))
-
-(defun my/cargo-run ()
-  "Build and run Rust code."
-  (interactive)
-  (rustic-cargo-run)
-  (let ((orig-win (selected-window))
-        (run-win (display-buffer (get-buffer "*rustic-compilation*") nil 'visible)))
-    (select-window run-win)
-    (comint-mode)
-    (read-only-mode 0)
-    (select-window orig-win)))
-
-(use-package rustic
-  :bind (:map rustic-mode-map
-              ("C-c r" . my/cargo-run))
-  :hook (rust-mode . lsp)
-  :config (setq rustic-format-on-save t)
-  :custom (lsp-rust-analyzer-cargo-watch-command "clippy"))
 
 (use-package graphviz-dot-mode
   :config
@@ -343,23 +286,17 @@
 ;;             (("C-c n I" . org-roam-insert-immediate))))
 
 (use-package org-roam
-  :after org
-  :load-path "./my-packages/org-roam"
-  :commands (org-roam-setup
-             org-roam-node-find
-             org-roam-node-insert
-             org-roam-graph
-             org-roam-buffer-toggle
-             org-roam-db-sync)
+  :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "v2"
+                      :fork (:host github :repo "aruscher/org-roam" :branch "v2"))
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n g" . org-roam-graph)
          ("C-c n s" . org-roam-db-sync)
          ("C-c n l" . org-roam-buffer-toggle))
+  :hook (after-init . org-roam-setup)
   :config
   (setq org-roam-directory my-org-roam-directory
-        org-roam-file-extensions '("org"))
-  (org-roam-setup))
+        org-roam-file-extensions '("org")))
 
 (use-package emacsql-sqlite)
 
@@ -390,11 +327,6 @@
 ;;   :after org
 ;;   :init (org-crypt-use-before-save-magic)
 ;;   :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
-
-(use-package prov-macs
-  :quelpa ((prov-macs :fetcher github-ssh
-                      :repo "aruscher/prov-macs"
-                      :branch "main")))
 
 (use-package pdf-tools
   :config (pdf-tools-install)

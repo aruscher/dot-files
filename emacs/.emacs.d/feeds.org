@@ -18,6 +18,7 @@
 *** http://catless.ncl.ac.uk/risksrss2.xml
 *** https://zettelkasten.de/feed.atom
 *** https://erikhoel.substack.com/feed
+*** https://www.lesswrong.com/feed.xml?view=curated-rss
 ** News                                                                :news:
 *** http://quillette.com/feed/
 *** https://aeon.co/feed.rss

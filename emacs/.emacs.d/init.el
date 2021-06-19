@@ -286,7 +286,8 @@
   :hook (after-init . org-roam-setup)
   :config
   (setq org-roam-directory my-org-roam-directory
-        org-roam-file-extensions '("org")))
+        org-roam-file-extensions '("org")
+        org-roam-node-display-template "${title:*} ${tags:30}"))
 
 (use-package emacsql-sqlite)
 

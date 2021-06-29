@@ -230,6 +230,8 @@
   :config
   (setq graphviz-dot-indent-width 4))
 
+
+
 (defun my/org-mode-hook ()
   (org-indent-mode)
   (visual-line-mode 1))
@@ -237,6 +239,7 @@
 (defvar my-org-directory "~/ORG-MyLife")
 (defvar my-org-todo-file "~/ORG-MyLife/todos.org")
 (defvar my-org-roam-directory "~/ORG-MyLife/roam")
+(defvar my-org-roam-dailies-directory "~/ORG-MyLife/dailies")
 (defvar my-org-bibliography-file "~/ORG-MyLife/bibliography.bib")
 
 (defun my/disable-emacs-checkdoc ()
@@ -291,33 +294,17 @@
 
 (use-package emacsql-sqlite)
 
-(use-package org-journal
-  :after org
-  :bind (("C-c T" . org-journal-new-entry)
-         ("C-c Y" . journal-file-yesterday))
-  :preface
-  (defun get-journal-file-yesterday ()
-    "Gets filename for yesterday's journal entry."
-    (let* ((yesterday (time-subtract (current-time) (days-to-time 1)))
-           (daily-name (format-time-string "%Y%m%d" yesterday)))
-      (expand-file-name (concat org-journal-dir daily-name ".org"))))
+(use-package auctex
+ :defer t
+ :config
+ (setq TeX-auto-save t)
+ (setq TeX-parse-self t)
+ (setq-default TeX-master nil))
 
-  (defun journal-file-yesterday ()
-    "Creates and load a file based on yesterday's date."
-    (interactive)
-    (find-file (get-journal-file-yesterday)))
-  :custom
-  (org-journal-date-format "%e %b %Y (%A)")
-  (org-journal-dir (format "~/ORG-MyLife/journal/" (format-time-string "%Y")))
-  (org-journal-enable-encryption t)
-  (org-journal-file-format "%Y%m%d.org")
-  (org-journal-time-format ""))
-
-;; (use-package org-crypt
-;;   :ensure nil
-;;   :after org
-;;   :init (org-crypt-use-before-save-magic)
-;;   :custom (org-crypt-key "DDA035F36E7B2E0BF8368BC41957093A3FF2A3F1"))
+(use-package company-auctex
+  :after (company auctex)
+  :config
+  (company-auctex-init))
 
 (use-package pdf-tools
   :defer 2

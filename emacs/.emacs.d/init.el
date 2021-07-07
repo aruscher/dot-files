@@ -1,3 +1,19 @@
+;;; Temporarily reduce garbage collection during startup. Inspnect `gcs-done'.
+(defun my/reset-gc-cons-threshold ()
+  (setq gc-cons-threshold (car (get 'gc-cons-threshold 'standard-value))))
+(setq gc-cons-threshold (* 64 1024 1024))
+(add-hook 'after-init-hook #'my/reset-gc-cons-threshold)
+
+;;; Temporarily disable the file name handler.
+(setq default-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+(defun my/reset-file-name-handler-alist ()
+  (setq file-name-handler-alist
+        (append default-file-name-handler-alist
+                file-name-handler-alist))
+  (cl-delete-duplicates file-name-handler-alist :test 'equal))
+(add-hook 'after-init-hook #'my/reset-file-name-handler-alist)
+
 ; Move backup directory to .emacs.d/backups
 (defvar my/backup-directory
   (expand-file-name "backups" user-emacs-directory)) 
@@ -305,6 +321,18 @@
   :after (company auctex)
   :config
   (company-auctex-init))
+
+(use-package ledger-mode
+  :defer t
+  :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode))
+
+(use-package gnuplot-mode
+  :mode ("\\.p\\'" "\\.gp\\'" "\\.gnuplot\\'")
+  :init
+  (setq gnuplot-program "gnuplot")
+  :config
+  (autoload 'gnuplot-mode        "gnuplot" "Gnuplot major mode"            t )
+  (autoload 'gnuplot-make-buffer "gnuplot" "Open a buffer in gnuplot-mode" t ))
 
 (use-package pdf-tools
   :defer 2

@@ -4,7 +4,25 @@
 * Welcome
 This is my new emacs configuration from scretch.
 This time I hope not to clutter everything by getting a better structure and only installing the packages I really need.
+
+* Speedup Start
+#+begin_src emacs-lisp
+  ;;; Temporarily reduce garbage collection during startup. Inspnect `gcs-done'.
+  (defun my/reset-gc-cons-threshold ()
+    (setq gc-cons-threshold (car (get 'gc-cons-threshold 'standard-value))))
+  (setq gc-cons-threshold (* 64 1024 1024))
+  (add-hook 'after-init-hook #'my/reset-gc-cons-threshold)
   
+  ;;; Temporarily disable the file name handler.
+  (setq default-file-name-handler-alist file-name-handler-alist)
+  (setq file-name-handler-alist nil)
+  (defun my/reset-file-name-handler-alist ()
+    (setq file-name-handler-alist
+          (append default-file-name-handler-alist
+                  file-name-handler-alist))
+    (cl-delete-duplicates file-name-handler-alist :test 'equal))
+  (add-hook 'after-init-hook #'my/reset-file-name-handler-alist)
+#+end_src
 * Move Backups and Custom-Files
 
 #+begin_src emacs-lisp
@@ -527,6 +545,22 @@ Some nice configurations for org-mode.
     :after (company auctex)
     :config
     (company-auctex-init))
+#+end_src
+** Ledger
+#+begin_src emacs-lisp
+  (use-package ledger-mode
+    :defer t
+    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode))
+#+end_src
+** Gnuplot
+#+begin_src emacs-lisp
+  (use-package gnuplot-mode
+    :mode ("\\.p\\'" "\\.gp\\'" "\\.gnuplot\\'")
+    :init
+    (setq gnuplot-program "gnuplot")
+    :config
+    (autoload 'gnuplot-mode        "gnuplot" "Gnuplot major mode"            t )
+    (autoload 'gnuplot-make-buffer "gnuplot" "Open a buffer in gnuplot-mode" t ))
 #+end_src
 * Reader
 ** PDF-Tools

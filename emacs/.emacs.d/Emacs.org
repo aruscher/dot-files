@@ -332,7 +332,7 @@ Use rainbow-delimters to make your delimiters colorfull.
 #+end_src
 
 *** INACTIVE -- Language-Server
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp :tangle no
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
     :hook (python-mode . lsp-deferred)
@@ -413,14 +413,16 @@ Use rainbow-delimters to make your delimiters colorfull.
     :ensure nil
     :custom
     (python-shell-interpreter "python3"))
-  
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle no
   (use-package lsp-pyright
     :ensure t
     :hook (python-mode . (lambda ()
                            (require 'lsp-pyright)
                            (lsp-deferred))))
 #+end_src
-
 *** INACTIVE -- Rust
 You have to install some things before using rust.
 #+begin_src bash

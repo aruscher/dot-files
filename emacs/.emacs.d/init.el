@@ -195,14 +195,6 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook (python-mode . lsp-deferred)
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :config
-  (lsp-enable-which-key-integration t))
-
 (use-package paredit)
 
 (use-package flycheck
@@ -254,12 +246,6 @@
   :ensure nil
   :custom
   (python-shell-interpreter "python3"))
-
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred))))
 
 (use-package graphviz-dot-mode
   :config

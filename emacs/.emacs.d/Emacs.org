@@ -332,9 +332,10 @@ Use rainbow-delimters to make your delimiters colorfull.
 #+end_src
 
 *** INACTIVE -- Language-Server
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp 
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
+    :hook (python-mode . lsp-deferred)
     :init
     (setq lsp-keymap-prefix "C-c l")
     :config
@@ -406,8 +407,8 @@ Use rainbow-delimters to make your delimiters colorfull.
   (use-package sly-macrostep
     :ensure t)
 #+end_src
-*** INACTIVE -- Python
-#+begin_src emacs-lisp :tangle no
+*** Python
+#+begin_src emacs-lisp
   (use-package python
     :ensure nil
     :custom
@@ -510,18 +511,23 @@ Some nice configurations for org-mode.
     (org-roam-db-update))
   
   (use-package org-roam
-    :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "v2"
-                        :fork (:host github :repo "aruscher" :branch "v2" :protocol ssh))
+    :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "master")
     :bind (("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
            ("C-c n g" . org-roam-graph)
            ("C-c n s" . org-roam-db-sync)
            ("C-c n l" . org-roam-buffer-toggle))
     :hook (after-init . org-roam-setup)
+    :init (setq org-roam-v2-ack t)
     :config
     (setq org-roam-directory my-org-roam-directory
           org-roam-file-extensions '("org")
           org-roam-node-display-template "${title:*} ${tags:30}"))
+  
+  (use-package org-roam-bibtex
+    :after org-roam
+    :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
+    :hook (org . org-roam-bibtex-mode))
   
   (use-package emacsql-sqlite)
 #+end_src
@@ -561,6 +567,10 @@ Some nice configurations for org-mode.
     :config
     (autoload 'gnuplot-mode        "gnuplot" "Gnuplot major mode"            t )
     (autoload 'gnuplot-make-buffer "gnuplot" "Open a buffer in gnuplot-mode" t ))
+#+end_src
+** Markdown
+#+begin_src emacs-lisp
+  
 #+end_src
 * Reader
 ** PDF-Tools

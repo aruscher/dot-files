@@ -195,6 +195,14 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (python-mode . lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
+
 (use-package paredit)
 
 (use-package flycheck
@@ -241,6 +249,17 @@
 
 (use-package sly-macrostep
   :ensure t)
+
+(use-package python
+  :ensure nil
+  :custom
+  (python-shell-interpreter "python3"))
+
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp-deferred))))
 
 (use-package graphviz-dot-mode
   :config
@@ -295,18 +314,23 @@
   (org-roam-db-update))
 
 (use-package org-roam
-  :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "v2"
-                      :fork (:host github :repo "aruscher" :branch "v2" :protocol ssh))
+  :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "master")
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n g" . org-roam-graph)
          ("C-c n s" . org-roam-db-sync)
          ("C-c n l" . org-roam-buffer-toggle))
   :hook (after-init . org-roam-setup)
+  :init (setq org-roam-v2-ack t)
   :config
   (setq org-roam-directory my-org-roam-directory
         org-roam-file-extensions '("org")
         org-roam-node-display-template "${title:*} ${tags:30}"))
+
+(use-package org-roam-bibtex
+  :after org-roam
+  :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
+  :hook (org . org-roam-bibtex-mode))
 
 (use-package emacsql-sqlite)
 
@@ -333,6 +357,8 @@
   :config
   (autoload 'gnuplot-mode        "gnuplot" "Gnuplot major mode"            t )
   (autoload 'gnuplot-make-buffer "gnuplot" "Open a buffer in gnuplot-mode" t ))
+
+
 
 (use-package pdf-tools
   :defer 2

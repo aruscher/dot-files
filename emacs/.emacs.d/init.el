@@ -300,7 +300,8 @@
   (org-roam-db-update))
 
 (use-package org-roam
-  :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "master")
+  :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "master"
+                      :fork (:host github :repo "aruscher" :branch "master" :protocol ssh))
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n g" . org-roam-graph)

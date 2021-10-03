@@ -232,6 +232,10 @@ Let's also use ivy-rich for much more details in the output:
   (use-package ivy-rich
     :init (ivy-rich-mode 1))
 #+end_src
+
+#+begin_src emacs-lisp
+  (use-package smex)
+#+end_src
 ** Helpful
 
 A better Emacs *help* buffer 
@@ -513,10 +517,8 @@ Some nice configurations for org-mode.
     (org-roam-db-update))
   
   (use-package org-roam
-    :straight (:package "org-roam" :host github :type git :repo "org-roam/org-roam" :branch "master"
-                        :fork (:protocol :ssh
-                                         :branch master
-                                         ))
+    :straight (:package "org-roam" :host github
+                        :type git :repo "org-roam/org-roam" :branch "master")
     :bind (("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
            ("C-c n g" . org-roam-graph)

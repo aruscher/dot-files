@@ -72,7 +72,7 @@ Automatically tangle this file after saving.
       ;; Dynamic scoping to the rescue
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
-  
+
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
 #+end_src
 
@@ -286,25 +286,25 @@ Elfeed is RSS client for emacs.
     (elfeed-db-load)
     (elfeed)
     (elfeed-search-update--force))
-  
+
   (defun bjm/elfeed-save-db-and-bury ()
     (interactive)
     (elfeed-db-save)
     (elfeed-db-compact)
     (quit-window))
-  
+
   (defun bjm/elfeed-mark-all-as-read ()
     (interactive)
     (mark-whole-buffer)
     (elfeed-search-untag-all-unread))
-  
+
   (use-package elfeed
     :bind (:map elfeed-search-mode-map
                 ("q" . bjm/elfeed-save-db-and-bury)
                 ("Q" . bjm/elfeed-save-db-and-bury))
     :config
-    (setq elfeed-db-directory "~/Dropbox/shared/elfeeddb"))
-  
+    (setq elfeed-db-directory "~/Nextcloud/shared/elfeeddb"))
+
   (use-package elfeed-org
     :after elfeed
     :config
@@ -478,49 +478,41 @@ Some nice configurations for org-mode.
   (defun my/org-mode-hook ()
     (org-indent-mode)
     (visual-line-mode 1))
-  
-  (defvar my-org-directory "~/ORG-MyLife")
-  (defvar my-org-todo-file "~/ORG-MyLife/todos.org")
-  (defvar my-org-roam-directory "~/ORG-MyLife/roam")
-  (defvar my-org-roam-dailies-directory "~/ORG-MyLife/dailies")
-  (defvar my-org-bibliography-file "~/ORG-MyLife/bibliography.bib")
-  
+
+  (defvar my-org-roam-directory "~/Zettelkasten/zettels")
+  (defvar my-org-roam-dailies-directory "~/Zettelkasten/dailies")
+  (defvar my-org-bibliography-file "~/Zettelkasten/bibliography.bib")
+
   (defun my/disable-emacs-checkdoc ()
     (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
-  
+
   (use-package org
     :hook  ((org-mode . my/org-mode-hook)
             (org-src-mode . my/disable-emacs-checkdoc))
     :config
-    (setq org-directory my-org-directory)
-    (setq org-agenda-files (list my-org-todo-file))
-  
     (setq org-agenda-start-with-log-mode t
           org-log-done 'time
           org-log-into-drawer t)
-  
-    (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                   (file+headline my-org-todo-file "Tasks")
-                                   "* TODO %i%?")))
     (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
+
   
   (use-package org-bullets
     :after org
     :hook (org-mode . org-bullets-mode))
-  
+
   ;; (use-package org-roam-bibtex)
-  
+
   (use-package org-ref
     :after org
     :config
     (setq org-ref-default-bibliography (list my-org-bibliography-file)
           bibtex-completion-bibliography (list my-org-bibliography-file)))
-  
+
   (defun my/rebuild-roam-db ()
     (interactive)
     (org-roam-db-clear)
     (org-roam-db-update))
-  
+
   (use-package org-roam
     :straight (:package "org-roam" :host github
                         :type git :repo "org-roam/org-roam" :branch "master")
@@ -535,13 +527,14 @@ Some nice configurations for org-mode.
     (setq org-roam-directory my-org-roam-directory
           org-roam-file-extensions '("org")
           org-roam-node-display-template "${title:*} ${tags:30}"))
-  
+
   (use-package org-roam-bibtex
     :after org-roam
     :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
     :hook (org . org-roam-bibtex-mode))
-  
+
   (use-package emacsql-sqlite)
+
 #+end_src
 ** Provenance
 #+begin_src emacs-lisp :tangle no

@@ -262,11 +262,9 @@
   (org-indent-mode)
   (visual-line-mode 1))
 
-(defvar my-org-directory "~/ORG-MyLife")
-(defvar my-org-todo-file "~/ORG-MyLife/todos.org")
-(defvar my-org-roam-directory "~/ORG-MyLife/roam")
-(defvar my-org-roam-dailies-directory "~/ORG-MyLife/dailies")
-(defvar my-org-bibliography-file "~/ORG-MyLife/bibliography.bib")
+(defvar my-org-roam-directory "~/Zettelkasten/zettels")
+(defvar my-org-roam-dailies-directory "~/Zettelkasten/dailies")
+(defvar my-org-bibliography-file "~/Zettelkasten/bibliography.bib")
 
 (defun my/disable-emacs-checkdoc ()
   (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
@@ -275,17 +273,11 @@
   :hook  ((org-mode . my/org-mode-hook)
           (org-src-mode . my/disable-emacs-checkdoc))
   :config
-  (setq org-directory my-org-directory)
-  (setq org-agenda-files (list my-org-todo-file))
-
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t)
-
-  (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                 (file+headline my-org-todo-file "Tasks")
-                                 "* TODO %i%?")))
   (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
+
 
 (use-package org-bullets
   :after org

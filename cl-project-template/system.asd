@@ -10,5 +10,7 @@
   :serial t(#| TMPL_IF depends-on |#)
   :depends-on (#| TMPL_VAR dependencies-string |#)(#| /TMPL_IF |#)
   :pathname "src/"
+  :depends-on (:alexandria :documentation-utils)
   :components ((:file "package")
-               (:file "(#| TMPL_VAR name |#)")))
+               (:file "(#| TMPL_VAR name |#)")
+	       (:file "documentations")))

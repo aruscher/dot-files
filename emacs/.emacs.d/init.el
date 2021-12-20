@@ -175,7 +175,7 @@
               ("q" . bjm/elfeed-save-db-and-bury)
               ("Q" . bjm/elfeed-save-db-and-bury))
   :config
-  (setq elfeed-db-directory "~/Dropbox/shared/elfeeddb"))
+  (setq elfeed-db-directory "~/Nextcloud/shared/elfeeddb"))
 
 (use-package elfeed-org
   :after elfeed
@@ -246,6 +246,10 @@
 
 (use-package sly-macrostep
   :ensure t)
+
+(when (file-exists-p "~/quicklisp/log4sly-setup.el")
+  (load "~/quicklisp/log4sly-setup.el")
+  (global-log4sly-mode 1))
 
 (use-package python
   :ensure nil

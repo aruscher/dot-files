@@ -247,6 +247,10 @@
 (use-package sly-macrostep
   :ensure t)
 
+(when (file-exists-p "~/quicklisp/log4sly-setup.el")
+  (load "~/quicklisp/log4sly-setup.el")
+  (global-log4sly-mode 1))
+
 (use-package python
   :ensure nil
   :custom

@@ -277,6 +277,9 @@
   :hook  ((org-mode . my/org-mode-hook)
           (org-src-mode . my/disable-emacs-checkdoc))
   :config
+  (setq epa-file-select-keys nil)
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t)
@@ -308,12 +311,20 @@
          ("C-c n g" . org-roam-graph)
          ("C-c n s" . org-roam-db-sync)
          ("C-c n l" . org-roam-buffer-toggle))
+  :bind-keymap ("C-c n d" . org-roam-dailies-map)
   :hook (after-init . org-roam-setup)
   :init (setq org-roam-v2-ack t)
   :config
   (setq org-roam-directory my-org-roam-directory
+        org-roam-dailies-directory my-org-roam-dailies-directory
         org-roam-file-extensions '("org")
-        org-roam-node-display-template "${title:*} ${tags:30}"))
+        org-roam-node-display-template "${title:*} ${tags:30}")
+  (require 'org-roam-dailies)
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org.gpg"
+                              "#+title: %<%Y-%m-%d>\n")))))
 
 (use-package org-roam-bibtex
   :after org-roam

@@ -283,6 +283,7 @@
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t)
+  (setq org-agenda-files (list "~/Zettelkasten/work.org"))
   (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
 

@@ -551,6 +551,30 @@ Some nice configurations for org-mode.
 
   (use-package emacsql-sqlite)
 
+  (use-package hide-mode-line
+    :ensure t)
+
+  (defun my/org-tree-slide-setup ()
+    (org-display-inline-images)
+    (hide-mode-line-mode 1))
+
+  (defun my/org-tree-slide-end ()
+    (org-display-inline-images)
+    (hide-mode-line-mode 0))
+
+  (use-package org-tree-slide
+    :ensure t
+    :defer t
+    :custom
+    (org-image-actual-width nil)
+    (org-tree-slide-activate-message "Presentation started!")
+    (org-tree-slide-deactivate-message "Presentation finished!")
+    :hook ((org-tree-slide-play . my/org-tree-slide-setup)
+           (org-tree-slide-stop . my/org-tree-slide-end))
+    :bind (:map org-tree-slide-mode-map
+                ("C-<" . org-tree-slide-move-previous-tree)
+                ("C->" . org-tree-slide-move-next-tree)))
+
 #+end_src
 ** Provenance
 #+begin_src emacs-lisp :tangle no

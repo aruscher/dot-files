@@ -175,7 +175,7 @@
               ("q" . bjm/elfeed-save-db-and-bury)
               ("Q" . bjm/elfeed-save-db-and-bury))
   :config
-  (setq elfeed-db-directory "~/Nextcloud/shared/elfeeddb"))
+  (setq elfeed-db-directory "~/Generic-Share/shared/elfeeddb"))
 
 (use-package elfeed-org
   :after elfeed

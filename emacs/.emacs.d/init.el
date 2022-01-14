@@ -188,6 +188,10 @@
   :config
   (setq esup-depth 0))
 
+(setq epa-file-select-keys nil
+      epa-file-cache-passphrase-for-symmetric-encryption t
+      epa-pinentry-mode 'loopback)
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -277,8 +281,7 @@
   :hook  ((org-mode . my/org-mode-hook)
           (org-src-mode . my/disable-emacs-checkdoc))
   :config
-  (setq epa-file-select-keys nil)
-  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
 
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time

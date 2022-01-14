@@ -98,13 +98,13 @@
   :config
   (exec-path-from-shell-initialize))
 
-(use-package dashboard
-  :config
-  (setq dashboard-startup-banner nil)
-  (setq dashboard-items
-        '((recents . 5)
-          (projects .5)))
-  (dashboard-setup-startup-hook))
+;; (use-package dashboard
+;;   :config
+;;   (setq dashboard-startup-banner nil)
+;;   (setq dashboard-items
+;;         '((recents . 5)
+;;           (projects .5)))
+;;   (dashboard-setup-startup-hook))
 
 (use-package which-key
   :init (which-key-mode)
@@ -251,9 +251,9 @@
 (use-package sly-macrostep
   :ensure t)
 
-(when (file-exists-p "~/quicklisp/log4sly-setup.el")
-  (load "~/quicklisp/log4sly-setup.el")
-  (global-log4sly-mode 1))
+;; (when (file-exists-p "~/quicklisp/log4sly-setup.el")
+;;   (load "~/quicklisp/log4sly-setup.el")
+;;   (global-log4sly-mode 1))
 
 (use-package python
   :ensure nil

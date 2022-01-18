@@ -273,6 +273,7 @@
 (defvar my-org-roam-directory "~/Zettelkasten/zettels")
 (defvar my-org-roam-dailies-directory "~/Zettelkasten/dailies")
 (defvar my-org-bibliography-file "~/Zettelkasten/bibliography.bib")
+(defvar my-agenda-files (list "~/Zettelkasten/work.org"))
 
 (defun my/disable-emacs-checkdoc ()
   (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
@@ -281,12 +282,10 @@
   :hook  ((org-mode . my/org-mode-hook)
           (org-src-mode . my/disable-emacs-checkdoc))
   :config
-
-
   (setq org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t)
-  (setq org-agenda-files (list "~/Zettelkasten/work.org"))
+  (setq org-agenda-files my-agenda-files)
   (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
 
@@ -360,6 +359,9 @@
   :bind (:map org-tree-slide-mode-map
               ("C-<" . org-tree-slide-move-previous-tree)
               ("C->" . org-tree-slide-move-next-tree)))
+
+(use-package org-super-agenda
+  :after org)
 
 (use-package auctex
  :defer t

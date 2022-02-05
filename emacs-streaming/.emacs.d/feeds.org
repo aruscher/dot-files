@@ -1,0 +1,26 @@
+* Blogs                                                              :elfeed:
+** Coding                                                            :coding:
+*** Python                                                           :python:
+**** https://planetpython.org/rss20.xml
+*** Lisp                                                               :lisp:
+**** http://planet.lisp.org/rss20.xml
+** Emacs                                                              :emacs:
+*** https://planet.emacslife.com/atom.xml
+** Comics                                                            :comics:
+*** https://xkcd.com/rss.xml
+** Misc                                                                :misc:
+*** http://syndication.thedailywtf.com/TheDailyWtf
+*** https://hnrss.org/frontpage?count=100&points=100
+*** https://lobste.rs/rss
+*** https://www.sicpers.info/feed/rss
+*** [[https://www.hoheluft-magazin.de/feed/][Hoheluft Magazin]]
+*** https://esoteric.codes/rss
+*** http://catless.ncl.ac.uk/risksrss2.xml
+*** https://zettelkasten.de/feed.atom
+*** https://erikhoel.substack.com/feed
+*** https://www.lesswrong.com/feed.xml?view=curated-rss
+** News                                                                :news:
+*** http://quillette.com/feed/
+*** https://aeon.co/feed.rss
+*** http://service.mvnet.de/_php/feedcreator/feeds/feed_Regierungsportal_106.xml
+*** https://www.rostock-heute.de/feed

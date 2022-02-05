@@ -7,27 +7,3 @@
 
 (pushnew (truename "~/Code/Common-Lisp") ql:*local-project-directories*)
 (ql:register-local-projects)
-
-(ql:quickload '(:quickproject :osicat :inferior-shell))
-
-;; Quickproject Setup
-(push
- (lambda ()
-   (list :year (nth-value 5 (get-decoded-time))
-	 :author-name "Andreas Ruscheinski"))
- quickproject:*template-parameter-functions*)
-
-(push
- (lambda (pathname &rest args)
-   (declare (ignore args))
-   (nix:chdir (fad:pathname-as-directory pathname))
-   (inferior-shell:run/s "git init")
-   (inferior-shell:run/s "git add .")
-   (inferior-shell:run/s "git commit -am \"Initial commit.\""))
- quickproject:*after-make-project-hooks*)
-
-(setf quickproject:*author* "Andreas Ruscheinski <andreas.ruscheinski@gmail.com>"
-      quickproject:*license* "MIT"
-      quickproject:*template-directory* #p "~/dot-files/cl-project-template")
-
-

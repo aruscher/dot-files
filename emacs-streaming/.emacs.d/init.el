@@ -270,69 +270,16 @@
   (org-indent-mode)
   (visual-line-mode 1))
 
-(defvar my-org-roam-directory "~/Zettelkasten/zettels")
-(defvar my-org-roam-dailies-directory "~/Zettelkasten/dailies")
-(defvar my-org-bibliography-file "~/Zettelkasten/bibliography.bib")
-(defvar my-agenda-files (list "~/Zettelkasten/work.org"))
-
 (defun my/disable-emacs-checkdoc ()
   (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
 (use-package org
   :hook  ((org-mode . my/org-mode-hook)
-          (org-src-mode . my/disable-emacs-checkdoc))
-  :config
-  (setq org-agenda-start-with-log-mode t
-        org-log-done 'time
-        org-log-into-drawer t)
-  (setq org-agenda-files my-agenda-files)
-  (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
-
+	  (org-src-mode . my/disable-emacs-checkdoc)))
 
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode))
-
-;; (use-package org-roam-bibtex)
-
-(use-package org-ref
-  :after org
-  :config
-  (setq org-ref-default-bibliography (list my-org-bibliography-file)
-        bibtex-completion-bibliography (list my-org-bibliography-file)))
-
-(defun my/rebuild-roam-db ()
-  (interactive)
-  (org-roam-db-clear)
-  (org-roam-db-update))
-
-(use-package org-roam
-  :straight (:package "org-roam" :host github
-                      :type git :repo "org-roam/org-roam" :branch "master")
-  :bind (("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n s" . org-roam-db-sync)
-         ("C-c n l" . org-roam-buffer-toggle))
-  :bind-keymap ("C-c n d" . org-roam-dailies-map)
-  :hook (after-init . org-roam-setup)
-  :init (setq org-roam-v2-ack t)
-  :config
-  (setq org-roam-directory my-org-roam-directory
-        org-roam-dailies-directory my-org-roam-dailies-directory
-        org-roam-file-extensions '("org")
-        org-roam-node-display-template "${title:*} ${tags:30}")
-  (require 'org-roam-dailies)
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           "* %?"
-           :target (file+head "%<%Y-%m-%d>.org.gpg"
-                              "#+title: %<%Y-%m-%d>\n")))))
-
-(use-package org-roam-bibtex
-  :after org-roam
-  :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
-  :hook (org . org-roam-bibtex-mode))
 
 (use-package emacsql-sqlite)
 
@@ -347,45 +294,8 @@
   (org-display-inline-images)
   (hide-mode-line-mode 0))
 
-(use-package org-tree-slide
-  :ensure t
-  :defer t
-  :custom
-  (org-image-actual-width nil)
-  (org-tree-slide-activate-message "Presentation started!")
-  (org-tree-slide-deactivate-message "Presentation finished!")
-  :hook ((org-tree-slide-play . my/org-tree-slide-setup)
-         (org-tree-slide-stop . my/org-tree-slide-end))
-  :bind (:map org-tree-slide-mode-map
-              ("C-<" . org-tree-slide-move-previous-tree)
-              ("C->" . org-tree-slide-move-next-tree)))
-
 (use-package org-super-agenda
   :after org)
-
-(use-package auctex
- :defer t
- :config
- (setq TeX-auto-save t)
- (setq TeX-parse-self t)
- (setq-default TeX-master nil))
-
-(use-package company-auctex
-  :after (company auctex)
-  :config
-  (company-auctex-init))
-
-(use-package ledger-mode
-  :defer t
-  :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode))
-
-(use-package gnuplot-mode
-  :mode ("\\.p\\'" "\\.gp\\'" "\\.gnuplot\\'")
-  :init
-  (setq gnuplot-program "gnuplot")
-  :config
-  (autoload 'gnuplot-mode        "gnuplot" "Gnuplot major mode"            t )
-  (autoload 'gnuplot-make-buffer "gnuplot" "Open a buffer in gnuplot-mode" t ))
 
 
 

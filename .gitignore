@@ -123,3 +123,4 @@ private/
 /emacs/.emacs.d/quelpa/
 /emacs/.emacs.d/my-packages/
 /emacs/.emacs.d-backup/
+/emacs/.emacs.d/smex-items

@@ -211,7 +211,9 @@
   :config
   (setq-default flycheck-emacs-lisp-initialize-packages t
                 flycheck-highlighting-mode 'lines
-                flycheck-emacs-lisp-load-path 'inherit))
+                flycheck-emacs-lisp-load-path 'inherit)
+  (setq flycheck-display-errors-function
+        #'flycheck-display-error-messages-unless-error-list))
 
 (use-package hl-todo
   :hook (prog-mode . hl-todo-mode)
@@ -240,6 +242,10 @@
   :straight nil
   :hook (emacs-lisp-mode . my/emacs-mode-hook))
 
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-k") 'eval-buffer)))
+
 (use-package sly
   :hook ((lisp-mode . sly-editing-mode)
          (sly-mrepl-mode . company-mode)
@@ -257,8 +263,13 @@
 
 (use-package python
   :ensure nil
-  :custom
-  (python-shell-interpreter "python3"))
+  :config
+  (setq python-indent-guess-indent-offset-verbose nil)
+  (cond
+   ((executable-find "python3")
+    (setq python-shell-interpreter "python3"))
+   (t
+    (setq python-shell-interpreter "python"))))
 
 (use-package graphviz-dot-mode
   :config
@@ -404,3 +415,7 @@
 (defun my/open-config ()
   (interactive)
   (find-file (expand-file-name "Emacs.org" user-emacs-directory)))
+
+(when (file-exists-p "~/Code/Emacs-Lisp/book-thing")
+  (use-package book-thing
+    :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))

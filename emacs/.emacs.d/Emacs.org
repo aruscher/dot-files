@@ -214,6 +214,7 @@ A better Emacs *help* buffer
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
+
 #+end_src
 ** Projectile
    
@@ -311,19 +312,27 @@ Use rainbow-delimters to make your delimiters colorfull.
     :hook (company-mode . company-box-mode))
 #+end_src
 
-*** INACTIVE -- Language-Server
+*** Language-Server *INACTIVE*
 #+begin_src emacs-lisp :tangle no
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
-    :hook (python-mode . lsp-deferred)
     :init
     (setq lsp-keymap-prefix "C-c l")
     :config
     (lsp-enable-which-key-integration t))
-  
+
+
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    :custom
+    (lsp-ui-doc-position 'bottom))
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle no
+  (use-package eglot)
 #+end_src
 *** Paredit
-
 #+begin_src emacs-lisp
   (use-package paredit)
 #+end_src
@@ -335,7 +344,9 @@ Use rainbow-delimters to make your delimiters colorfull.
     :config
     (setq-default flycheck-emacs-lisp-initialize-packages t
                   flycheck-highlighting-mode 'lines
-                  flycheck-emacs-lisp-load-path 'inherit))
+                  flycheck-emacs-lisp-load-path 'inherit)
+    (setq flycheck-display-errors-function
+          #'flycheck-display-error-messages-unless-error-list))
 #+end_src
 *** Highlight Todos
 #+begin_src emacs-lisp
@@ -368,10 +379,14 @@ Use rainbow-delimters to make your delimiters colorfull.
     (paredit-mode t)
     (flycheck-mode)
     (eldoc-mode t))
-  
+
   (use-package emacs-lisp-mode
     :straight nil
     :hook (emacs-lisp-mode . my/emacs-mode-hook))
+
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c C-k") 'eval-buffer)))
 #+end_src
 
 **** Common Lisp
@@ -395,17 +410,24 @@ Use rainbow-delimters to make your delimiters colorfull.
 #+begin_src emacs-lisp
   (use-package python
     :ensure nil
-    :custom
-    (python-shell-interpreter "python3"))
-
+    :config
+    (setq python-indent-guess-indent-offset-verbose nil)
+    (cond
+     ((executable-find "python3")
+      (setq python-shell-interpreter "python3"))
+     (t
+      (setq python-shell-interpreter "python"))))
 #+end_src
 
 #+begin_src emacs-lisp :tangle no
   (use-package lsp-pyright
     :ensure t
+    :init (when (executable-find "python3")
+            (setq lsp-pyright-python-executable-cmd "python3"))
     :hook (python-mode . (lambda ()
                            (require 'lsp-pyright)
                            (lsp-deferred))))
+
 #+end_src
 *** INACTIVE -- Rust
 You have to install some things before using rust.
@@ -609,3 +631,12 @@ Some nice configurations for org-mode.
     (interactive)
     (find-file (expand-file-name "Emacs.org" user-emacs-directory)))
 #+end_src
+* Package Development
+** Book Thing
+#+begin_src emacs-lisp
+
+  (when (file-exists-p "~/Code/Emacs-Lisp/book-thing")
+    (use-package book-thing
+      :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))
+#+end_src
+

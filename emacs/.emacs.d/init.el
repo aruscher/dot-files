@@ -229,12 +229,6 @@
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
 
-(use-package yasnippet
-  :config
-  (use-package yasnippet-snippets)
-  (use-package common-lisp-snippets)
-  (yas-global-mode 1))
-
 (defun my/lisp-mode-hook ()
   (enable-paredit-mode))
 

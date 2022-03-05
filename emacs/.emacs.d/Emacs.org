@@ -364,13 +364,15 @@ Use rainbow-delimters to make your delimiters colorfull.
             ("NOTE"       success bold)
             ("DEPRECATED" font-lock-doc-face bold))))
 #+end_src
-*** Yasnipptet
-#+begin_src emacs-lisp
+*** Yasnipptet *INACTIVE*
+#+begin_src emacs-lisp :tangle no
   (use-package yasnippet
+    :after company
     :config
     (use-package yasnippet-snippets)
     (use-package common-lisp-snippets)
-    (yas-global-mode 1))
+    (yas-global-mode 1)
+    (push '(company-yasnippet) company-backends))
 #+end_src
 
 ** Languages

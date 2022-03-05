@@ -152,6 +152,8 @@
 
 ;; (use-package magit)
 (straight-use-package 'magit)
+;;; Stupid fix?
+(straight-use-package 'project)
 
 (defun bjm/elfeed-load-db-and-open ()
   (interactive)
@@ -226,6 +228,12 @@
           ("REVIEW"     font-lock-keyword-face bold)
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
+
+(use-package yasnippet
+  :config
+  (use-package yasnippet-snippets)
+  (use-package common-lisp-snippets)
+  (yas-global-mode 1))
 
 (defun my/lisp-mode-hook ()
   (enable-paredit-mode))

@@ -241,6 +241,8 @@ Installing the true git client.
 #+begin_src emacs-lisp
   ;; (use-package magit)
   (straight-use-package 'magit)
+  ;;; Stupid fix?
+  (straight-use-package 'project)
 #+end_src
 ** Elfeed
 
@@ -361,6 +363,14 @@ Use rainbow-delimters to make your delimiters colorfull.
             ("REVIEW"     font-lock-keyword-face bold)
             ("NOTE"       success bold)
             ("DEPRECATED" font-lock-doc-face bold))))
+#+end_src
+*** Yasnipptet
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :config
+    (use-package yasnippet-snippets)
+    (use-package common-lisp-snippets)
+    (yas-global-mode 1))
 #+end_src
 
 ** Languages

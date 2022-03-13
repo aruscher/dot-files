@@ -286,6 +286,8 @@
         org-log-done 'time
         org-log-into-drawer t)
   (setq org-agenda-files my-agenda-files)
+  (setq org-cite-global-bibliography (list my-org-bibliography-file))
+  (setq bibtex-completion-bibliography (list my-org-bibliography-file))
   (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
 
@@ -294,11 +296,6 @@
   :hook (org-mode . org-bullets-mode))
 
 ;; (use-package org-roam-bibtex)
-
-(use-package org-ref
-  :after org
-  :config
-  (setq bibtex-completion-bibliography (list my-org-bibliography-file)))
 
 (defun my/rebuild-roam-db ()
   (interactive)
@@ -334,8 +331,9 @@
 
 (use-package org-roam-bibtex
   :after org-roam
-  :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
-  :hook (org . org-roam-bibtex-mode))
+  ;; :config
+  ;; (require 'org-ref)
+  ) 
 
 (use-package emacsql-sqlite)
 
@@ -404,3 +402,7 @@
 (defun my/open-config ()
   (interactive)
   (find-file (expand-file-name "Emacs.org" user-emacs-directory)))
+
+(use-package library-thing
+  :straight (library-thing
+             :local-repo "~/Code/Emacs-Lisp/library-thing"))

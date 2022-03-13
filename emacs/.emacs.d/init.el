@@ -299,6 +299,8 @@
         org-log-done 'time
         org-log-into-drawer t)
   (setq org-agenda-files my-agenda-files)
+  (setq org-cite-global-bibliography (list my-org-bibliography-file))
+  (setq bibtex-completion-bibliography (list my-org-bibliography-file))
   (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
 
@@ -307,11 +309,6 @@
   :hook (org-mode . org-bullets-mode))
 
 ;; (use-package org-roam-bibtex)
-
-(use-package org-ref
-  :after org
-  :config
-  (setq bibtex-completion-bibliography (list my-org-bibliography-file)))
 
 (defun my/rebuild-roam-db ()
   (interactive)
@@ -347,8 +344,9 @@
 
 (use-package org-roam-bibtex
   :after org-roam
-  :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
-  :hook (org . org-roam-bibtex-mode))
+  ;; :config
+  ;; (require 'org-ref)
+  ) 
 
 (use-package emacsql-sqlite)
 
@@ -422,5 +420,4 @@
   (use-package book-thing
     :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))
 
-(fset 'slot-builder
-   (kmacro-lambda-form [?\C-f ?\C-f ?\C-\M-  ?\M-w ?\M-\( ?\M-f ?  ?: ?i ?n ?i ?t ?f ?o ?r ?m ?  ?: ?\C-y ?  ?: ?i ?n ?i ?t ?a ?r ?g ?h backspace ?  ?8 ?0 ?0 ?  ?: ?a ?c ?c ?e ?s ?s ?o ?r ?  ?\C-y ?\C-n ?\C-a] 0 "%d"))
+

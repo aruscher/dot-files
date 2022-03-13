@@ -350,7 +350,7 @@ Use rainbow-delimters to make your delimiters colorfull.
     (setq flycheck-display-errors-function
           #'flycheck-display-error-messages-unless-error-list))
 #+end_src
-*** Highlight Todos
+pp*** Highlight Todos
 #+begin_src emacs-lisp
   (use-package hl-todo
     :hook (prog-mode . hl-todo-mode)
@@ -504,6 +504,8 @@ Some nice configurations for org-mode.
           org-log-done 'time
           org-log-into-drawer t)
     (setq org-agenda-files my-agenda-files)
+    (setq org-cite-global-bibliography (list my-org-bibliography-file))
+    (setq bibtex-completion-bibliography (list my-org-bibliography-file))
     (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
 
@@ -512,11 +514,6 @@ Some nice configurations for org-mode.
     :hook (org-mode . org-bullets-mode))
 
   ;; (use-package org-roam-bibtex)
-
-  (use-package org-ref
-    :after org
-    :config
-    (setq bibtex-completion-bibliography (list my-org-bibliography-file)))
 
   (defun my/rebuild-roam-db ()
     (interactive)
@@ -552,8 +549,9 @@ Some nice configurations for org-mode.
 
   (use-package org-roam-bibtex
     :after org-roam
-    :straight (:package "org-roam-bibtex" :host github :type git :repo "org-roam/org-roam-bibtex" :branch "master")
-    :hook (org . org-roam-bibtex-mode))
+    ;; :config
+    ;; (require 'org-ref)
+    ) 
 
   (use-package emacsql-sqlite)
 
@@ -651,10 +649,3 @@ Some nice configurations for org-mode.
     (use-package book-thing
       :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))
 #+end_src
-* Macros
-#+begin_src emacs-lisp
-  (fset 'slot-builder
-     (kmacro-lambda-form [?\C-f ?\C-f ?\C-\M-  ?\M-w ?\M-\( ?\M-f ?  ?: ?i ?n ?i ?t ?f ?o ?r ?m ?  ?: ?\C-y ?  ?: ?i ?n ?i ?t ?a ?r ?g ?h backspace ?  ?8 ?0 ?0 ?  ?: ?a ?c ?c ?e ?s ?s ?o ?r ?  ?\C-y ?\C-n ?\C-a] 0 "%d"))
-
-#+end_src
-

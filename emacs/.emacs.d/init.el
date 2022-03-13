@@ -419,5 +419,3 @@
 (when (file-exists-p "~/Code/Emacs-Lisp/book-thing")
   (use-package book-thing
     :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))
-
-

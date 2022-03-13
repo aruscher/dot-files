@@ -339,7 +339,6 @@ Use rainbow-delimters to make your delimiters colorfull.
   (use-package paredit)
 #+end_src
 *** Flycheck
-
 #+begin_src emacs-lisp
   (use-package flycheck
     :hook (prog-mode . flycheck-mode)
@@ -350,7 +349,7 @@ Use rainbow-delimters to make your delimiters colorfull.
     (setq flycheck-display-errors-function
           #'flycheck-display-error-messages-unless-error-list))
 #+end_src
-pp*** Highlight Todos
+*** Highlight Todos
 #+begin_src emacs-lisp
   (use-package hl-todo
     :hook (prog-mode . hl-todo-mode)
@@ -644,7 +643,6 @@ Some nice configurations for org-mode.
 * Package Development
 ** Book Thing
 #+begin_src emacs-lisp
-
   (when (file-exists-p "~/Code/Emacs-Lisp/book-thing")
     (use-package book-thing
       :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))

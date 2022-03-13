@@ -151,9 +151,9 @@
   (projectile-mode +1))
 
 ;; (use-package magit)
-(straight-use-package 'magit)
 ;;; Stupid fix?
 (straight-use-package 'project)
+(straight-use-package 'magit)
 
 (defun bjm/elfeed-load-db-and-open ()
   (interactive)
@@ -421,3 +421,6 @@
 (when (file-exists-p "~/Code/Emacs-Lisp/book-thing")
   (use-package book-thing
     :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))
+
+(fset 'slot-builder
+   (kmacro-lambda-form [?\C-f ?\C-f ?\C-\M-  ?\M-w ?\M-\( ?\M-f ?  ?: ?i ?n ?i ?t ?f ?o ?r ?m ?  ?: ?\C-y ?  ?: ?i ?n ?i ?t ?a ?r ?g ?h backspace ?  ?8 ?0 ?0 ?  ?: ?a ?c ?c ?e ?s ?s ?o ?r ?  ?\C-y ?\C-n ?\C-a] 0 "%d"))

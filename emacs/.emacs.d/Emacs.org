@@ -240,9 +240,9 @@ Should gives much more intelligence how to work with projects.
 Installing the true git client.
 #+begin_src emacs-lisp
   ;; (use-package magit)
-  (straight-use-package 'magit)
   ;;; Stupid fix?
   (straight-use-package 'project)
+  (straight-use-package 'magit)
 #+end_src
 ** Elfeed
 
@@ -650,5 +650,11 @@ Some nice configurations for org-mode.
   (when (file-exists-p "~/Code/Emacs-Lisp/book-thing")
     (use-package book-thing
       :straight (book-thing :local-repo "~/Code/Emacs-Lisp/book-thing")))
+#+end_src
+* Macros
+#+begin_src emacs-lisp
+  (fset 'slot-builder
+     (kmacro-lambda-form [?\C-f ?\C-f ?\C-\M-  ?\M-w ?\M-\( ?\M-f ?  ?: ?i ?n ?i ?t ?f ?o ?r ?m ?  ?: ?\C-y ?  ?: ?i ?n ?i ?t ?a ?r ?g ?h backspace ?  ?8 ?0 ?0 ?  ?: ?a ?c ?c ?e ?s ?s ?o ?r ?  ?\C-y ?\C-n ?\C-a] 0 "%d"))
+
 #+end_src
 

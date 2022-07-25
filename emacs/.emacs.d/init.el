@@ -98,14 +98,6 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; (use-package dashboard
-;;   :config
-;;   (setq dashboard-startup-banner nil)
-;;   (setq dashboard-items
-;;         '((recents . 5)
-;;           (projects .5)))
-;;   (dashboard-setup-startup-hook))
-
 (use-package which-key
   :init (which-key-mode)
   :config
@@ -279,14 +271,14 @@
 
 
 
-(defun my/org-mode-hook ()
-  (org-indent-mode)
-  (visual-line-mode 1))
-
 (defvar my-org-roam-directory "~/Zettelkasten/zettels")
 (defvar my-org-roam-dailies-directory "~/Zettelkasten/dailies")
 (defvar my-org-bibliography-file "~/Zettelkasten/bibliography.bib")
 (defvar my-agenda-files (list "~/Zettelkasten/work.org"))
+
+(defun my/org-mode-hook ()
+  (org-indent-mode)
+  (visual-line-mode 1))
 
 (defun my/disable-emacs-checkdoc ()
   (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
@@ -303,20 +295,44 @@
   (setq bibtex-completion-bibliography (list my-org-bibliography-file))
   (org-babel-do-load-languages 'org-babel-load-languages'((dot . t))) )
 
-
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode))
 
-;; (use-package org-roam-bibtex)
+(use-package org-super-agenda
+  :after org)
+
+(use-package hide-mode-line
+  :ensure t)
+
+(defun my/org-tree-slide-setup ()
+  (org-display-inline-images)
+  (hide-mode-line-mode 1))
+
+(defun my/org-tree-slide-end ()
+  (org-display-inline-images)
+  (hide-mode-line-mode 0))
+
+(use-package org-tree-slide
+  :ensure t
+  :defer t
+  :custom
+  (org-image-actual-width nil)
+  (org-tree-slide-activate-message "Presentation started!")
+  (org-tree-slide-deactivate-message "Presentation finished!")
+  :hook ((org-tree-slide-play . my/org-tree-slide-setup)
+         (org-tree-slide-stop . my/org-tree-slide-end))
+  :bind (:map org-tree-slide-mode-map
+              ("C-<" . org-tree-slide-move-previous-tree)
+              ("C->" . org-tree-slide-move-next-tree)))
+
+(use-package emacsql-sqlite)
 
 (defun my/rebuild-roam-db ()
   (interactive)
   (org-roam-db-clear)
   (org-roam-db-update))
 
-(defun my/rename-zettel ()
-  )
 
 (use-package org-roam
   :straight (:package "org-roam" :host github
@@ -346,36 +362,7 @@
   :after org-roam
   ;; :config
   ;; (require 'org-ref)
-  ) 
-
-(use-package emacsql-sqlite)
-
-(use-package hide-mode-line
-  :ensure t)
-
-(defun my/org-tree-slide-setup ()
-  (org-display-inline-images)
-  (hide-mode-line-mode 1))
-
-(defun my/org-tree-slide-end ()
-  (org-display-inline-images)
-  (hide-mode-line-mode 0))
-
-(use-package org-tree-slide
-  :ensure t
-  :defer t
-  :custom
-  (org-image-actual-width nil)
-  (org-tree-slide-activate-message "Presentation started!")
-  (org-tree-slide-deactivate-message "Presentation finished!")
-  :hook ((org-tree-slide-play . my/org-tree-slide-setup)
-         (org-tree-slide-stop . my/org-tree-slide-end))
-  :bind (:map org-tree-slide-mode-map
-              ("C-<" . org-tree-slide-move-previous-tree)
-              ("C->" . org-tree-slide-move-next-tree)))
-
-(use-package org-super-agenda
-  :after org)
+  )
 
 (use-package auctex
  :defer t
@@ -388,10 +375,6 @@
   :after (company auctex)
   :config
   (company-auctex-init))
-
-(use-package ledger-mode
-  :defer t
-  :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode))
 
 (use-package gnuplot-mode
   :mode ("\\.p\\'" "\\.gp\\'" "\\.gnuplot\\'")

@@ -77,8 +77,25 @@
                     :weight 'normal
                     :width 'normal)
 
-(use-package doom-themes
-  :config (load-theme 'doom-palenight t))
+(defvar *my/current-theme* 'doom-one)
+
+(defun my/next-theme (theme)
+  (disable-theme *my/current-theme*)
+  (load-theme theme t)
+  (setq *my/current-theme* theme))
+
+(defun my/toggle-theme ()
+  (interactive)
+  (cond
+   ((eq *my/current-theme* 'doom-one) (my/next-theme 'doom-one-light))
+   ((eq *my/current-theme* 'doom-one-light) (my/next-theme 'doom-one))))
+
+(use-package doom-themes)
+
+(load-theme *my/current-theme* t)
+
+(global-set-key (kbd "<f12>")
+                'my/toggle-theme)
 
 (use-package all-the-icons
   :if (display-graphic-p)
@@ -337,10 +354,8 @@
 (use-package org-roam
   :straight (:package "org-roam" :host github
                       :type git :repo "org-roam/org-roam" :branch "master")
-  :init (setq org-roam-v2-ack t)
   :custom
   (org-roam-directory my-org-roam-directory)
-  (org-roam-dailies-directory my-org-roam-dailies-directory)
   (org-roam-file-extensions '("org"))
   (org-roam-node-display-template "${title:*} ${tags:30}")
   :bind (("C-c n f" . org-roam-node-find)
@@ -348,21 +363,10 @@
          ("C-c n g" . org-roam-graph)
          ("C-c n s" . org-roam-db-sync)
          ("C-c n l" . org-roam-buffer-toggle))
-  :bind-keymap ("C-c n d" . org-roam-dailies-map)
-  :hook (after-init . org-roam-setup)
-  :config
-  (require 'org-roam-dailies)
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" plain
-           "* %?"
-           :target (file+head "%<%Y-%m-%d>.org.gpg"
-                              "#+title: %<%Y-%m-%d>\n")))))
+  :hook (after-init . org-roam-setup))
 
-(use-package org-roam-bibtex
-  :after org-roam
-  ;; :config
-  ;; (require 'org-ref)
-  )
+(custom-set-variables
+ '(org-roam-graph-link-hidden-types '("file" "https" "http")))
 
 (use-package auctex
  :defer t
@@ -375,6 +379,10 @@
   :after (company auctex)
   :config
   (company-auctex-init))
+
+(use-package ledger-mode
+  :defer t
+  :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode))
 
 (use-package gnuplot-mode
   :mode ("\\.p\\'" "\\.gp\\'" "\\.gnuplot\\'")

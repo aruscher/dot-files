@@ -5,3 +5,5 @@
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode))
+
+(add-hook 'org-mode-hook #'my/org-mode-hook)

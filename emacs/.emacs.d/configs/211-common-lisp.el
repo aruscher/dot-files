@@ -9,9 +9,9 @@
 (use-package sly-macrostep
   :ensure t)
 
-(advice-add 'paredit-RET
-            :after
-            (lambda ()
-              (when (string-prefix-p "*sly-mrepl for"
-                                     (buffer-name (current-buffer)))
-                (sly-mrepl-return))))
+(defun my-paredit-override-advice (origin-fun &rest args)
+  (if (string-prefix-p "*sly-mrepl for" (buffer-name (current-buffer)))
+      (sly-mrepl-return)
+    (funcall origin-fun)))
+
+(advice-add 'paredit-RET :around #'my-paredit-override-advice)

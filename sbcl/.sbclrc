@@ -5,10 +5,12 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+
+(ql:quickload '(:quickproject :osicat :inferior-shell :log4cl))
+
 (pushnew (truename "~/Code/Common-Lisp") ql:*local-project-directories*)
 (ql:register-local-projects)
 
-(ql:quickload '(:quickproject :osicat :inferior-shell :log4cl))
 
 ;; Quickproject Setup
 (push
